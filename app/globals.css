@@ -523,11 +523,12 @@
 
 .aget {
   background-color: #003866;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .contact-page {
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-between;
   gap: 30px;
   align-items: center;
@@ -546,13 +547,14 @@
 }
 
 .contact-form {
-  width: 50%;
-  height: 350px;
+  width: 55%;
+  height: 450px;
   /* max-width: 400px; */
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-top: 30px;
 }
 
 .contact-form h2 {
@@ -577,18 +579,19 @@
 }
 
 .contact-form button {
-  background-color: #2d3556;
+  background-color: #003866;
   color: white;
   padding: 10px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  margin-top: 25px;
 }
 
 .contact-icons {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .contact-icons a {
@@ -602,8 +605,9 @@
 
 #contactText {
   color: #fff;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 500;
+  font-family: Arial, Helvetica, sans-serif;
   padding: 20px;
   text-align: center;
 }
