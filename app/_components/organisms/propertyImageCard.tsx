@@ -60,7 +60,7 @@ const PropertyImageCard: React.FC = () => {
                 <h3 className="text-xl font-semibold mb-4">Uploaded Images</h3>
                 {/* main image  */}
                 <div>
-                    <Image src="" alt="main-img" />
+                    <Image src="" alt="main-img0" />
                 </div>
                 {/* images  */}
                 <div className="grid grid-cols-3 gap-4">
