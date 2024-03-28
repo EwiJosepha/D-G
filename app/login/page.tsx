@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FaTimes } from 'react-icons/fa';
 import { loginUrl } from '../utils/util';
 import { jwtDecode } from 'jwt-decode';
+import { split } from 'postcss/lib/list';
 import { useRouter } from 'next/navigation';
 import cookieSet from '../utils/handle-search';
 import { NextRequest } from 'next/server';
@@ -22,7 +23,7 @@ const LoginPage: React.FC = () => {
 
 
 
-    const handleRegister = async (e: any,) => {
+    const handleRegister = async (e: any) => {
         e.preventDefault()
 
         const formData = {
@@ -38,7 +39,10 @@ const LoginPage: React.FC = () => {
             },
             body: JSON.stringify(formData)
         })
-      const badrequest = res.status === 400
+
+
+
+        const badrequest = res.status === 400
         const goodreq = res.status === 201
         setBadreq(badrequest)
         setSuccesful(goodreq)
