@@ -1,36 +1,85 @@
-import Image from "next/image";
-import React from "react";
+'use client'
+
+import { useState } from 'react';
+import { Image, Transformation } from 'cloudinary-react';
+import axios from 'axios';
 
 const PropertyImageCard: React.FC = () => {
+    const [mainImage, setMainImage] = useState<string>('');
+    const [additionalImages, setAdditionalImages] = useState<string[]>([]);
 
-    // State to store the uploaded images
-    // const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+    const handleMainImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'real-estate-preset');
 
-    // Function to handle image upload
-    // const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const files = Array.from(event.target.files || []);
+            try {
+                const response = await fetch(
+                    `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                );
 
-    //     const formData = new FormData();
+                if (response.ok) {
+                    const data = await response.json();
+                    setMainImage(data.secure_url);
 
-    //     // Upload each image to Cloudinary
-    //     for (const file of files) {
-    //         formData.append('file', file);
-    //         formData.append('upload_preset', 'your_cloudinary_upload_preset');
+                    // Save the URL to your backend
+                    await axios.post('/api/saveImage', { url: data.secure_url });
+                } else {
+                    // Handle error case if needed
+                }
+            } catch (error) {
+                // Handle error case if needed
+            }
+        }
+    };
 
-    //         const response = await fetch('', {
-    //             method: 'POST',
-    //             body: formData,
-    //         });
+    const handleAdditionalImagesUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files || []);
+        const uploadPromises = files.map(async (file) => {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'real-estate-preset');
 
-    //         const data = await response.json();
+            try {
+                const response = await fetch(
+                    `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                );
 
-    //         // Store the uploaded image URL
-    //         setUploadedImages((prevImages) => [...prevImages, data.secure_url]);
-    //     }
-    // };
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.secure_url;
+                } else {
+                    // Handle error case if needed
+                }
+            } catch (error) {
+                // Handle error case if needed
+            }
+        });
+
+        try {
+            const imageUrls = await Promise.all(uploadPromises);
+            setAdditionalImages(imageUrls.filter((url) => url !== undefined));
+
+            // Save the URLs to your backend
+            await axios.post('/api/saveImages', { urls: imageUrls });
+        } catch (error) {
+            // Handle error case if needed
+        }
+    };
+
     return (
         <div className="p-4 shadow shadow-blue rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Photo and Video Upload</h3>
+            <h3 className="text-xl font-semibold mb-4">Photo Upload</h3>
 
             <div className="mb-4">
                 <div>
@@ -41,6 +90,7 @@ const PropertyImageCard: React.FC = () => {
                         type="file"
                         id="mainImage"
                         className="w-full"
+                        onChange={handleMainImageUpload}
                     />
                 </div>
                 <div>
@@ -52,24 +102,31 @@ const PropertyImageCard: React.FC = () => {
                         id="additionalImages"
                         className="w-full grid-cols-4"
                         multiple
+                        onChange={handleAdditionalImagesUpload}
                     />
                 </div>
             </div>
-            {/* field for uplaoded images */}
+
             <div className="mt-6">
                 <h3 className="text-xl font-semibold mb-4">Uploaded Images</h3>
-                {/* main image  */}
-                <div>
-                    <Image src="" alt="main-img0" />
-                </div>
-                {/* images  */}
-                <div className="grid grid-cols-3 gap-4">
+                {/* Main image */}
+                {mainImage && (
                     <div>
-                        <Image src='' alt="Uploaded" className="w-full h-40 object-cover rounded-lg" />
+                        <img src={mainImage} alt="Main Image" className="w-40 h-40" />
                     </div>
+                )}
+
+                {/* Additional images */}
+                <div className="grid grid-cols-3 gap-4">
+                    {additionalImages.map((imageUrl) => (
+                        <div key={imageUrl}>
+                            <img src={imageUrl} alt="Additional Image" className="w-40 h-40" />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
-    )
-}
-export default PropertyImageCard
+    );
+};
+
+export default PropertyImageCard;

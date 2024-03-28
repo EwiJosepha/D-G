@@ -8,8 +8,6 @@ import { jwtDecode } from 'jwt-decode';
 import { split } from 'postcss/lib/list';
 
 
-
-
 const LoginPage: React.FC = () => {
 
 
@@ -18,7 +16,6 @@ const LoginPage: React.FC = () => {
     const [badreq, setBadreq] = useState(Boolean)
     const [succesful, setSuccesful] = useState(Boolean)
     const [token, setToken] = useState("")
-
 
 
     const handleRegister = async (e: any) => {
@@ -38,7 +35,7 @@ const LoginPage: React.FC = () => {
             body: JSON.stringify(formData)
         })
 
-      
+
 
         const badrequest = res.status === 400
         const goodreq = res.status === 201
