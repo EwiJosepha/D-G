@@ -5,15 +5,16 @@ import PropertyImageCard from '@/app/_components/organisms/propertyImageCard';
 import PropertyListingDetailCard from '@/app/_components/organisms/propertyListingDetailCard';
 import DbPropertyOverviewCard from '@/app/_components/organisms/propertyOverviewCard';
 import { useEffect, useState } from 'react';
+import { postUrl } from '@/app/utils/util';
 
-interface SharedState {
-    componentData1: any,
-    componentData2:any,
+export interface SharedState {
+    DbPropertyOverviewCard: any,
+    PropertyListingDetailCard :any,
     // component3: any
 }
 const sharedStateDefault = {
-    componentData1: {},
-    componentData2: {},
+    DbPropertyOverviewCard: {},
+    PropertyListingDetailCard : {},
     // component3:{}
 }
 const AddNewProperty: React.FC = () => {
@@ -44,20 +45,36 @@ const AddNewProperty: React.FC = () => {
     }
 
     useEffect(()=>{
-        load('componentData1')
-        load('componentData2')
+        load('DbPropertyOverviewCard')
+        load('PropertyListingDetailCard')
         // load('componentData3')
     },[])
+
+    console.log("shar",shareState);
+    
+
+    function handleSubmit () {
+
+     const combinedData = {
+        DbPropertyOverviewCard: shareState.DbPropertyOverviewCard,
+        PropertyListingDetailCard: shareState.PropertyListingDetailCard
+     } 
+     
+     console.log(combinedData);
+     console.log("heoo");
+     
+        
+    }
     return (
         <DdHeaderProvider header="New Properties" submit="">
             <div className="mx-auto container py-6 px-4 md:px-20">
 
                 <div className="space-y-16">
                     {/* Overview Card */}
-                    <DbPropertyOverviewCard />
+                    <DbPropertyOverviewCard saveData={saveData} existingData={shareState.DbPropertyOverviewCard} />
 
                     {/* Listing Details Card */}
-                    <PropertyListingDetailCard />
+                    <PropertyListingDetailCard  saveData={saveData} existingData={shareState.PropertyListingDetailCard}/>
 
                     {/* Photo and Video Upload Card */}
                     <PropertyImageCard />
@@ -65,6 +82,7 @@ const AddNewProperty: React.FC = () => {
 
 
                 </div>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </div>
         </DdHeaderProvider>
     );
