@@ -9,12 +9,12 @@ import { postUrl } from '@/app/utils/util';
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
-    PropertyListingDetailCard :any,
+    PropertyListingDetailCard: any,
     // component3: any
 }
 const sharedStateDefault = {
     DbPropertyOverviewCard: {},
-    PropertyListingDetailCard : {},
+    PropertyListingDetailCard: {},
     // component3:{}
 }
 const AddNewProperty: React.FC = () => {
@@ -44,27 +44,53 @@ const AddNewProperty: React.FC = () => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         load('DbPropertyOverviewCard')
         load('PropertyListingDetailCard')
         // load('componentData3')
-    },[])
+    }, [])
 
-    console.log("shar",shareState);
-    
+    console.log("shar", shareState);
 
-    function handleSubmit () {
 
-     const combinedData = {
-        DbPropertyOverviewCard: shareState.DbPropertyOverviewCard,
-        PropertyListingDetailCard: shareState.PropertyListingDetailCard
-     } 
-     
-     console.log(combinedData);
-     console.log("heoo");
-     
+    function handleSubmit() {
+
+        const combinedData = {
+            DbPropertyOverviewCard: shareState.DbPropertyOverviewCard,
+            PropertyListingDetailCard: shareState.PropertyListingDetailCard
+
+        }
         
-    }
+            const reqBody = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(combinedData)
+            };
+        
+            fetch(postUrl, reqBody)
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error('Failed to submit data');
+                    }
+                    return res.json();
+                })
+                .then((data) => {
+                    if (data.status === 201) {
+                        console.log('Created successfully');
+                    } else if (data.status === 200) {
+                        console.log('Incomplete data or information');
+                    } else {
+                        console.log(data);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error submitting data:', error);
+                });
+        
+            console.log(combinedData);
+        };
     return (
         <DdHeaderProvider header="New Properties" submit="">
             <div className="mx-auto container py-6 px-4 md:px-20">
@@ -74,7 +100,7 @@ const AddNewProperty: React.FC = () => {
                     <DbPropertyOverviewCard saveData={saveData} existingData={shareState.DbPropertyOverviewCard} />
 
                     {/* Listing Details Card */}
-                    <PropertyListingDetailCard  saveData={saveData} existingData={shareState.PropertyListingDetailCard}/>
+                    <PropertyListingDetailCard saveData={saveData} existingData={shareState.PropertyListingDetailCard} />
 
                     {/* Photo and Video Upload Card */}
                     <PropertyImageCard />
