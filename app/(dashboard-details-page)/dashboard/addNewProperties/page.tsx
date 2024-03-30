@@ -12,6 +12,23 @@ export interface SharedState {
     PropertyListingDetailCard: any,
     // component3: any
 }
+
+interface DbPropertyOverviewCard {
+    name: string;
+    description: string;
+    type: string;
+    rentOrSale: string;
+    price: string;
+}
+
+interface PropertyListingDetailCard {
+    areaKm: string;
+    bath: number;
+    livingRooms: number;
+    rooms: number;
+    location: string;
+}
+
 const sharedStateDefault = {
     DbPropertyOverviewCard: {},
     PropertyListingDetailCard: {},
@@ -53,20 +70,41 @@ const AddNewProperty: React.FC = () => {
     console.log("shar", shareState);
 
 
+    
+
     function handleSubmit() {
 
-        const combinedData = {
-            DbPropertyOverviewCard: shareState.DbPropertyOverviewCard,
-            PropertyListingDetailCard: shareState.PropertyListingDetailCard
+        // const combinedData = {
+        //     DbPropertyOverviewCard: shareState.DbPropertyOverviewCard,
+        //     PropertyListingDetailCard: shareState.PropertyListingDetailCard
 
-        }
+        // }
+
+        // console.log(combinedData);
+
+        
+    const spreadCom : {name: string,description: string,type:string,rentOrSale:string, price: string } =shareState.DbPropertyOverviewCard
+
+    const spreadtwo: {areaKm: string, bath:number,  livingRooms:number,rooms:number,location: string}= shareState.PropertyListingDetailCard
+
+    console.log("spread", spreadCom);
+    console.log("spread2", spreadtwo)
+
+   
+    const combinedObject: DbPropertyOverviewCard & PropertyListingDetailCard = {
+        ...spreadCom,
+        ...spreadtwo
+    };
+    
+    console.log("combinedObject", combinedObject);
+
         
             const reqBody = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(combinedData)
+                body: JSON.stringify(combinedObject)
             };
         
             fetch(postUrl, reqBody)
@@ -89,7 +127,7 @@ const AddNewProperty: React.FC = () => {
                     console.error('Error submitting data:', error);
                 });
         
-            console.log(combinedData);
+            console.log(combinedObject);
         };
     return (
         <DdHeaderProvider header="New Properties" submit="">
