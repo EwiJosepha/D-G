@@ -1,14 +1,14 @@
-import { Roboto } from "next/font/google";
+// import { Roboto } from "next/font/google";
 import LandingPage from "./landing/page";
 
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: '400'
-})
+// const roboto = Roboto({
+//   subsets: ['latin'],
+//   weight: '400'
+// })
 
 export default function Home() {
   return (
-    <main className={roboto.className}>
+    <main >
       <div>
         <LandingPage />
       </div>
