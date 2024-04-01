@@ -11,9 +11,15 @@ const PropertyImageCard: React.FC = () => {
         <div className="p-4 shadow shadow-blue rounded-lg">
             <h3 className="text-xl font-semibold mb-4">Photo Upload</h3>
 
-
-
-
+            <CldUploadWidget signatureEndpoint="api/sign-image">
+                {({ open }) => {
+                    return (
+                        <button className='bg-blue px-4 py-2 text-white rounded' onClick={() => open()}>
+                            Upload an Image
+                        </button>
+                    );
+                }}
+            </CldUploadWidget>
 
         </div>
     );
