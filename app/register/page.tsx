@@ -1,4 +1,5 @@
 'use client'
+import { useRouter } from 'next/navigation';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -6,6 +7,7 @@ import { FaTimes } from 'react-icons/fa';
 
 
 const RegisterPage: React.FC = () => {
+    const router = useRouter()
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -29,11 +31,16 @@ const RegisterPage: React.FC = () => {
 
             body: JSON.stringify(formData)
         })
+        if(res.status === 201){
+            router.push("login")
+        }
 
         console.log("formdata",formData)
         console.log("res",res)
 
     }
+
+    
     
 
     return (
