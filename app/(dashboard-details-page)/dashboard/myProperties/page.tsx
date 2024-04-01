@@ -4,9 +4,6 @@ import DdHeaderProvider from '@/app/_components/db-header-provider';
 import DropDownCard from '@/app/_components/organisms/dropDownCard';
 import React from 'react';
 import { FiMoreVertical } from 'react-icons/fi';
-import { useEffect } from 'react';
-import { NextRequest } from 'next/server';
-import { Cookie } from 'next/font/google';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { propertiesForAgent } from '@/app/utils/util';
@@ -40,36 +37,6 @@ const MyProperties: React.FC = () => {
            return data as Property[]
         }
     })
-
-    // const properties = [
-    //     {
-    //         id: 1,
-    //         image: 'card1.webp',
-    //         title: 'House',
-    //         location: 'Yaounde',
-    //         price: '$100,000',
-    //         date: '2022-01-01',
-    //         status: 'Active',
-    //     },
-    //     {
-    //         id: 2,
-    //         image: 'card2.webp',
-    //         title: 'Villa',
-    //         location: 'Bamenda',
-    //         price: '$200,000',
-    //         date: '2023-02-01',
-    //         status: 'Pending',
-    //     },
-    //     {
-    //         id: 3,
-    //         image: 'card3.webp',
-    //         title: 'Apartment',
-    //         location: 'Douala',
-    //         price: '$50,000',
-    //         date: '2024-02-01',
-    //         status: 'Processing',
-    //     },
-    // ];
 
     const handleActionClick = (propertyId: number) => {
         if (selectedPropertyId === propertyId) {

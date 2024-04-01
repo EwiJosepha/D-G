@@ -9,7 +9,6 @@ import Link from 'next/link';
 
 
 const Profile: React.FC = () => {
-    // const { profileInfo, setProfileInfo } = useAppContext()
     const [imageUrl, setImageUrl] = useState('');
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -17,26 +16,6 @@ const Profile: React.FC = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('')
     const [bio, setBio] = useState('');
-    // const [showProfile, setShowProfile] = useState(Boolean)
-    // const [createProfile, setCreatProfile] = useState(Boolean)
-    // const [agentEmaill, setAgentEmaill] = useState<string | undefined>()
-    // const [agentId, setAgentId] = useState<number | undefined>()
-    // const [datafromLocalStorage, setDatafromLocalStorage] = useState<string | any>()
-
-    const { data } = agentdata()
-    const agentIdd = data?.id
-    const agents_email = data?.email
-
-
-
-
-    //    targeting currentUser data from Ls
-
-    // if (typeof localStorage !== "undefined") {
-    //     const email_Id: { id?: number, email?: string } = JSON.parse(localStorage.getItem('decoded') as string)
-    //     setAgentEmaill(email)
-    //     setAgentId(agentId)
-    // }
 
     //handling form data
     function submitData() {
@@ -52,7 +31,7 @@ const Profile: React.FC = () => {
         console.log(formData);
     }
 
-    
+
     const handleUsername = (e: any) => {
         e.preventDefault
         const name = e.target.value
@@ -121,9 +100,6 @@ const Profile: React.FC = () => {
                         <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
                     </div>
 
-
-
-                    {/* Username */}
                     < div className="mb-4">
                         <label htmlFor="username" className="block font-medium">
                             Username*
@@ -138,7 +114,7 @@ const Profile: React.FC = () => {
                     </div>
 
                     <div className='flex justify-between'>
-                        {/* First Name */}
+
                         <div className="mb-4 w-[45%]">
                             <label htmlFor="firstName" className="block font-medium">
                                 First Name*
@@ -168,7 +144,7 @@ const Profile: React.FC = () => {
                     </div>
 
                     <div className='flex justify-between'>
-                        {/* Email */}
+
                         <div className="mb-4 w-[45%]">
                             <label htmlFor="email" className="block font-medium">
                                 Email*
@@ -182,7 +158,7 @@ const Profile: React.FC = () => {
                             />
                         </div>
 
-                        {/* Phone Number */}
+
                         <div className="mb-4 w-[45%]">
                             <label htmlFor="phoneNumber" className="block font-medium">
                                 Phone Number*
@@ -197,7 +173,7 @@ const Profile: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Bio */}
+
                     <div className="mb-4">
                         <label htmlFor="bio" className="block font-medium">
                             Bio*
@@ -212,9 +188,6 @@ const Profile: React.FC = () => {
                     <Link href={"/dashboard"}>
                         <button className=' bg-slate-950 text-red-500' onClick={submitData}>submit</button>
                     </Link>
-
-                    {/* Submit Button */}
-                    {/* have use props to pass the data between components  */}
                 </div>
 
 

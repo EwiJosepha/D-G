@@ -6,23 +6,22 @@ import { useAppContext } from '@/app/_core/store/app-context'
 
 const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
   const [formData, setFormData] = useState<any | null>(null);
-  const { profileInfo, setProfileInfo } = useAppContext()
-  const [localVal, setLocalVal] = useState<{
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    bio: string;
-  } | undefined>(undefined);
+  // const { profileInfo, setProfileInfo } = useAppContext()
+  // const [localVal, setLocalVal] = useState<{
+  //   username: string;
+  //   firstName: string;
+  //   lastName: string;
+  //   email: string;
+  //   phoneNumber: string;
+  //   bio: string;
+  // } | undefined>(undefined);
   
-  let parsedData:any | null
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       const storedData = localStorage.getItem('agentData');
       if (storedData) {
         const parsedData = JSON.parse(storedData);
-        setFormData(parsedData); // Update formData with parsedData
+        setFormData(parsedData); 
         console.log("parsed data", parsedData);
       }
     }
@@ -35,7 +34,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
     <div>
       <DdHeaderProvider header="View Page" submit=''>
         <div className="mx-auto container py-10 px-20 mb-16">
-          {/* Username */}
+      
           < div className="mb-4">
             <label htmlFor="username" className="block font-medium">
               Username*
@@ -45,13 +44,13 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
               id="username"
               value={formData?.username || ''}
               readOnly
-              // onChange={(e) => handleUsername(e)}
+           
               className="border border-gray-300 px-4 py-2 rounded-md w-full"
               required />
           </div>
 
           <div className='flex justify-between'>
-            {/* First Name */}
+         
             <div className="mb-4 w-[45%]">
               <label htmlFor="firstName" className="block font-medium">
                 First Name*
@@ -61,12 +60,12 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
                 id="firstName"
                 value={formData?.firstName || ''}
                 readOnly
-                // onChange={(e) => handleFirstName(e)}
+              
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                 required />
             </div>
 
-            {/* Last Name */}
+      
             <div className="mb-4 w-[45%]">
               <label htmlFor="lastName" className="block font-medium">
                 Last Name*
@@ -82,7 +81,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
           </div>
 
           <div className='flex justify-between'>
-            {/* Email */}
+     
             <div className="mb-4 w-[45%]">
               <label htmlFor="email" className="block font-medium">
                 Email*
@@ -96,7 +95,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
               />
             </div>
 
-            {/* Phone Number */}
+       
             <div className="mb-4 w-[45%]">
               <label htmlFor="phoneNumber" className="block font-medium">
                 Phone Number*
@@ -111,7 +110,6 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
             </div>
           </div>
 
-          {/* Bio */}
           <div className="mb-4">
             <label htmlFor="bio" className="block font-medium">
               Bio*
@@ -126,9 +124,6 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
           <Link href={"/dashboard"}>
             <button className=' bg-slate-950 text-red-500' >Edit Profil</button>
           </Link>
-
-          {/* Submit Button */}
-          {/* have use props to pass the data between components  */}
         </div>
       </DdHeaderProvider>
     </div>

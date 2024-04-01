@@ -2,7 +2,6 @@
 import DdHeaderProvider from '@/app/_components/db-header-provider'
 import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useAppContext } from '@/app/_core/store/app-context'
 
 interface FormData {
   username: string;
@@ -27,7 +26,7 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
       const storedFormData = localStorage.getItem('agentData');
       if (storedFormData) {
         setFormData(JSON.parse(storedFormData));
-      } 
+      }
     }
   }, []);
 
@@ -46,7 +45,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
     <div>
       <DdHeaderProvider header="Edit Page" submit=''>
         <div className="mx-auto container py-10 px-20 mb-16">
-          {/* Username */}
           < div className="mb-4">
             <label htmlFor="username" className="block font-medium">
               Username*
@@ -62,7 +60,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
           </div>
 
           <div className='flex justify-between'>
-            {/* First Name */}
             <div className="mb-4 w-[45%]">
               <label htmlFor="firstName" className="block font-medium">
                 First Name*
@@ -77,7 +74,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
                 required />
             </div>
 
-            {/* Last Name */}
             <div className="mb-4 w-[45%]">
               <label htmlFor="lastName" className="block font-medium">
                 Last Name*
@@ -95,7 +91,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
           </div>
 
           <div className='flex justify-between'>
-            {/* Email */}
             <div className="mb-4 w-[45%]">
               <label htmlFor="email" className="block font-medium">
                 Email*
@@ -110,7 +105,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
               />
             </div>
 
-            {/* Phone Number */}
             <div className="mb-4 w-[45%]">
               <label htmlFor="phoneNumber" className="block font-medium">
                 Phone Number*
@@ -126,7 +120,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
             </div>
           </div>
 
-          {/* Bio */}
           <div className="mb-4">
             <label htmlFor="bio" className="block font-medium">
               Bio*
@@ -142,9 +135,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
           <Link href={"./vieww"}>
             <button className=' bg-slate-950 text-red-500' type="submit" onClick={handleSubmit}>Save</button>
           </Link>
-
-          {/* Submit Button */}
-          {/* have use props to pass the data between components  */}
         </div>
       </DdHeaderProvider>
     </div>
