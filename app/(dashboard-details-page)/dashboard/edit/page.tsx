@@ -4,30 +4,43 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useAppContext } from '@/app/_core/store/app-context'
 
-const EditProfile: React.FC<{}> = (): JSX.Element | null  => {
+interface FormData {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  bio: string;
+}
+const EditProfile: React.FC<{}> = (): JSX.Element | null => {
+  const [formData, setFormData] = useState<FormData>({
+    username: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    bio: ''
+  });
 
-  const { profileInfo, setProfileInfo } = useAppContext()
-  const [localVal, setLocalVal] = useState<{
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    bio: string;
-  } | undefined>(undefined);
-  
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
-      const storedData = localStorage.getItem('formData');
-      if (storedData) {
-        const parsedData = JSON.parse(storedData);
-        setLocalVal(parsedData);
-      }
+      const storedFormData = localStorage.getItem('agentData');
+      if (storedFormData) {
+        setFormData(JSON.parse(storedFormData));
+      } 
     }
   }, []);
 
-  
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
+  const handleSubmit = () => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('agentData', JSON.stringify(formData));
+    }
+  };
 
   return (
     <div>
@@ -41,9 +54,9 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null  => {
             <input
               type="text"
               id="username"
-              value={profileInfo.username}
-              readOnly
-              // onChange={(e) => handleUsername(e)}
+              name="username"
+              value={formData.username || ''}
+              onChange={handleInputChange}
               className="border border-gray-300 px-4 py-2 rounded-md w-full"
               required />
           </div>
@@ -57,9 +70,9 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null  => {
               <input
                 type="text"
                 id="firstName"
-                value={profileInfo.firstName}
-                readOnly
-                // onChange={(e) => handleFirstName(e)}
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                 required />
             </div>
@@ -71,9 +84,11 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null  => {
               </label>
               <input
                 type="text"
+                name="lastName"
                 id="lastName"
-                value={profileInfo.lastName}
-                readOnly
+                value={formData.lastName}
+                onChange={handleInputChange}
+
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
               />
             </div>
@@ -88,9 +103,10 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null  => {
               <input
                 type="email"
                 id="email"
-                value={profileInfo.email}
-                readOnly
+                name="email"
+                value={formData.email}
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
+                onChange={handleInputChange}
               />
             </div>
 
@@ -102,9 +118,10 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null  => {
               <input
                 type="tel"
                 id="phoneNumber"
-                value={profileInfo.phoneNumber}
-                readOnly
+                name="phoneNumber"
+                value={formData.phoneNumber}
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
+                onChange={handleInputChange}
                 required />
             </div>
           </div>
@@ -116,13 +133,14 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null  => {
             </label>
             <textarea
               id="bio"
-              value={profileInfo.bio}
-              readOnly
+              name="bio"
+              value={formData.bio}
+              onChange={handleInputChange}
               className="border border-gray-300 px-4 py-2 rounded-md w-full"
               required></textarea>
           </div>
-          <Link href={"/dashboard"}>
-            <button className=' bg-slate-950 text-red-500' >Save</button>
+          <Link href={"./vieww"}>
+            <button className=' bg-slate-950 text-red-500' type="submit" onClick={handleSubmit}>Save</button>
           </Link>
 
           {/* Submit Button */}

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useAppContext } from '@/app/_core/store/app-context'
 
 const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
-
+  const [formData, setFormData] = useState<any | null>(null);
   const { profileInfo, setProfileInfo } = useAppContext()
   const [localVal, setLocalVal] = useState<{
     username: string;
@@ -16,12 +16,14 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
     bio: string;
   } | undefined>(undefined);
   
+  let parsedData:any | null
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
-      const storedData = localStorage.getItem('formData');
+      const storedData = localStorage.getItem('agentData');
       if (storedData) {
         const parsedData = JSON.parse(storedData);
-        setLocalVal(parsedData);
+        setFormData(parsedData); // Update formData with parsedData
+        console.log("parsed data", parsedData);
       }
     }
   }, []);
@@ -41,7 +43,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
             <input
               type="text"
               id="username"
-              value={profileInfo.username}
+              value={formData?.username || ''}
               readOnly
               // onChange={(e) => handleUsername(e)}
               className="border border-gray-300 px-4 py-2 rounded-md w-full"
@@ -57,7 +59,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
               <input
                 type="text"
                 id="firstName"
-                value={profileInfo.firstName}
+                value={formData?.firstName || ''}
                 readOnly
                 // onChange={(e) => handleFirstName(e)}
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
@@ -72,8 +74,8 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
               <input
                 type="text"
                 id="lastName"
-                value={profileInfo.lastName}
-                readOnly
+                value={formData?.lastName || ''}  
+                 readOnly
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
               />
             </div>
@@ -88,7 +90,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
               <input
                 type="email"
                 id="email"
-                value={profileInfo.email}
+                value={formData?.email || ''} 
                 readOnly
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
               />
@@ -102,7 +104,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
               <input
                 type="tel"
                 id="phoneNumber"
-                value={profileInfo.phoneNumber}
+                value={formData?.phoneNumber || ''}
                 readOnly
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                 required />
@@ -116,7 +118,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null  => {
             </label>
             <textarea
               id="bio"
-              value={profileInfo.bio}
+              value={formData?.bio || ""}
               readOnly
               className="border border-gray-300 px-4 py-2 rounded-md w-full"
               required></textarea>

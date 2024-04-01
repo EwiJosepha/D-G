@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 
 const Profile: React.FC = () => {
-    const { profileInfo, setProfileInfo } = useAppContext()
+    // const { profileInfo, setProfileInfo } = useAppContext()
     const [imageUrl, setImageUrl] = useState('');
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -18,7 +18,7 @@ const Profile: React.FC = () => {
     const [email, setEmail] = useState('')
     const [bio, setBio] = useState('');
     // const [showProfile, setShowProfile] = useState(Boolean)
-    const [createProfile, setCreatProfile] = useState(Boolean)
+    // const [createProfile, setCreatProfile] = useState(Boolean)
     // const [agentEmaill, setAgentEmaill] = useState<string | undefined>()
     // const [agentId, setAgentId] = useState<number | undefined>()
     // const [datafromLocalStorage, setDatafromLocalStorage] = useState<string | any>()
@@ -49,24 +49,10 @@ const Profile: React.FC = () => {
             bio: bio
         }
         localStorage.setItem("agentData", JSON.stringify(formData))
-        setProfileInfo(formData)
-
         console.log(formData);
-        // if(username !== ""){
-        //     setProfileInfo((prevProfileInfo) => ({
-        //         ...prevProfileInfo,
-        //         username: username
-        //     }));
-        // }
-
     }
 
-    const checkk = profileInfo.bio
-    console.log("check", checkk);
-
-
-
-
+    
     const handleUsername = (e: any) => {
         e.preventDefault
         const name = e.target.value
