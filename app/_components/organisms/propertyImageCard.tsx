@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type FormData = {
@@ -7,12 +8,14 @@ type FormData = {
 };
 const PropertyImageCard: React.FC = () => {
 
+    const [uploadedImages, setUploadedImages] = useState<string[]>([])
+
     const {
         register,
         handleSubmit,
     } = useForm<FormData>();
 
-    const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const onSubmit: SubmitHandler<FormData> = async (data, event) => {
         const image = data.profile[0];
         const formData = new FormData();
         formData.append("file", image);
@@ -26,11 +29,12 @@ const PropertyImageCard: React.FC = () => {
         );
         const uploadedImageData = await uploadResponse.json();
         const imageUrl = uploadedImageData.secure_url;
-        console.log(imageUrl);
+        setUploadedImages((prevImages) => [...prevImages, imageUrl]);
+        event?.target.reset(); // Reset the form after successful upload
     };
 
     return (
-        <form className="mt-60 mx-16" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-4 p-4 shadow shadow-blue rounded-lg" onSubmit={handleSubmit(onSubmit)}>
             <label
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 htmlFor="file_input"
@@ -57,6 +61,17 @@ const PropertyImageCard: React.FC = () => {
             >
                 Upload to Cloud
             </button>
+
+            <div className="flex">
+                {uploadedImages.map((imageUrl, index) => (
+                    <img
+                        key={index}
+                        src={imageUrl}
+                        alt={`Uploaded Image ${index + 1}`}
+                        className="w-32 h-32 mr-2 mt-2 object-cover rounded"
+                    />
+                ))}
+            </div>
         </form>
     );
 }
