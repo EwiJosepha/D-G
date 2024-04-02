@@ -52,28 +52,28 @@ export const agentdata = () => {
 
 //get one property
 
-// export const getOneProperty = (params: number) => {
-//     return useQuery({
-//       queryKey: ['propertyOne'],
-//       queryFn: async () => {
-//         const {data} = await axios.get(`http://localhost:4000/properties/${params}`)
-//         return data
-//       }
-//     })
-// }
+export const getOneProperty = (params: number) => {
+    return useQuery({
+      queryKey: ['propertyOne'],
+      queryFn: async () => {
+        const {data} = await axios.get(`http://localhost:4000/properties/${params}`)
+        return data
+      }
+    })
+}
 
 //room search
 
-// export function searchRooms(searchParams: string) {
-//   const { data } = useQuery({
-//     queryKey: ["rooms"],
-//     queryFn: async () => {
-//       const { data } = await axios.get(`http://localhost:4000/properties/room/${searchParams}`)
-//       return data
-//     }
-//   })
+export function searchRooms(searchParams: string) {
+  const { data } = useQuery({
+    queryKey: ["rooms"],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:4000/properties/room/${searchParams}`)
+      return data
+    }
+  })
 
-//   // return { data }
+  return { data }
   
 
-// }
+}
