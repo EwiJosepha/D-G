@@ -10,8 +10,8 @@ export default function DdHeaderProvider({ children, only_header, header = '' }:
     return (
         <>
             {/* navbar content */}
-            <div className="text-white h-32 bg-blue z-10 justify-between flex items-center md:mx-auto md:w-[80%] top-0 fixed">
-                <div className="text-3xl font-mono font-bold pl-1 md:pl-28">{header}</div>
+            <div className="text-white h-32 bg-blue z-10 justify-between flex items-center md:mx-auto md:w-[80%] right-0 top-0 fixed pl-24">
+                <div className="text-3xl font-mono font-bold">{header}</div>
 
                 {/* Desktop Menu */}
                 <div className="md:flex items-center space-x-20 pr-28">
@@ -31,7 +31,7 @@ export default function DdHeaderProvider({ children, only_header, header = '' }:
             </div>
             {/* end of navbar content  */}
             {/* body Content */}
-            <div className="bg-white w-full md:w-[83%] flex-col md:mt-40 mb-10 rounded-xl flex md:mx-auto">{children}</div>
+            <div className="bg-white w-full md:w-[83%] flex-col md:mt-40 mb-10 rounded-xl flex md:mx-auto overflow-y-scroll">{children}</div>
 
         </>
     )
