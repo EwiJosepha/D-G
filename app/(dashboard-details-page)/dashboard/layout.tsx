@@ -22,9 +22,9 @@ type Props = {
     children: ReactNode;
 };
 
- const DbLayout: React.FC<Props> = ({ children }) => {
+const DbLayout: React.FC<Props> = ({ children }) => {
     const router = useRouter();
-    
+
 
     const handleLogOut = async () => {
         const res = await fetch(logOutUrl, {
@@ -35,21 +35,21 @@ type Props = {
             },
         })
 
-        if(res.status !== 200){
+        if (res.status !== 200) {
             return <div>Failed to logOut</div>
         }
 
-        if(res.status === 200){
+        if (res.status === 200) {
             router.push("/")
-            
+
             localStorage.removeItem("decoded")
             Cookies.remove("token")
         }
-    
+
         console.log(res);
     }
-  
-    
+
+
 
     return (
         <div className="flex-none md:flex">
@@ -88,7 +88,7 @@ type Props = {
                                     <span className="hidden md:inline">Profile</span>
                                 </span>
                             </Link>
-                       
+
                             <Link
                                 href="/dashboard/vieww"
                                 legacyBehavior>
@@ -99,7 +99,7 @@ type Props = {
                                     <span className="hidden md:inline">View Profile</span>
                                 </span>
                             </Link>
-                            <Link
+                            {/* <Link
                                 href="/dashboard/edit"
                                 legacyBehavior>
                                 <span
@@ -108,7 +108,7 @@ type Props = {
                                     <FaRegUser className="block mr-4 text-xl" />
                                     <span className="hidden md:inline">Edit Profile</span>
                                 </span>
-                            </Link>
+                            </Link> */}
                         </li>
                         <li className="md:block">
                             <p className="py-4 text-gray-500 hidden md:block">Listings</p>
