@@ -23,10 +23,10 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null => {
   }, []);
 
   return (
-    <div>
+    <>
       <DdHeaderProvider header="View Profile">
-        <div className="mx-auto container py-10 px-20 mb-16">
-          <div className="flex justify-center mb-10 w-40 h-40">
+        <div className="mx-auto py-10 px-20 items-center justify-center flex flex-col">
+          <div className="flex justify-center mb-6 w-52 h-52">
             <Image alt='DP' src='/av5.jpg' layout='responsive' height={200} width={200} className='rounded-full object-cover' />
             {/* <Image
               src={formData?.profilePicture || '/default-profile-picture.jpg'}
@@ -36,34 +36,22 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null => {
             /> */}
           </div>
 
-          <div className="flex justify-center mb-4">
-            <h2 className="text-2xl font-medium">{formData?.firstName} {formData?.lastName}</h2>
-          </div>
+          <p className="font-bold text-3xl font-serif capitalize">{formData?.username}</p>
 
-          <div className="flex justify-center mb-4">
-            <p className="text-lg">{formData?.bio}</p>
-          </div>
+          <p className="text-base">{formData?.email}</p>
 
-          <div className="flex justify-center mb-4">
-            <p className="text-lg">Username: {formData?.username}</p>
-          </div>
+          <p className="text-lg mb-4">{formData?.phoneNumber}</p>
 
-          <div className="flex justify-center mb-4">
-            <p className="text-lg">Email: {formData?.email}</p>
-          </div>
-
-          <div className="flex justify-center mb-4">
-            <p className="text-lg">Phone Number: {formData?.phoneNumber}</p>
-          </div>
+          <p className="text-lg"> {formData?.bio}</p>
 
           <Link href="/dashboard/edit">
-            <button className="text-white w-40 bg-blue px-4 py-2 rounded-md mr-16 mt-10 flex items-center">
+            <button className="text-red-400 w-40 font-extrabold rounded-md mt-20 flex items-center">
               <FaPencil className="mr-4" /> Edit Profile
             </button>
           </Link>
         </div>
       </DdHeaderProvider>
-    </div>
+    </>
   );
 };
 
