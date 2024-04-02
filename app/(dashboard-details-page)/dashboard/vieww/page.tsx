@@ -1,9 +1,9 @@
 'use client'
+
 import DdHeaderProvider from '@/app/_components/db-header-provider'
 import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useAppContext } from '@/app/_core/store/app-context'
-import { FaEdit, FaRegEdit } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
 
 const ViewProfile: React.FC<{}> = (): JSX.Element | null => {
@@ -31,7 +31,7 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null => {
 
   return (
     <div>
-      <DdHeaderProvider header="View Page" submit=''>
+      <DdHeaderProvider header="View Profile">
         <div className="mx-auto container py-10 px-20 mb-16">
 
           < div className="mb-4 mt-8">

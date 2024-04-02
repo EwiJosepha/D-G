@@ -44,7 +44,7 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
 
   return (
     <div>
-      <DdHeaderProvider header="Edit Page">
+      <DdHeaderProvider header="Edit Profile">
         <div className="mx-auto container py-10 px-20 mb-16">
           < div className="mb-4 mt-8">
             <label htmlFor="username" className="block font-medium">

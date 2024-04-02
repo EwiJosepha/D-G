@@ -2,12 +2,11 @@
 
 interface Props {
     header?: string;
-    submit?: any;
     children: React.ReactNode;
     only_header?: boolean;
 }
 
-export default function DdHeaderProvider({ children, only_header, header = '', submit = '' }: Props) {
+export default function DdHeaderProvider({ children, only_header, header = '' }: Props) {
     return (
         <>
             {/* navbar content */}
