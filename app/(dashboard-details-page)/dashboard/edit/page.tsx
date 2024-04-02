@@ -120,7 +120,7 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
             </div>
           </div>
 
-          <div className="mb-16">
+          <div className="mb-10">
             <label htmlFor="bio" className="block font-medium">
               Bio*
             </label>
