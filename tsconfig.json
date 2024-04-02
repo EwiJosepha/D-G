@@ -24,6 +24,6 @@
       "@/interfaces/*": ["./app/_core/interfaces/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/_dblayout"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/_dblayout", "app/(dashboard-details-page)/dashboard/vieww", "middleware.js", "middleware.js", "middleware.js"],
   "exclude": ["node_modules"]
 }

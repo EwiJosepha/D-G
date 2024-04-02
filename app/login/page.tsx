@@ -5,23 +5,24 @@ import Link from 'next/link';
 import { FaTimes } from 'react-icons/fa';
 import { loginUrl } from '../utils/util';
 import { jwtDecode } from 'jwt-decode';
-import { split } from 'postcss/lib/list';
+import { useRouter } from 'next/navigation';
+import cookieSet from '../utils/handle-search';
+import { NextRequest } from 'next/server';
 
 
 
 
 const LoginPage: React.FC = () => {
-
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [badreq, setBadreq] = useState(Boolean)
     const [succesful, setSuccesful] = useState(Boolean)
-    const [token, setToken] = useState("")
+    const [redirected, setRedirected] = useState(Boolean)
+    const router = useRouter()
 
 
 
-    const handleRegister = async (e: any) => {
+    const handleRegister = async (e: any,) => {
         e.preventDefault()
 
         const formData = {
@@ -37,28 +38,29 @@ const LoginPage: React.FC = () => {
             },
             body: JSON.stringify(formData)
         })
-
-      
-
-        const badrequest = res.status === 400
+      const badrequest = res.status === 400
         const goodreq = res.status === 201
         setBadreq(badrequest)
         setSuccesful(goodreq)
-        // const res2 = await res.json().then((data) => (data)).then((message) => message)
-        // setToken(res2.message)
-        // const [header, payload, signature] = token.split('.');
+
 
         if (goodreq) {
             const response = await res.json().then((data) => data).then((message) => message);
             const token = response.message;
             const decoded = jwtDecode(token);
+            const cokie = cookieSet(token)
+
             console.log(decoded);
             if (typeof localStorage !== "undefined") {
                 localStorage.setItem("decoded", JSON.stringify(decoded))
             }
-        }
 
+            router.push('/dashboard')
+        }
     }
+
+
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue">
             <div className="bg-white w-96 p-10 rounded shadow">
@@ -69,7 +71,7 @@ const LoginPage: React.FC = () => {
                 <form onSubmit={handleRegister}>
                     {badreq && <div className=' color-red-800 font-medium text-red-600'>wrong credentials try again!!!</div>}<br />
 
-                    {succesful && <Link href="/"><div className=' color-red-800 font-medium text-green-700'>Login succesful</div>  </Link>}<br />
+                    {succesful && <div className=' color-red-800 font-medium text-green-700'>Login succesful</div>}<br />
 
                     <div className="mb-4">
                         <label htmlFor="email" className="block mb-2 font-medium">
@@ -96,8 +98,7 @@ const LoginPage: React.FC = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue text-white py-2 px-4 rounded hover:bg-blue transition-colors duration-300"
-                    >
+                        className="w-full bg-blue text-white py-2 px-4 rounded hover:bg-blue transition-colors duration-300">
                         Login
                     </button>
                 </form>

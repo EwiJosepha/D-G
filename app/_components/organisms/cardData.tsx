@@ -1,12 +1,13 @@
 'use client'
 
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Card from './card';
 import { properties } from '@/app/propertyData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios'
-import { getAllProperties } from '@/app/utils/util';
+import { getAllProperties } from '@/app/utils/util'
+import {debounceFetch} from "../../service/debounce"
 
 type Property = {
     id: number;
@@ -27,6 +28,31 @@ type Property = {
 
 const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
     const [favorites, setFavorites] = useState<number[]>([]);
+    const [hide, setHide] = useState(false);
+
+    //getting rooms
+
+    const [rooms, setRooms] = useState<string>()
+    const { data: dataRooms, refetch } = useQuery({
+        queryKey: ["rooms"],
+        queryFn: async () => {
+            const { data } = await axios.get(`http://localhost:4000/properties/room/${rooms}`)
+              
+            return data as Property[]
+        },
+        enabled: !!rooms
+    })
+
+
+    useEffect(() => {
+        if (rooms) {
+            const debouncedFetch = debounceFetch(() => refetch(), 1000);
+            debouncedFetch();
+        }
+    }, [rooms]);
+
+
+    // getting all properties
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["properties"],
@@ -39,6 +65,8 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
     if (isLoading) return <div>Loading ...</div>
     if (isError) return <div>please try again</div>
 
+
+
     const toggleFavorite = (id: number) => {
         setFavorites((prevFavorites) => {
             if (prevFavorites.includes(id)) {
@@ -47,6 +75,11 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
                 return [...prevFavorites, id]
             }
         })
+    }
+
+    function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
+        setRooms(e.target.value)
+        setHide(true)
     }
 
     const displayedProperties = showLink ? properties.slice(0, 3) : properties;
@@ -60,37 +93,67 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
                         <h1 className="text-3xl mr-6">Latest Properties</h1>
                         <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
                     </div>
-                    <input
-                        type='search'
-                        placeholder='search by baths'
-                        className='border border-gray-400 px-6 py-2' />
+                    <div>
+                        <input
+                            type='search'
+                            placeholder='search by baths'
+                            onChange={searchRooms2}
+                            className='border border-gray-400 px-6 py-2' />
+
+                    </div>
+
                 </div>)}
 
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                    {data?.map((prop, i) => (
-                        <div key={i}>
-                            <Card
-                                key={i}
-                                id={prop.id}
-                                name={prop.name}
-                                type={prop.type}
-                                rooms={prop.rooms}
-                                description={prop.description}
-                                bath={prop.bath}
-                                livingRooms={prop.livingRooms}
-                                location={prop.location}
-                                price={prop.price}
-                                areaInKm={prop.areaInKm}
-                                rentOrSale={prop.rentOrSale}
-                                shortDescription={prop.shortDescription}
-                                images={prop.images}
-                                agentId={prop.agentId}
-                            // onToggleFavorite={toggleFavorite}
-                            />
+                {!hide ? (<>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                        {data?.map((prop, i) => (
+                            <div key={i}>
+                                <Card
+                                    key={i}
+                                    id={prop.id}
+                                    name={prop.name}
+                                    type={prop.type}
+                                    rooms={prop.rooms}
+                                    description={prop.description}
+                                    bath={prop.bath}
+                                    livingRooms={prop.livingRooms}
+                                    location={prop.location}
+                                    price={prop.price}
+                                    areaInKm={prop.areaInKm}
+                                    rentOrSale={prop.rentOrSale}
+                                    shortDescription={prop.shortDescription}
+                                    images={prop.images}
+                                    agentId={prop.agentId}
+                                // onToggleFavorite={toggleFavorite}
+                                />
+                            </div>
+                        ))}
+                    </div></>) : (<>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                            {dataRooms?.map((prop, i) => (
+                                <div key={i}>
+                                    <Card
+                                        key={i}
+                                        id={prop.id}
+                                        name={prop.name}
+                                        type={prop.type}
+                                        rooms={prop.rooms}
+                                        description={prop.description}
+                                        bath={prop.bath}
+                                        livingRooms={prop.livingRooms}
+                                        location={prop.location}
+                                        price={prop.price}
+                                        areaInKm={prop.areaInKm}
+                                        rentOrSale={prop.rentOrSale}
+                                        shortDescription={prop.shortDescription}
+                                        images={prop.images}
+                                        agentId={prop.agentId}
+                                    // onToggleFavorite={toggleFavorite}
+                                    />
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </>)}
             </div>
         </>
     );

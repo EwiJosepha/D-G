@@ -5,6 +5,8 @@ import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { logOutUrl } from "@/app/utils/util";
+import cookieSet from "@/app/utils/handle-search";
+import Cookies from "js-cookie";
 import {
     FaArrowAltCircleLeft,
     FaPerbyte,
@@ -14,6 +16,7 @@ import {
 } from "react-icons/fa";
 import { FaHouseFlag } from "react-icons/fa6";
 import FooterLogo from "@/app/_components/organisms/footerLogo";
+import { cookies } from "next/headers";
 
 type Props = {
     children: ReactNode;
@@ -38,7 +41,9 @@ type Props = {
 
         if(res.status === 200){
             router.push("/")
+            
             localStorage.removeItem("decoded")
+            Cookies.remove("token")
         }
     
         console.log(res);
@@ -81,6 +86,27 @@ type Props = {
                                 >
                                     <FaRegUser className="block mr-4 text-xl" />
                                     <span className="hidden md:inline">Profile</span>
+                                </span>
+                            </Link>
+                       
+                            <Link
+                                href="/dashboard/vieww"
+                                legacyBehavior>
+                                <span
+                                    className="flex hover:underline cursor-pointer items-center pt-4 pb-8"
+                                >
+                                    <FaRegUser className="block mr-4 text-xl" />
+                                    <span className="hidden md:inline">View Profile</span>
+                                </span>
+                            </Link>
+                            <Link
+                                href="/dashboard/edit"
+                                legacyBehavior>
+                                <span
+                                    className="flex hover:underline cursor-pointer items-center pt-4 pb-8"
+                                >
+                                    <FaRegUser className="block mr-4 text-xl" />
+                                    <span className="hidden md:inline">Edit Profile</span>
                                 </span>
                             </Link>
                         </li>

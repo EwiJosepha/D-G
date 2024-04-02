@@ -1,6 +1,108 @@
-import React from "react";
+import React, { useState } from "react";
+import { SharedState } from "@/app/(dashboard-details-page)/dashboard/addNewProperties/page";
+import { ComponentProps } from "./propertyOverviewCard";
+type Prop = {
+    rooms: string;
+    bath: number;
+    livingRooms: string;
+    location: string;
+    areaInKm: string;
+    shortDescription: string;
+    agentId: number;
+}
 
-const PropertyListingDetailCard: React.FC = () => {
+const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
+    const [propertyInfo, setPropertyInfo] = useState<Prop>({
+        rooms: "",
+        bath: 0,
+        livingRooms: "",
+        location: "",
+        areaInKm: "",
+        shortDescription: "",
+        agentId: 0
+    })
+
+
+    const [data, setData] = useState<Prop>(existingData || propertyInfo)
+
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target;
+        setPropertyInfo((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            bath: parseFloat(value),
+            // livingRooms: value,
+            // rooms: value,
+
+        }));
+
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            bath: parseFloat(value),
+            // livingRooms: value,
+
+        }));
+    };
+
+    const handleSelectChangelivingRooms = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target;
+        setPropertyInfo((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            bath: parseFloat(value),
+            livingRooms: value,
+
+        }));
+
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            bath: parseFloat(value),
+            livingRooms: value,
+
+        }));
+    };
+    const handleSelectChangeRooms = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target;
+        setPropertyInfo((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            rooms: value,
+        }));
+
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            rooms: value,
+        }));
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setPropertyInfo((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            areaInKm: value,
+        }));
+
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            areaInKm: value,
+        }));
+    };
+
+    const handleInputChangeLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setPropertyInfo((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            location: value
+        }));
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            location: value
+        }));
+    }
+
+    function save() {
+        saveData('PropertyListingDetailCard', data)
+    }
+    console.log("com", propertyInfo);
+
+
     return (
         <div className="p-4 shadow shadow-blue rounded-lg">
             <h3 className="text-xl font-semibold mb-2">Listing Details</h3>
@@ -14,13 +116,14 @@ const PropertyListingDetailCard: React.FC = () => {
                         type="text"
                         id="propertySize"
                         className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div className="mb-4 w-[45%]">
                     <label htmlFor="bedrooms" className="block">
                         Bedrooms*
                     </label>
-                    <select className="border border-gray-200 px-4 py-3 rounded-md w-full">
+                    <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChangeRooms}>
                         <option value="">0</option>
                         <option value="number">1</option>
                         <option value="number">2</option>
@@ -35,7 +138,7 @@ const PropertyListingDetailCard: React.FC = () => {
                     <label htmlFor="bathrooms" className="block">
                         Bathrooms*
                     </label>
-                    <select className="border border-gray-200 px-4 py-3 rounded-md w-full">
+                    <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChange}>
                         <option value="">0</option>
                         <option value="number">1</option>
                         <option value="number">2</option>
@@ -48,7 +151,7 @@ const PropertyListingDetailCard: React.FC = () => {
                     <label htmlFor="bathrooms" className="block">
                         Livingrooms*
                     </label>
-                    <select className="border border-gray-200 px-4 py-3 rounded-md w-full">
+                    <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChangelivingRooms}>
                         <option value="">0</option>
                         <option value="number">1</option>
                         <option value="number">2</option>
@@ -64,6 +167,7 @@ const PropertyListingDetailCard: React.FC = () => {
                 </label>
                 <textarea
                     id="kitchenDescription"
+                    // onChange={handleTexarea}
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                 ></textarea>
             </div>
@@ -75,8 +179,10 @@ const PropertyListingDetailCard: React.FC = () => {
                     type="text"
                     id="propertyLocation"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                    onChange={handleInputChangeLocation}
                 />
             </div>
+            <button onClick={save}>Save</button>
 
         </div>
     );
