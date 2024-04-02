@@ -33,12 +33,13 @@ let parsedId: any
 // console.log(parseId);
 export const loginUrl = "http://localhost:4000/auth/signin"
 export const propertiesForAgent = `http://localhost:4000/properties/agent/${parsedId}`
-export const getAllProperties = "http://localhost:4000/properties"
+export const getAllProperties = "http://localhost:4000/properties" 
 export const searchByRoom = `http://localhost:4000/properties/room/`
 export const agentInfo = `http://localhost:4000/api/v1/agent/${parsedId}`
 export const logOutUrl = "http://localhost:4000/auth/signout"
 export const postUrl = "http://localhost:4000/properties"
 
+//agentData
 export const agentdata = () => {
   return useQuery({
     queryKey: ["agent-name"],
@@ -49,15 +50,30 @@ export const agentdata = () => {
   })
 }
 
-export function searchRooms(searchParams: string) {
-  const { data } = useQuery({
-    queryKey: ["rooms"],
-    queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:4000/properties/room/${searchParams}`)
-      return data
-    }
-  })
+//get one property
 
-  return { data }
+// export const getOneProperty = (params: number) => {
+//     return useQuery({
+//       queryKey: ['propertyOne'],
+//       queryFn: async () => {
+//         const {data} = await axios.get(`http://localhost:4000/properties/${params}`)
+//         return data
+//       }
+//     })
+// }
 
-}
+//room search
+
+// export function searchRooms(searchParams: string) {
+//   const { data } = useQuery({
+//     queryKey: ["rooms"],
+//     queryFn: async () => {
+//       const { data } = await axios.get(`http://localhost:4000/properties/room/${searchParams}`)
+//       return data
+//     }
+//   })
+
+//   // return { data }
+  
+
+// }

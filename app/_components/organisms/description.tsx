@@ -1,4 +1,5 @@
 'use client'
+import { useRouter } from "next/router";
 
 import { useAppContext } from "@/store/app-context";
 
@@ -6,15 +7,18 @@ interface DescriptionPageProps {
   //
 }
 
-const DescriptionPage: React.FC<DescriptionPageProps> = ({ }: DescriptionPageProps) => {
-
+const DescriptionPage: React.FC<DescriptionPageProps> = ({}: DescriptionPageProps) => {
+  // const router = useRouter();
+  // const { id } = router.query;
+  // console.log("id from url", id);
+  
   const { propertyInfo } = useAppContext();
 
   // const DescriptionPage: React.FC = () => {
   return (
     <div className="container mx-auto font-serif py-20">
       <div className="items-center justify-center flex flex-col">
-        <h1 className="text-4xl my-4 ">{propertyInfo.name} La villa Lorem ipsum dolor</h1>
+        <h1 className="text-4xl my-4 ">{propertyInfo.name}</h1>
         <p className="text-3xl font-thin">Location </p>
       </div>
 
@@ -25,32 +29,32 @@ const DescriptionPage: React.FC<DescriptionPageProps> = ({ }: DescriptionPagePro
             <div className="flex flex-wrap">
               <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                 <p className="mr-4">Number of Rooms:</p>
-                <p className="text-lg font-semibold">3rooms</p>
+                <p className="text-lg font-semibold"></p>
               </div>
               <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                 <p className="mr-4">Number of Baths:</p>
-                <p className="text-lg font-semibold">4baths</p>
+                <p className="text-lg font-semibold"></p>
               </div>
               <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                 <p className="mr-4">Living Room:</p>
-                <p className="text-lg font-semibold">2livingRoom</p>
+                <p className="text-lg font-semibold"></p>
               </div>
               <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                 <p className="mr-4">Status:</p>
-                <p className="text-lg font-semibold">{propertyInfo.rentOrSale} Sale</p>
+                <p className="text-lg font-semibold"></p>
               </div>
               <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                 <p className="mr-4">Area:</p>
-                <p className="text-lg font-semibold">28km/m2 area</p>
+                <p className="text-lg font-semibold"></p>
               </div>
               <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                 <p className="mr-4">Price:</p>
-                <p className="text-lg font-semibold">$ {propertyInfo.price}na how</p>
+                <p className="text-lg font-semibold">$ </p>
               </div>
             </div>
             <div className="mt-4 w-full flex justify-between items-center border-t border-gray-700 py-4">
               <p className=" mr-4">Description:</p>
-              <p>{propertyInfo.description}hello is this description going to stay aprrt for forever because all i see is apart forever lol</p>
+              <p></p>
             </div>
           </div>
         </div>
