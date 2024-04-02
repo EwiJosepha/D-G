@@ -26,12 +26,13 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null => {
     <div>
       <DdHeaderProvider header="View Profile">
         <div className="mx-auto container py-10 px-20 mb-16">
-          <div className="flex justify-center mb-10">
-            <Image alt='DP' src='./public/av5.jpg'></Image>
-            {/* <img
+          <div className="flex justify-center mb-10 w-40 h-40">
+            <Image alt='DP' src='/av5.jpg' layout='responsive' height={200} width={200} className='rounded-full object-cover' />
+            {/* <Image
               src={formData?.profilePicture || '/default-profile-picture.jpg'}
               alt="Profile Picture"
-              className="w-40 h-40 rounded-full object-cover"
+              layout='responsive' height={200} width={200} 
+              className="rounded-full object-cover"
             /> */}
           </div>
 
