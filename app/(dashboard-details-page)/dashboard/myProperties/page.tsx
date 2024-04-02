@@ -30,11 +30,11 @@ const MyProperties: React.FC = () => {
     const [selectedPropertyId, setSelectedPropertyId] = React.useState<number | null>(null);
     const dropdownRef = React.useRef<HTMLDivElement>(null);
 
-    const {data, isLoading, isError} = useQuery({
+    const { data, isLoading, isError } = useQuery({
         queryKey: ['propWithAgentId'],
         queryFn: async () => {
-           const {data} = await axios.get(propertiesForAgent) 
-           return data as Property[]
+            const { data } = await axios.get(propertiesForAgent)
+            return data as Property[]
         }
     })
 
@@ -47,13 +47,13 @@ const MyProperties: React.FC = () => {
         }
     };
 
-    if(data?.length === 0){
+    if (data?.length === 0) {
         return <div><h1>Upload property</h1></div>
     }
 
 
     return (
-        <DdHeaderProvider header="My Properties" only_header>
+        <DdHeaderProvider header="My Properties">
             <>
                 <div className="mt-10 p-6 overflow-x-scroll md:overflow-hidden">
                     <table className="container mb-10">
@@ -68,7 +68,7 @@ const MyProperties: React.FC = () => {
                         <tbody>
                             {data?.map((property) => (
                                 <tr key={property.id} className="border-b-2">
-                                    
+
                                     <td className="px-4 py-6">
                                         <div className="flex">
                                             <img src={property.images[1]} alt="Property" className="w-20 h-20 rounded-lg mr-3" />

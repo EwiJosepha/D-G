@@ -70,7 +70,7 @@ const AddNewProperty: React.FC = () => {
     console.log("shar", shareState);
 
 
-    
+
 
     function handleSubmit() {
 
@@ -82,55 +82,55 @@ const AddNewProperty: React.FC = () => {
 
         // console.log(combinedData);
 
-        
-    const destructureObj1 : {name: string,description: string,type:string,rentOrSale:string, price: string } =shareState.DbPropertyOverviewCard
 
-    const desstructureObj2: {areaKm: string, bath:number,  livingRooms:number,rooms:number,location: string}= shareState.PropertyListingDetailCard
+        const destructureObj1: { name: string, description: string, type: string, rentOrSale: string, price: string } = shareState.DbPropertyOverviewCard
 
-    console.log("spread", destructureObj1);
-    console.log("spread2", desstructureObj2)
+        const desstructureObj2: { areaKm: string, bath: number, livingRooms: number, rooms: number, location: string } = shareState.PropertyListingDetailCard
 
-   
-    const combinedObject: DbPropertyOverviewCard & PropertyListingDetailCard = {
-        ...destructureObj1,
-        ...desstructureObj2
-    };
-    
-    console.log("combinedObject", combinedObject);
+        console.log("spread", destructureObj1);
+        console.log("spread2", desstructureObj2)
 
-        
-            const reqBody = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(combinedObject)
-            };
-        
-            fetch(postUrl, reqBody)
-                .then((res) => {
-                    if (!res.ok) {
-                        throw new Error('Failed to submit data');
-                    }
-                    return res.json();
-                })
-                .then((data) => {
-                    if (data.status === 201) {
-                        console.log('Created successfully');
-                    } else if (data.status === 200) {
-                        console.log('Incomplete data or information');
-                    } else {
-                        console.log(data);
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error submitting data:', error);
-                });
-        
-            console.log(combinedObject);
+
+        const combinedObject: DbPropertyOverviewCard & PropertyListingDetailCard = {
+            ...destructureObj1,
+            ...desstructureObj2
         };
+
+        console.log("combinedObject", combinedObject);
+
+
+        const reqBody = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(combinedObject)
+        };
+
+        fetch(postUrl, reqBody)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error('Failed to submit data');
+                }
+                return res.json();
+            })
+            .then((data) => {
+                if (data.status === 201) {
+                    console.log('Created successfully');
+                } else if (data.status === 200) {
+                    console.log('Incomplete data or information');
+                } else {
+                    console.log(data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error submitting data:', error);
+            });
+
+        console.log(combinedObject);
+    };
     return (
-        <DdHeaderProvider header="New Properties" submit="">
+        <DdHeaderProvider header="New Properties">
             <div className="mx-auto container py-6 px-4 md:px-20">
 
                 <div className="space-y-16">

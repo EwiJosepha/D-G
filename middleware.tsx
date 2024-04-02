@@ -5,21 +5,17 @@ import { verify } from "./app/utils/pathManager";
 export default function middleware(req: NextRequest) {
 
 
-    const verify1 = req.cookies.get("token")
-   
-    const url = req.url
+  const verify1 = req.cookies.get("token")
 
-    if (!verify1 && url.includes("/dashboard")) {
-      return NextResponse.redirect("http://localhost:3000/login")
-    }
+  const url = req.url
 
-    // if(!verify && url.includes("/dashboard")){
-    //   return NextResponse.redirect("http://localhost:3000/login")
-    // }
+  // if (!verify1 && url.includes("/dashboard")) {
+  //   return NextResponse.redirect("http://localhost:3000/login")
+  // }
 
-    if (verify1 && url === "http://localhost:3000/login") {
-      return NextResponse.redirect("http://localhost:3000/dashboard")
-    }
+  // if (verify1 && url === "http://localhost:3000/login") {
+  //   return NextResponse.redirect("http://localhost:3000/dashboard")
+  // }
 
 
 

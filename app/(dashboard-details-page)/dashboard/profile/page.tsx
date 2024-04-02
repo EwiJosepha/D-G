@@ -82,12 +82,12 @@ const Profile: React.FC = () => {
     };
 
     return (
-        <DdHeaderProvider header="Profile" submit=''>
+        <DdHeaderProvider header="Profile">
             <>
                 <div className="mx-auto container py-10 px-20 mb-16">
                     {/* Profile Image */}
                     {imageUrl && (
-                        <div className="mb-4 flex items-center">
+                        <div className="mb-4 mt-8 flex items-center">
                             <img src={imageUrl} alt="Profile" className=" h-16 w-16 rounded-full" />
 
                             <button className="text-red-500 ml-2" onClick={handleImageDelete}>
@@ -185,8 +185,8 @@ const Profile: React.FC = () => {
                             className="border border-gray-300 px-4 py-2 rounded-md w-full"
                             required></textarea>
                     </div>
-                    <Link href={"/dashboard"}>
-                        <button className=' bg-slate-950 text-red-500' onClick={submitData}>submit</button>
+                    <Link href={"/dashboard/vieww"}>
+                        <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mr-16 mt-10' onClick={submitData}>submit</button>
                     </Link>
                 </div>
 

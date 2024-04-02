@@ -38,7 +38,7 @@ const LoginPage: React.FC = () => {
             },
             body: JSON.stringify(formData)
         })
-      const badrequest = res.status === 400
+        const badrequest = res.status === 400
         const goodreq = res.status === 201
         setBadreq(badrequest)
         setSuccesful(goodreq)
