@@ -1,4 +1,5 @@
 'use client'
+
 import DdHeaderProvider from '@/app/_components/db-header-provider'
 import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -43,9 +44,9 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
 
   return (
     <div>
-      <DdHeaderProvider header="Edit Page" submit=''>
+      <DdHeaderProvider header="Edit Profile">
         <div className="mx-auto container py-10 px-20 mb-16">
-          < div className="mb-4">
+          < div className="mb-4 mt-8">
             <label htmlFor="username" className="block font-medium">
               Username*
             </label>
@@ -84,7 +85,6 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
                 id="lastName"
                 value={formData.lastName}
                 onChange={handleInputChange}
-
                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
               />
             </div>
@@ -120,7 +120,7 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
             </div>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-10">
             <label htmlFor="bio" className="block font-medium">
               Bio*
             </label>
@@ -132,8 +132,8 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
               className="border border-gray-300 px-4 py-2 rounded-md w-full"
               required></textarea>
           </div>
-          <Link href={"./vieww"}>
-            <button className=' bg-slate-950 text-red-500' type="submit" onClick={handleSubmit}>Save</button>
+          <Link href={"/dashboard/profile"}>
+            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mr-16' type="submit" onClick={handleSubmit}>Save</button>
           </Link>
         </div>
       </DdHeaderProvider>
