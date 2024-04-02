@@ -30,7 +30,7 @@ const MyProperties: React.FC = () => {
     const [selectedPropertyId, setSelectedPropertyId] = React.useState<number | null>(null);
     const dropdownRef = React.useRef<HTMLDivElement>(null);
 
-    const {data, isLoading, isError} = useQuery({
+    const {data} = useQuery({
         queryKey: ['propWithAgentId'],
         queryFn: async () => {
            const {data} = await axios.get(propertiesForAgent) 

@@ -8,6 +8,8 @@ const DetailHero: React.FC = () => {
     const pathName = usePathname();
     const pathVal = +pathName.split('/')[2]
     const { data } = getOneProperty(pathVal)
+    console.log(data);
+    
     const dataFromQuery: {name:string, areaInKm: string, location: string,  livingRooms: string,  price: number,  bath: number,rooms: string,rentOrSale: string, description: string, images: []} = data
     
     const [currentImage, setCurrentImage] = useState(0);
