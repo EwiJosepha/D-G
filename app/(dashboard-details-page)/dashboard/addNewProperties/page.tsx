@@ -143,7 +143,7 @@ const AddNewProperty: React.FC = () => {
                     <PropertyImageCard saveData={saveData} existingData={shareState.PropertyImageCard} />
 
                 </div>
-                <button type="submit" onClick={handleSubmit}>Submit</button>
+                <button type="submit" className='text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>Submit Property</button>
             </div>
         </DdHeaderProvider>
     );
