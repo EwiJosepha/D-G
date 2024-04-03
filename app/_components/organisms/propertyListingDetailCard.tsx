@@ -182,7 +182,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     onChange={handleInputChangeLocation}
                 />
             </div>
-            <button onClick={save}>Save</button>
+            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
 
         </div>
     );

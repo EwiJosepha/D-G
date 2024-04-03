@@ -9,6 +9,7 @@ type FormData = {
 const PropertyImageCard: React.FC = () => {
 
     const [uploadedImages, setUploadedImages] = useState<string[]>([])
+    const [imageLimit, setImageLimit] = useState<string[]>([])
 
     const {
         register,
