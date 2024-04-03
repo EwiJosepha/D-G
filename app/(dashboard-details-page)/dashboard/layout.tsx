@@ -62,11 +62,11 @@ const DbLayout: React.FC<Props> = ({ children }) => {
 
             {/* Sidebar */}
             <div className="md:block w-full md:w-1/5 md:h-screen md:relative">
-                <div className="md:block w-full md:w-1/5 md:h-screen fixed top-0 left-0 bg-white">
+                <div className="md:block w-full md:w-1/5 md:min-h-screen fixed top-0 left-0 bg-white">
                     {/* Logo */}
 
-                    <div className="items-center mb-16">
-                        <Link href='/landing' className="bg-blue md:ml-[20%] mt-14 mb-20">
+                    <div className="flex">
+                        <Link href='/landing' className="bg-blue md:ml-[20%] my-10">
                             <FooterLogo />
                         </Link>
                     </div>
@@ -93,7 +93,7 @@ const DbLayout: React.FC<Props> = ({ children }) => {
                                     href="/dashboard/profile"
                                     legacyBehavior>
                                     <span
-                                        className="flex hover:underline cursor-pointer items-center pt-4 pb-8"
+                                        className="flex hover:underline cursor-pointer items-center pt-4 pb-4"
                                     >
                                         <FaRegUser className="block mr-4 text-xl" />
                                         <span className="hidden md:inline">Profile</span>
