@@ -50,8 +50,6 @@ const DbLayout: React.FC<Props> = ({ children }) => {
         console.log(res);
     }
 
-
-
     return (
         <div className="flex-none md:flex">
 
