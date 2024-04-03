@@ -1,6 +1,7 @@
 "use-client"
 import React, { useState } from 'react'
 import { SharedState } from '@/app/(dashboard-details-page)/dashboard/addNewProperties/page';
+import { log } from 'console';
 type Prop = {
     name: string;
     type: string;
@@ -15,6 +16,7 @@ export interface ComponentProps {
 }
 
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
+    const [error, setError] = useState<string>('');
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         name: "",
         type: "",
@@ -37,6 +39,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             name: value,
         }));
 
+        setError('')
+
     };
     const handleInputChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
@@ -48,6 +52,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             ...prevPropertyInfo,
             price: parseFloat(value),
         }));
+
+        setError('')
     };
 
     console.log(propertyInfo);
@@ -62,6 +68,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             ...prevPropertyInfo,
             description: value,
         }))
+        setError('')
     }
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -76,6 +83,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             type: value,
 
         }));
+
+        setError('')
     };
     const handleSelectChangeRent = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
@@ -84,15 +93,34 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             rentOrSale: value,
 
         }));
-        
+
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
             rentOrSale: value,
 
         }));
+        setError('')
     };
 
     function save() {
+        if (propertyInfo.description === "") {
+            setError('Please fill all fields')
+            return
+        }
+
+        if (propertyInfo.name === '') {
+            setError('Please fill all fields')
+            return
+        }
+        if (!propertyInfo.price) {
+            setError('Please fill all fields')
+            return
+        }
+        if (propertyInfo.rentOrSale === '') {
+            setError('Please fill all fields')
+            return
+        }
+
         saveData('DbPropertyOverviewCard', data)
     }
 
@@ -108,7 +136,9 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     id="propertyTitle"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     onChange={handleInputChangee}
+                    required
                 />
+                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
             </div>
             <div className="mb-4">
                 <label htmlFor="propertyDescription" className="block">
@@ -118,7 +148,10 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     onChange={handleTexarea}
                     id="propertyDescription"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                    required
                 ></textarea>
+                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
             </div>
 
 
@@ -135,6 +168,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                         <option value='villas'>Villas</option>
                         <option value='self-contain'>Self Contain</option>
                     </select>
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
                 </div>
                 <div className="mb-4 w-[45%]">
                     <label htmlFor="listedIn" className="block">
@@ -147,6 +182,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                         <option value="sell">Sell</option>
                         <option value="rent">Rent</option>
                     </select>
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
                 </div>
             </div>
 
@@ -159,8 +196,10 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     id="propertyPrice"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     onChange={handleInputChangePrice}
+                    required
                 />
             </div>
+            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
             <button onClick={save}>save</button>
         </div>
     );
