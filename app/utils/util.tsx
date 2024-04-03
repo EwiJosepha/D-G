@@ -16,12 +16,14 @@ export function decodeBase64Url(token: string): any {
   return decoded;
 }
 
-let parsedId: any
+ export let parsedId: any
   // const [parseId, setParseId] = useState<number | undefined>(undefined)
   if (typeof localStorage !== "undefined") {
     const agentCurrentId: { id?: number, email?: string, iat?: number, exp?: number } = JSON.parse(localStorage.getItem("decoded") as string);
     parsedId = agentCurrentId?.id
     console.log(parsedId);
+    
+    
     
     // setParseId(agentCurrentId.id)
   }

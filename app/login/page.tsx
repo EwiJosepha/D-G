@@ -38,7 +38,7 @@ const LoginPage: React.FC = () => {
             },
             body: JSON.stringify(formData)
         })
-        const badrequest = res.status === 400
+      const badrequest = res.status === 400
         const goodreq = res.status === 201
         setBadreq(badrequest)
         setSuccesful(goodreq)
@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
             const response = await res.json().then((data) => data).then((message) => message);
             const token = response.message;
             const decoded = jwtDecode(token);
-            const cokie = cookieSet(token)
+            const cookie = cookieSet(token)
 
             console.log(decoded);
             if (typeof localStorage !== "undefined") {

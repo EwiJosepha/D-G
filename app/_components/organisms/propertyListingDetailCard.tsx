@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { SharedState } from "@/app/(dashboard-details-page)/dashboard/addNewProperties/page";
 import { ComponentProps } from "./propertyOverviewCard";
+import { parsedId } from "@/app/utils/util";
+
 type Prop = {
     rooms: string;
-    bath: number;
+    bath: string;
     livingRooms: string;
     location: string;
+    kitchen: string;
     areaInKm: string;
     shortDescription: string;
     agentId: number;
@@ -14,14 +17,14 @@ type Prop = {
 const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         rooms: "",
-        bath: 0,
+        bath: "",
         livingRooms: "",
         location: "",
+        kitchen: "",
         areaInKm: "",
         shortDescription: "",
-        agentId: 0
+        agentId: parsedId,
     })
-
 
     const [data, setData] = useState<Prop>(existingData || propertyInfo)
 
@@ -29,16 +32,12 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         const { value } = e.target;
         setPropertyInfo((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
-            // livingRooms: value,
-            // rooms: value,
-
+            bath: value,
         }));
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
-            // livingRooms: value,
+            bath: value,
 
         }));
     };
@@ -47,16 +46,24 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         const { value } = e.target;
         setPropertyInfo((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
             livingRooms: value,
-
         }));
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
             livingRooms: value,
+        }));
+    };
+    const handleSelectChangekitchen = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const { value } = e.target;
+        setPropertyInfo((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            kitchen: value,
+        }));
 
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            kitchen: value,
         }));
     };
     const handleSelectChangeRooms = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -98,7 +105,10 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
     }
 
     function save() {
-        saveData('PropertyListingDetailCard', data)
+        saveData('PropertyListingDetailCard', {
+            ...data,
+            agentId: propertyInfo.agentId,
+        });
     }
     console.log("com", propertyInfo);
 
@@ -167,7 +177,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                 </label>
                 <textarea
                     id="kitchenDescription"
-                    // onChange={handleTexarea}
+                    onChange={handleSelectChangekitchen}
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                 ></textarea>
             </div>
