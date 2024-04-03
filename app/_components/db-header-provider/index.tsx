@@ -31,7 +31,7 @@ export default function DdHeaderProvider({ children, only_header, header = '' }:
             </div>
             {/* end of navbar content  */}
             {/* body Content */}
-            <div className="bg-white w-full md:w-[83%] flex-col md:mt-40 mb-10 rounded-xl flex md:mx-auto overflow-y-scroll">{children}</div>
+            <div className="bg-white w-full md:w-[83%] flex-col md:mt-40 mb-10 rounded-xl flex md:mx-auto overflow-y-scroll no-scrollbar">{children}</div>
 
         </>
     )

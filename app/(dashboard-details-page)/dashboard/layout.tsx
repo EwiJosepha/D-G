@@ -154,7 +154,7 @@ const DbLayout: React.FC<Props> = ({ children }) => {
             {/* end Sidebar */}
 
             {/* body content  */}
-            <div className="md:w-[83.33%] w-full bg-blue overflow-hidden min-h-screen">
+            <div className="md:w-[83.33%] w-full bg-blue min-h-screen">
                 <>
                     {children}
                 </>
