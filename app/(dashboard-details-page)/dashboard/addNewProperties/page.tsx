@@ -75,7 +75,7 @@ const AddNewProperty: React.FC = () => {
     }, [])
 
     console.log("shar", shareState);
-    
+
     function handleSubmit() {
         //desstructure so as to  remove them from objcts
 
@@ -96,7 +96,12 @@ const AddNewProperty: React.FC = () => {
             images
         };
 
-        console.log("combinedObject", combinedObject);
+        const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
+            ...destructureObj1,
+            ...desstructureObj2,
+        }
+
+        localStorage.setItem("editable", JSON.stringify(editableFields))
 
         const reqBody = {
             method: 'POST',
