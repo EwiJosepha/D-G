@@ -1,7 +1,8 @@
 "use client"
-
 import React, { useEffect, useState } from 'react'
 import { parsedId } from '@/app/utils/util';
+import { updateproperties } from '@/app/utils/util';
+
 
 type Prop = {
   name: string;
@@ -25,6 +26,8 @@ type Prop = {
 // }
 
 const PropertyEdit: React.FC = () => {
+
+
   const [error, setError] = useState<string>('');
   const [propertyInfo, setPropertyInfo] = useState<Prop>({
     name: "",
@@ -45,88 +48,24 @@ const PropertyEdit: React.FC = () => {
   useEffect(() => {
     if (typeof localStorage !== "undefined") {
       const editafields = JSON.parse(localStorage.getItem('editable') as string)
-      console.log("editable", editafields);
       if (editafields) {
         setPropertyInfo(prevState => ({
           ...prevState,
-          name: editafields.name || "",
+          ...editafields
         }))
-        console.log(editafields.name);
-        
+
+      }
     }
-  }
 
   }, [])
-
-  // const [data, setData] = useState<Prop>(existingData || propertyInfo)
 
   const handleInputChangee = (e: { target: { name: any, value: any } }) => {
     const { name, value } = e.target;
     setPropertyInfo({ ...propertyInfo, [name]: value })
     setError('')
   };
-  const handleInputChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPropertyInfo((prevPropertyInfo) => ({
-      ...prevPropertyInfo,
-      price: parseFloat(value),
-    }));
-    // setData((prevPropertyInfo) => ({
-    //     ...prevPropertyInfo,
-    //     price: parseFloat(value),
-    // }));
 
-    setError('')
-  };
-
-
-  const handleTexarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    setPropertyInfo((prevPropertyInfo) => ({
-      ...prevPropertyInfo,
-      description: value,
-    }))
-    // setData((prevPropertyInfo) => ({
-    //     ...prevPropertyInfo,
-    //     description: value,
-    // }))
-    setError('')
-  }
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    setPropertyInfo((prevPropertyInfo) => ({
-      ...prevPropertyInfo,
-      type: value,
-
-    }));
-    // setData((prevPropertyInfo) => ({
-    //     ...prevPropertyInfo,
-    //     type: value,
-
-    // }));
-
-    setError('')
-  };
-
-  const handleSelectChangeRent = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    setPropertyInfo((prevPropertyInfo) => ({
-      ...prevPropertyInfo,
-      rentOrSale: value,
-
-    }));
-
-
-    // setData((prevPropertyInfo) => ({
-    //     ...prevPropertyInfo,
-    //     rentOrSale: value,
-
-    // }));
-    setError('')
-  };
-
-  function save() {
+  function save1() {
     if (propertyInfo.description === "") {
       setError('Please fill this fields')
       return
@@ -170,15 +109,50 @@ const PropertyEdit: React.FC = () => {
       return
     }
 
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('agentData', JSON.stringify(propertyInfo));
-    }
+    // if (typeof localStorage !== 'undefined') {
+    //   localStorage.setItem('editable', JSON.stringify(propertyInfo));
+    // }
+  
+  
+    const reqBody = {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(propertyInfo)
+  };
 
-    // saveData('DbPropertyOverviewCard', data)
+  fetch(updateproperties, reqBody)
+      .then((res) => {
+          if (!res.ok) {
+              throw new Error('Failed to submit data');
+          }
+          return res.json();
+      })
+      .then((data) => {
+          if (data.status === 201) {
+              console.log('Created successfully');
+          } else if (data.status === 200) {
+              console.log('Incomplete data or information');
+          } else {
+            console.log("updated succesfully");
+            
+              console.log(data);
+          }
+      })
+      .catch((error) => {
+          console.error('Error submitting data:', error);
+      });
+
+    console.log("hey");
+    
+
   }
 
   return (
     <>
+      <form onSubmit={(e) => { e.preventDefault(); save1(); }}>
+
       <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
         <h3 className="text-xl font-semibold mb-2">Overview</h3>
         <div className="mb-4">
@@ -289,7 +263,9 @@ const PropertyEdit: React.FC = () => {
             <label htmlFor="bedrooms" className="block">
               Bedrooms*
             </label>
-            <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleInputChangee}>
+            <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
+               name="rooms"
+               value={propertyInfo.rooms} onChange={handleInputChangee}>
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -306,7 +282,9 @@ const PropertyEdit: React.FC = () => {
             <label htmlFor="bathrooms" className="block">
               Bathrooms*
             </label>
-            <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleInputChangee}>
+            <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
+               name="bath"
+               value={propertyInfo.bath} onChange={handleInputChangee}>
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -321,7 +299,9 @@ const PropertyEdit: React.FC = () => {
             <label htmlFor="bathrooms" className="block">
               Livingrooms*
             </label>
-            <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleInputChangee}>
+            <select className="border border-gray-200 px-4 py-3 rounded-md w-full" 
+               name="livingRooms"
+               value={propertyInfo.livingRooms}onChange={handleInputChangee}>
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -339,6 +319,8 @@ const PropertyEdit: React.FC = () => {
           </label>
           <textarea
             id="kitchenDescription"
+            name="kitchen"
+            value={propertyInfo.kitchen}
             onChange={handleInputChangee}
             className="border border-gray-200 px-4 py-3 rounded-md w-full"
             required
@@ -354,15 +336,18 @@ const PropertyEdit: React.FC = () => {
             type="text"
             id="propertyLocation"
             className="border border-gray-200 px-4 py-3 rounded-md w-full"
+            name="location"
+            value={propertyInfo.location}
             onChange={handleInputChangee}
             required
           />
         </div>
         {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
 
-        <button onClick={save}>Save</button>
+        <button type='submit'>Save</button>
 
       </div>
+      </form>
     </>);
 };
 
