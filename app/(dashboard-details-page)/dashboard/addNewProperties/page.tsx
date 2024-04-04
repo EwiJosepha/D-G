@@ -6,11 +6,12 @@ import PropertyListingDetailCard from '@/app/_components/organisms/propertyListi
 import DbPropertyOverviewCard from '@/app/_components/organisms/propertyOverviewCard';
 import { useEffect, useState } from 'react';
 import { postUrl } from '@/app/utils/util';
+import { parsedId } from '@/app/utils/util';
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
     PropertyListingDetailCard: any,
-    // component3: any
+    PropertyImageCard: any
 }
 
 interface DbPropertyOverviewCard {
@@ -23,16 +24,22 @@ interface DbPropertyOverviewCard {
 
 interface PropertyListingDetailCard {
     areaKm: string;
-    bath: number;
+    bath: string;
+    kitchen: string;
     livingRooms: number;
     rooms: number;
     location: string;
+    agent: {}
+}
+
+interface PropertyImageCard {
+    images: string[]
 }
 
 const sharedStateDefault = {
     DbPropertyOverviewCard: {},
     PropertyListingDetailCard: {},
-    // component3:{}
+    PropertyImageCard: []
 }
 const AddNewProperty: React.FC = () => {
     const [shareState, setShareState] = useState<SharedState>(sharedStateDefault)
@@ -64,40 +71,32 @@ const AddNewProperty: React.FC = () => {
     useEffect(() => {
         load('DbPropertyOverviewCard')
         load('PropertyListingDetailCard')
-        // load('componentData3')
+        load('PropertyImageCard')
     }, [])
 
     console.log("shar", shareState);
-
-
-
-
+    
     function handleSubmit() {
-
-        // const combinedData = {
-        //     DbPropertyOverviewCard: shareState.DbPropertyOverviewCard,
-        //     PropertyListingDetailCard: shareState.PropertyListingDetailCard
-
-        // }
-
-        // console.log(combinedData);
-
+        //desstructure so as to  remove them from objcts
 
         const destructureObj1: { name: string, description: string, type: string, rentOrSale: string, price: string } = shareState.DbPropertyOverviewCard
-
-        const desstructureObj2: { areaKm: string, bath: number, livingRooms: number, rooms: number, location: string } = shareState.PropertyListingDetailCard
-
+        const desstructureObj2: { areaKm: string, bath: string, livingRooms: number, rooms: number, location: string, kitchen: string, agent: string } = shareState.PropertyListingDetailCard
         console.log("spread", destructureObj1);
         console.log("spread2", desstructureObj2)
+        console.log("propertyImg", shareState.PropertyImageCard);
 
+        //obtaining images from propertyImgCard component
+        const images = shareState.PropertyImageCard
 
-        const combinedObject: DbPropertyOverviewCard & PropertyListingDetailCard = {
+        //spreading to get all values
+
+        const combinedObject: DbPropertyOverviewCard & PropertyListingDetailCard & PropertyImageCard = {
             ...destructureObj1,
-            ...desstructureObj2
+            ...desstructureObj2,
+            images
         };
 
         console.log("combinedObject", combinedObject);
-
 
         const reqBody = {
             method: 'POST',
@@ -134,16 +133,14 @@ const AddNewProperty: React.FC = () => {
             <div className="mx-auto container py-6 px-4 md:px-20">
 
                 <div className="space-y-16">
-                    {/* Overview Card */}
+
                     <DbPropertyOverviewCard saveData={saveData} existingData={shareState.DbPropertyOverviewCard} />
 
-                    {/* Listing Details Card */}
+
                     <PropertyListingDetailCard saveData={saveData} existingData={shareState.PropertyListingDetailCard} />
 
-                    {/* Photo and Video Upload Card */}
-                    <PropertyImageCard />
 
-
+                    <PropertyImageCard saveData={saveData} existingData={shareState.PropertyImageCard} />
 
                 </div>
                 <button type="submit" onClick={handleSubmit}>Submit</button>

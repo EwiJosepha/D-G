@@ -1,30 +1,27 @@
 'use client'
-
 import React, { useState } from 'react';
 import { GrNext, GrPrevious } from 'react-icons/gr';
+import { usePathname } from 'next/navigation';
+import { getOneProperty } from '@/app/utils/util';
 
 const DetailHero: React.FC = () => {
+    const pathName = usePathname();
+    const pathVal = +pathName.split('/')[2]
+    const { data } = getOneProperty(pathVal)
+    console.log(data);
+    
+    const dataFromQuery: {name:string, areaInKm: string, location: string,  livingRooms: string,  price: number,  bath: number,rooms: string,rentOrSale: string, description: string, images: []} = data
+    
     const [currentImage, setCurrentImage] = useState(0);
-    const images = [
-        'detail1.jpeg',
-        'detail2.jpeg',
-        'detail3.jpeg',
-        'detail4.jpeg',
-        'detail5.jpeg',
-        'detail6.jpg',
-        'detail7.jpg',
-        'detail8.jpg',
-    ];
-
     const previousImage = () => {
         setCurrentImage((prevState) =>
-            prevState === 0 ? images.length - 1 : prevState - 1
+            prevState === 0 ? dataFromQuery.images.length - 1 : prevState - 1
         );
     };
 
     const nextImage = () => {
         setCurrentImage((prevState) =>
-            prevState === images.length - 1 ? 0 : prevState + 1
+            prevState === dataFromQuery.images.length - 1 ? 0 : prevState + 1
         );
     };
 
@@ -38,7 +35,7 @@ const DetailHero: React.FC = () => {
             </button>
             <img
                 className="h-[85vh] w-full object-cover top-0 cursor-pointer hover:transition-opacity"
-                src={images[currentImage]}
+                src={dataFromQuery?.images[currentImage]}
                 alt="Carousel Image"
             />
             <button
@@ -49,7 +46,7 @@ const DetailHero: React.FC = () => {
             </button>
 
             <div className="mt-3 flex justify-center">
-                {images.map((image, index) => (
+                {dataFromQuery?.images.map((image, index) => (
                     <img
                         key={index}
                         className={`w-full h-24 object-cover mx-2 cursor-pointer ${index === currentImage ? 'border-2' : ''

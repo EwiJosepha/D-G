@@ -7,7 +7,7 @@ import { properties } from '@/app/propertyData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios'
 import { getAllProperties } from '@/app/utils/util'
-import {debounceFetch} from "../../service/debounce"
+import { debounceFetch } from "../../service/debounce"
 
 type Property = {
     id: number;
@@ -37,7 +37,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
         queryKey: ["rooms"],
         queryFn: async () => {
             const { data } = await axios.get(`http://localhost:4000/properties/room/${rooms}`)
-              
+
             return data as Property[]
         },
         enabled: !!rooms
@@ -60,12 +60,11 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
             const { data } = await axios.get(getAllProperties)
             return data as Property[]
         }
+        
     })
 
     if (isLoading) return <div>Loading ...</div>
     if (isError) return <div>please try again</div>
-
-
 
     const toggleFavorite = (id: number) => {
         setFavorites((prevFavorites) => {
@@ -104,7 +103,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
 
                 </div>)}
 
-                {!hide ? (<>
+                {!rooms ? (<>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
                         {data?.map((prop, i) => (
                             <div key={i}>

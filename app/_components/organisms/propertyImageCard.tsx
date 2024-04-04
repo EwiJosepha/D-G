@@ -2,18 +2,27 @@
 
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import { ComponentProps } from "./propertyOverviewCard";
 type FormData = {
     profile: FileList;
 };
-const PropertyImageCard: React.FC = () => {
 
-    const [uploadedImages, setUploadedImages] = useState<string[]>([])
+type Prop = {
+    images: String[]
+}
+
+//saveData, existinData are fn and keys called in the major fn rendering all the three com for property creation
+
+const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
+
+    const [uploadedImages, setUploadedImages] = useState<string[]>(existingData || [])
 
     const {
         register,
         handleSubmit,
     } = useForm<FormData>();
+
+    console.log("uploaded", uploadedImages);
 
     const onSubmit: SubmitHandler<FormData> = async (data, event) => {
         const image = data.profile[0];
@@ -32,6 +41,11 @@ const PropertyImageCard: React.FC = () => {
         setUploadedImages((prevImages) => [...prevImages, imageUrl]);
         event?.target.reset(); // Reset the form after successful upload
     };
+
+    function submitUrl() {
+        saveData("PropertyImageCard", uploadedImages);
+        console.log("save", saveData);
+    }
 
     return (
         <form className="mt-4 p-4 shadow shadow-blue rounded-lg" onSubmit={handleSubmit(onSubmit)}>
@@ -57,13 +71,14 @@ const PropertyImageCard: React.FC = () => {
 
             <button
                 type="submit"
+                onClick={submitUrl}
                 className="text-white bg-gradient-to-r from-blue via-blue to-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue dark:focus:ring-blue font-medium rounded text-sm px-5 py-2.5 text-center mr-2 my-4"
             >
                 Upload to Cloud
             </button>
 
             <div className="flex">
-                {uploadedImages.map((imageUrl, index) => (
+                {uploadedImages?.map((imageUrl, index) => (
                     <img
                         key={index}
                         src={imageUrl}

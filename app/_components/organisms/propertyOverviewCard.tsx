@@ -1,6 +1,7 @@
 "use-client"
 import React, { useState } from 'react'
 import { SharedState } from '@/app/(dashboard-details-page)/dashboard/addNewProperties/page';
+import { log } from 'console';
 type Prop = {
     name: string;
     type: string;
@@ -15,6 +16,7 @@ export interface ComponentProps {
 }
 
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
+    const [error, setError] = useState<string>('');
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         name: "",
         type: "",
@@ -25,7 +27,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
     const [data, setData] = useState<Prop>(existingData || propertyInfo)
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChangee = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         setPropertyInfo((prevPropertyInfo) => ({
             ...prevPropertyInfo,
@@ -36,6 +38,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             ...prevPropertyInfo,
             name: value,
         }));
+
+        setError('')
 
     };
     const handleInputChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +52,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             ...prevPropertyInfo,
             price: parseFloat(value),
         }));
+
+        setError('')
     };
 
     console.log(propertyInfo);
@@ -62,6 +68,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             ...prevPropertyInfo,
             description: value,
         }))
+        setError('')
     }
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -76,6 +83,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             type: value,
 
         }));
+
+        setError('')
     };
     const handleSelectChangeRent = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
@@ -85,14 +94,34 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
         }));
         
+
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
             rentOrSale: value,
 
         }));
+        setError('')
     };
 
     function save() {
+        if (propertyInfo.description === "") {
+            setError('Please fill this fields')
+            return
+        }
+
+        if (propertyInfo.name === '') {
+            setError('Please fill this fields')
+            return
+        }
+        if (!propertyInfo.price) {
+            setError('Please fill this fields')
+            return
+        }
+        if (propertyInfo.rentOrSale === '') {
+            setError('Please fill this fields')
+            return
+        }
+
         saveData('DbPropertyOverviewCard', data)
     }
 
@@ -107,8 +136,10 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     type="text"
                     id="propertyTitle"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
-                    onChange={handleInputChange}
+                    onChange={handleInputChangee}
+                    required
                 />
+                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
             </div>
             <div className="mb-4">
                 <label htmlFor="propertyDescription" className="block">
@@ -118,7 +149,10 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     onChange={handleTexarea}
                     id="propertyDescription"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                    required
                 ></textarea>
+                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
             </div>
 
 
@@ -135,6 +169,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                         <option value='villas'>Villas</option>
                         <option value='self-contain'>Self Contain</option>
                     </select>
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
                 </div>
                 <div className="mb-4 w-[45%]">
                     <label htmlFor="listedIn" className="block">
@@ -147,6 +183,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                         <option value="sell">Sell</option>
                         <option value="rent">Rent</option>
                     </select>
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
                 </div>
             </div>
 
@@ -159,98 +197,13 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     id="propertyPrice"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     onChange={handleInputChangePrice}
+                    required
                 />
             </div>
+            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
             <button onClick={save}>save</button>
         </div>
     );
 };
+
 export default DbPropertyOverviewCard
-
-// import React, { useState, useEffect } from 'react';
-
-// // Define a shared state object to hold combined data
-// const sharedStateDefault = {
-//   component1Data: {},
-//   component2Data: {},
-//   component3Data: {}
-// };
-
-// const CombinedComponent = () => {
-//   const [sharedState, setSharedState] = useState(sharedStateDefault);
-
-//   // Function to save data to localStorage and update sharedState
-//   const saveData = (key, data) => {
-//     localStorage.setItem(key, JSON.stringify(data));
-//     setSharedState(prevState => ({
-//       ...prevState,
-//       [key]: data
-//     }));
-//   };
-
-//   // Function to load data from localStorage and update sharedState
-//   const loadData = (key) => {
-//     const data = JSON.parse(localStorage.getItem(key));
-//     if (data) {
-//       setSharedState(prevState => ({
-//         ...prevState,
-//         [key]: data
-//       }));
-//     }
-//   };
-
-//   // Load data from localStorage on component mount
-//   useEffect(() => {
-//     loadData('component1Data');
-//     loadData('component2Data');
-//     loadData('component3Data');
-//   }, []);
-
-//   // Submit function to send combined data to server
-//   const handleSubmit = () => {
-//     // Implement your fetch logic here to send sharedState to server
-//     console.log('Submitting combined data:', sharedState);
-//   };
-
-//   return (
-//     <div>
-//       {/* Render your components and pass saveData function as prop */}
-//       <Component1 saveData={saveData} existingData={sharedState.component1Data} />
-//       <Component2 saveData={saveData} existingData={sharedState.component2Data} />
-//       <Component3 saveData={saveData} existingData={sharedState.component3Data} />
-
-//       {/* Submit button */}
-//       <button onClick={handleSubmit}>Submit</button>
-//     </div>
-//   );
-// };
-
-// // Component1 example
-// const Component1 = ({ saveData, existingData }) => {
-//   const [data, setData] = useState(existingData);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setData(prevData => ({
-//       ...prevData,
-//       [name]: value
-//     }));
-//   };
-
-//   const handleSave = () => {
-//     saveData('component1Data', data);
-//   };
-
-//   return (
-//     <div>
-//       <h2>Component 1</h2>
-//       <input type="text" name="field1" value={data.field1 || ''} onChange={handleChange} />
-//       <input type="text" name="field2" value={data.field2 || ''} onChange={handleChange} />
-//       <button onClick={handleSave}>Save</button>
-//     </div>
-//   );
-// };
-
-// // Component2 and Component3 follow similar structure
-
-// export default CombinedComponent;

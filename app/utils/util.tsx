@@ -16,12 +16,14 @@ export function decodeBase64Url(token: string): any {
   return decoded;
 }
 
-let parsedId: any
+ export let parsedId: any
   // const [parseId, setParseId] = useState<number | undefined>(undefined)
   if (typeof localStorage !== "undefined") {
     const agentCurrentId: { id?: number, email?: string, iat?: number, exp?: number } = JSON.parse(localStorage.getItem("decoded") as string);
     parsedId = agentCurrentId?.id
     console.log(parsedId);
+    
+    
     
     // setParseId(agentCurrentId.id)
   }
@@ -33,12 +35,13 @@ let parsedId: any
 // console.log(parseId);
 export const loginUrl = "http://localhost:4000/auth/signin"
 export const propertiesForAgent = `http://localhost:4000/properties/agent/${parsedId}`
-export const getAllProperties = "http://localhost:4000/properties"
+export const getAllProperties = "http://localhost:4000/properties" 
 export const searchByRoom = `http://localhost:4000/properties/room/`
 export const agentInfo = `http://localhost:4000/api/v1/agent/${parsedId}`
 export const logOutUrl = "http://localhost:4000/auth/signout"
 export const postUrl = "http://localhost:4000/properties"
 
+//agentData
 export const agentdata = () => {
   return useQuery({
     queryKey: ["agent-name"],
@@ -48,6 +51,20 @@ export const agentdata = () => {
     }
   })
 }
+
+//get one property
+
+export const getOneProperty = (params: number) => {
+    return useQuery({
+      queryKey: ['propertyOne'],
+      queryFn: async () => {
+        const {data} = await axios.get(`http://localhost:4000/properties/${params}`)
+        return data
+      }
+    })
+}
+
+//room search
 
 export function searchRooms(searchParams: string) {
   const { data } = useQuery({
@@ -59,5 +76,6 @@ export function searchRooms(searchParams: string) {
   })
 
   return { data }
+  
 
 }

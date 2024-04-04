@@ -1,27 +1,32 @@
 import React, { useState } from "react";
 import { SharedState } from "@/app/(dashboard-details-page)/dashboard/addNewProperties/page";
 import { ComponentProps } from "./propertyOverviewCard";
+import { parsedId } from "@/app/utils/util";
+
 type Prop = {
     rooms: string;
-    bath: number;
+    bath: string;
     livingRooms: string;
     location: string;
+    kitchen: string;
     areaInKm: string;
     shortDescription: string;
     agentId: number;
 }
 
 const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
+    const [error, setError] = useState<string>('');
+
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         rooms: "",
-        bath: 0,
+        bath: "",
         livingRooms: "",
         location: "",
+        kitchen: "",
         areaInKm: "",
         shortDescription: "",
-        agentId: 0
+        agentId: parsedId,
     })
-
 
     const [data, setData] = useState<Prop>(existingData || propertyInfo)
 
@@ -29,35 +34,46 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         const { value } = e.target;
         setPropertyInfo((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
-            // livingRooms: value,
-            // rooms: value,
-
+            bath: value,
         }));
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
-            // livingRooms: value,
+            bath: value,
 
         }));
+        setError('')
     };
 
     const handleSelectChangelivingRooms = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
         setPropertyInfo((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
             livingRooms: value,
+        }));
+        console.log(value);
+        
 
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            livingRooms: value,
+        }));
+
+        setError('')
+    };
+
+    const handleSelectChangekitchen = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const { value } = e.target;
+        setPropertyInfo((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            kitchen: value,
         }));
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            bath: parseFloat(value),
-            livingRooms: value,
-
+            kitchen: value,
         }));
+        setError('')
     };
     const handleSelectChangeRooms = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
@@ -70,6 +86,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             rooms: value,
         }));
+        setError('')
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +100,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             areaInKm: value,
         }));
+        setError('')
     };
 
     const handleInputChangeLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,10 +113,40 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             location: value
         }));
+
+        setError('')
     }
 
     function save() {
-        saveData('PropertyListingDetailCard', data)
+        if (propertyInfo.areaInKm === '') {
+            setError('Please fill this field')
+            return
+        }
+
+        if (propertyInfo.livingRooms === '') {
+            setError('Please fill this field')
+            return
+        }
+        if (propertyInfo.location === '' && propertyInfo.location.length > 50) {
+            setError('Please fill this field')
+            return
+        }
+        if (propertyInfo.kitchen === "") {
+            setError('Please fill this field')
+            return
+        }
+        if (propertyInfo.rooms === "") {
+            setError('Please fill this field')
+            return
+        }
+        if (propertyInfo.bath === '') {
+            setError('Please fill this field')
+            return
+        }
+        saveData('PropertyListingDetailCard', {
+            ...data,
+            agentId: propertyInfo.agentId,
+        });
     }
     console.log("com", propertyInfo);
 
@@ -117,20 +165,25 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         id="propertySize"
                         className="border border-gray-200 px-4 py-3 rounded-md w-full"
                         onChange={handleInputChange}
+                        required
                     />
+                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
                 </div>
+
                 <div className="mb-4 w-[45%]">
                     <label htmlFor="bedrooms" className="block">
                         Bedrooms*
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChangeRooms}>
                         <option value="">0</option>
-                        <option value="number">1</option>
-                        <option value="number">2</option>
-                        <option value="number">3</option>
-                        <option value="number">4</option>
-                        <option value="number">5</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
                 </div>
             </div>
             <div className='flex justify-between'>
@@ -140,12 +193,14 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChange}>
                         <option value="">0</option>
-                        <option value="number">1</option>
-                        <option value="number">2</option>
-                        <option value="number">3</option>
-                        <option value="number">4</option>
-                        <option value="number">5</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
                 </div>
                 <div className="mb-4 w-[45%]">
                     <label htmlFor="bathrooms" className="block">
@@ -153,12 +208,14 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChangelivingRooms}>
                         <option value="">0</option>
-                        <option value="number">1</option>
-                        <option value="number">2</option>
-                        <option value="number">3</option>
-                        <option value="number">4</option>
-                        <option value="number">5</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
                 </div>
             </div>
             <div className="mb-4">
@@ -167,9 +224,12 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                 </label>
                 <textarea
                     id="kitchenDescription"
-                    // onChange={handleTexarea}
+                    onChange={handleSelectChangekitchen}
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                    required
                 ></textarea>
+                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
             </div>
             <div className="mb-4">
                 <label htmlFor="propertyLocation" className="block">
@@ -180,8 +240,11 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     id="propertyLocation"
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     onChange={handleInputChangeLocation}
+                    required
                 />
             </div>
+            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+
             <button onClick={save}>Save</button>
 
         </div>
