@@ -93,6 +93,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             rentOrSale: value,
 
         }));
+        
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
@@ -104,20 +105,20 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
     function save() {
         if (propertyInfo.description === "") {
-            setError('Please fill all fields')
+            setError('Please fill this fields')
             return
         }
 
         if (propertyInfo.name === '') {
-            setError('Please fill all fields')
+            setError('Please fill this fields')
             return
         }
         if (!propertyInfo.price) {
-            setError('Please fill all fields')
+            setError('Please fill this fields')
             return
         }
         if (propertyInfo.rentOrSale === '') {
-            setError('Please fill all fields')
+            setError('Please fill this fields')
             return
         }
 

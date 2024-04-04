@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -25,8 +25,13 @@ type Props = {
 
 const DbLayout: React.FC<Props> = ({ children }) => {
     const router = useRouter();
+    const [isProfileCreated, setIsProfileCreated] = useState(false)
 
+    useEffect(() => {
+        const islocalstorageEmpty = localStorage.getItem("agentData")
+        setIsProfileCreated(!!islocalstorageEmpty)
 
+    }, [])
     const handleLogOut = async () => {
         const res = await fetch(logOutUrl, {
             method: "GET",
@@ -79,7 +84,7 @@ const DbLayout: React.FC<Props> = ({ children }) => {
 
                         <li className="md:block md:border-b-2">
                             <p className="py-4 text-gray-500 hidden md:block">Profile</p>
-                            <Link
+                            {!isProfileCreated && <Link
                                 href="/dashboard/profile"
                                 legacyBehavior>
                                 <span
@@ -89,6 +94,8 @@ const DbLayout: React.FC<Props> = ({ children }) => {
                                     <span className="hidden md:inline">Profile</span>
                                 </span>
                             </Link>
+                            }
+
 
                             <Link
                                 href="/dashboard/vieww"

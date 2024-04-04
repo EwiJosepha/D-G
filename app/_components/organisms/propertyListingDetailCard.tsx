@@ -51,13 +51,17 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             livingRooms: value,
         }));
+        console.log(value);
+        
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
             livingRooms: value,
         }));
+
         setError('')
     };
+
     const handleSelectChangekitchen = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
         setPropertyInfo((prevPropertyInfo) => ({
@@ -115,28 +119,28 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
 
     function save() {
         if (propertyInfo.areaInKm === '') {
-            setError('Please fill all fields')
+            setError('Please fill this field')
             return
         }
 
         if (propertyInfo.livingRooms === '') {
-            setError('Please fill all fields')
+            setError('Please fill this field')
             return
         }
         if (propertyInfo.location === '' && propertyInfo.location.length > 50) {
-            setError('Please fill all fields')
+            setError('Please fill this field')
             return
         }
         if (propertyInfo.kitchen === "") {
-            setError('Please fill all fields')
+            setError('Please fill this field')
             return
         }
         if (propertyInfo.rooms === "") {
-            setError('Please fill all fields')
+            setError('Please fill this field')
             return
         }
         if (propertyInfo.bath === '') {
-            setError('Please fill all fields')
+            setError('Please fill this field')
             return
         }
         saveData('PropertyListingDetailCard', {
@@ -163,8 +167,8 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         onChange={handleInputChange}
                         required
                     />
-                </div>
                 {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                </div>
 
                 <div className="mb-4 w-[45%]">
                     <label htmlFor="bedrooms" className="block">
@@ -172,11 +176,11 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChangeRooms}>
                         <option value="">0</option>
-                        <option value="number">1</option>
-                        <option value="number">2</option>
-                        <option value="number">3</option>
-                        <option value="number">4</option>
-                        <option value="number">5</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                     {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
 
@@ -189,11 +193,11 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChange}>
                         <option value="">0</option>
-                        <option value="number">1</option>
-                        <option value="number">2</option>
-                        <option value="number">3</option>
-                        <option value="number">4</option>
-                        <option value="number">5</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                     {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
 
@@ -204,11 +208,11 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full" onChange={handleSelectChangelivingRooms}>
                         <option value="">0</option>
-                        <option value="number">1</option>
-                        <option value="number">2</option>
-                        <option value="number">3</option>
-                        <option value="number">4</option>
-                        <option value="number">5</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                     {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
 
