@@ -1,7 +1,6 @@
 "use-client"
 import React, { useState } from 'react'
 import { SharedState } from '@/app/(dashboard-details-page)/dashboard/addNewProperties/page';
-import { log } from 'console';
 type Prop = {
     name: string;
     type: string;
@@ -163,6 +162,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
                         onChange={handleSelectChange}>
+                            
+                        <option value=''></option>
                         <option value='apartment'>Apartment</option>
                         <option value='studios'>Studios</option>
                         <option value='house'>House</option>
