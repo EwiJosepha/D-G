@@ -45,6 +45,9 @@ const MyProperties: React.FC = () => {
             setIsDropdownVisible(true);
             setSelectedPropertyId(propertyId);
         }
+        if(typeof localStorage !== 'undefined'){
+           const  uptPropId = localStorage.setItem('propId',  JSON.stringify(propertyId))
+          }
     };
 
     if (data?.length === 0) {

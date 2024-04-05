@@ -10,9 +10,9 @@ const DetailHero: React.FC = () => {
     const pathValstring = pathName.split('/')[2]
     const { data } = getOneProperty(pathVal)
 
-    if(typeof localStorage !== 'undefined'){
-        localStorage.setItem('propId', pathValstring)
-    } 
+    // if(typeof localStorage !== 'undefined'){
+    //     localStorage.setItem('propId', pathValstring)
+    // } 
     
     console.log(pathValstring);
     

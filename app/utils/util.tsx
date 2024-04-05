@@ -31,7 +31,7 @@ export let uptPropId: any
 if(typeof localStorage !== 'undefined'){
   uptPropId = localStorage.getItem('propId')
 }
-console.log(uptPropId);
+console.log("propertyId",uptPropId);
 
 export const loginUrl = "http://localhost:4000/auth/signin"
 export const propertiesForAgent = `http://localhost:4000/properties/agent/${parsedId}`
@@ -66,6 +66,15 @@ export const getOneProperty = (params: number) => {
       queryKey: ['propertyOne'],
       queryFn: async () => {
         const {data} = await axios.get(`http://localhost:4000/properties/${params}`)
+        return data
+      }
+    })
+}
+export const getsingleDashboardProp = () => {
+    return useQuery({
+      queryKey: ['propertyOne'],
+      queryFn: async () => {
+        const {data} = await axios.get(`http://localhost:4000/properties/${uptPropId}`)
         return data
       }
     })

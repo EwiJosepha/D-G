@@ -76,7 +76,7 @@ const AddNewProperty: React.FC = () => {
         load('PropertyImageCard')
     }, [])
 
-    console.log("shar", shareState);
+    // console.log("shar", shareState);
 
     function handleSubmit() {
         //desstructure so as to  remove them from objcts
@@ -95,12 +95,12 @@ const AddNewProperty: React.FC = () => {
             images
         };
 
-        const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
-            ...destructureObj1,
-            ...desstructureObj2,
-        }
+        // const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
+        //     ...destructureObj1,
+        //     ...desstructureObj2,
+        // }
 
-        localStorage.setItem("editable", JSON.stringify(editableFields))
+        // localStorage.setItem("editable", JSON.stringify(editableFields))
 
         const reqBody = {
             method: 'POST',
