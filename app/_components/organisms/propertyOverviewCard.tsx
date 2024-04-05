@@ -1,7 +1,6 @@
 "use-client"
 import React, { useState } from 'react'
 import { SharedState } from '@/app/(dashboard-details-page)/dashboard/addNewProperties/page';
-import { log } from 'console';
 type Prop = {
     name: string;
     type: string;
@@ -17,6 +16,7 @@ export interface ComponentProps {
 
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
+
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         name: "",
         type: "",
@@ -24,6 +24,10 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
         price: 0,
         rentOrSale: "",
     })
+
+    // type DbPropertyOverviewCard = Omit<IPropertyInfo, 'name' | 'type' | 'description' | 'price' | 'rentOrSale'>;
+
+    // type T = Partial<IProfileInfo>
 
     const [data, setData] = useState<Prop>(existingData || propertyInfo)
 
@@ -162,6 +166,8 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
                         onChange={handleSelectChange}>
+                            
+                        <option value=''></option>
                         <option value='apartment'>Apartment</option>
                         <option value='studios'>Studios</option>
                         <option value='house'>House</option>

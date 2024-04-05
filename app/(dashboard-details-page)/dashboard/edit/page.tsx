@@ -132,7 +132,7 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
               className="border border-gray-300 px-4 py-2 rounded-md w-full"
               required></textarea>
           </div>
-          <Link href={"/dashboard/profile"}>
+          <Link href={"/dashboard/vieww"}>
             <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mr-16' type="submit" onClick={handleSubmit}>Save</button>
           </Link>
         </div>

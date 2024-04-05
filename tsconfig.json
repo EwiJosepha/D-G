@@ -18,10 +18,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["./app/_components/*"],
+      "@/interfaces/*": ["./app/_core/interfaces/*"],
       "@/store/*": ["./app/_core/store/*"],
-      "@/interfaces/*": ["./app/_core/interfaces/*"]
+      "@/components/*": ["./app/_components/*"],
+      "@/*": ["./*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/_dblayout", "app/(dashboard-details-page)/dashboard/vieww", "middleware.js", "middleware.js", "middleware.js"],

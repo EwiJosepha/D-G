@@ -6,7 +6,6 @@ import PropertyListingDetailCard from '@/app/_components/organisms/propertyListi
 import DbPropertyOverviewCard from '@/app/_components/organisms/propertyOverviewCard';
 import { useEffect, useState } from 'react';
 import { postUrl } from '@/app/utils/util';
-import { parsedId } from '@/app/utils/util';
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
@@ -66,24 +65,24 @@ const AddNewProperty: React.FC = () => {
                 [key]: data
             }))
         }
+
+        console.log({ [key]: data });
     }
 
     useEffect(() => {
+        console.clear();
         load('DbPropertyOverviewCard')
         load('PropertyListingDetailCard')
         load('PropertyImageCard')
     }, [])
 
     console.log("shar", shareState);
-    
+
     function handleSubmit() {
         //desstructure so as to  remove them from objcts
 
         const destructureObj1: { name: string, description: string, type: string, rentOrSale: string, price: string } = shareState.DbPropertyOverviewCard
         const desstructureObj2: { areaKm: string, bath: string, livingRooms: number, rooms: number, location: string, kitchen: string, agent: string } = shareState.PropertyListingDetailCard
-        console.log("spread", destructureObj1);
-        console.log("spread2", desstructureObj2)
-        console.log("propertyImg", shareState.PropertyImageCard);
 
         //obtaining images from propertyImgCard component
         const images = shareState.PropertyImageCard
@@ -96,7 +95,12 @@ const AddNewProperty: React.FC = () => {
             images
         };
 
-        console.log("combinedObject", combinedObject);
+        const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
+            ...destructureObj1,
+            ...desstructureObj2,
+        }
+
+        localStorage.setItem("editable", JSON.stringify(editableFields))
 
         const reqBody = {
             method: 'POST',
@@ -143,7 +147,7 @@ const AddNewProperty: React.FC = () => {
                     <PropertyImageCard saveData={saveData} existingData={shareState.PropertyImageCard} />
 
                 </div>
-                <button type="submit" className='text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>Submit Property</button>
+                <button type="submit" onClick={handleSubmit}>Submit</button>
             </div>
         </DdHeaderProvider>
     );

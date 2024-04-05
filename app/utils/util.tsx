@@ -23,22 +23,29 @@ export function decodeBase64Url(token: string): any {
     parsedId = agentCurrentId?.id
     console.log(parsedId);
     
-    
-    
-    // setParseId(agentCurrentId.id)
   }
 
 
 
+export let uptPropId: any
+if(typeof localStorage !== 'undefined'){
+  uptPropId = localStorage.getItem('propId')
+}
+console.log(uptPropId);
 
-
-// console.log(parseId);
 export const loginUrl = "http://localhost:4000/auth/signin"
 export const propertiesForAgent = `http://localhost:4000/properties/agent/${parsedId}`
+
 export const getAllProperties = "http://localhost:4000/properties" 
+
+export const updateproperties = `http://localhost:4000/properties/${uptPropId}`
+
 export const searchByRoom = `http://localhost:4000/properties/room/`
+
 export const agentInfo = `http://localhost:4000/api/v1/agent/${parsedId}`
+
 export const logOutUrl = "http://localhost:4000/auth/signout"
+
 export const postUrl = "http://localhost:4000/properties"
 
 //agentData

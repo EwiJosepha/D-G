@@ -7,8 +7,14 @@ import { getOneProperty } from '@/app/utils/util';
 const DetailHero: React.FC = () => {
     const pathName = usePathname();
     const pathVal = +pathName.split('/')[2]
+    const pathValstring = pathName.split('/')[2]
     const { data } = getOneProperty(pathVal)
-    console.log(data);
+
+    if(typeof localStorage !== 'undefined'){
+        localStorage.setItem('propId', pathValstring)
+    } 
+    
+    console.log(pathValstring);
     
     const dataFromQuery: {name:string, areaInKm: string, location: string,  livingRooms: string,  price: number,  bath: number,rooms: string,rentOrSale: string, description: string, images: []} = data
     
