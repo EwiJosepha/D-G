@@ -7,7 +7,7 @@ interface DescriptionPageProps {
   //
 }
 
-const DescriptionPage: React.FC<DescriptionPageProps> = ({}: DescriptionPageProps) => {
+const DescriptionPage: React.FC<DescriptionPageProps> = ({ }: DescriptionPageProps) => {
 
   const { propertyInfo } = useAppContext();
 
@@ -18,8 +18,8 @@ const DescriptionPage: React.FC<DescriptionPageProps> = ({}: DescriptionPageProp
         <p className="text-3xl font-thin">Location </p>
       </div>
 
-      <div className="flex mt-16">
-        <div className="w-full flex justify-between items-center md:w-1/3 p-4 mr-10">
+      <div className="md:flex mt-16">
+        <div className="w-full md:flex justify-between items-center md:w-1/3 p-4 mr-10">
           <div className="bg-black text-white rounded shadow-md p-8">
             <h2 className="text-2xl font-bold mb-4 font-mono"> Details</h2>
             <div className="flex flex-wrap">
