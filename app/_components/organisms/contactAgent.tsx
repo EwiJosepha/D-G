@@ -45,11 +45,11 @@ const ContactPage = () => {
   return (
     <div className="aget">
       <h2 id="contactText">Contact Real Estate Agent</h2>
-      <div className="contact-page">
+      <div className="contact-page md:flex">
         <div className="contact-avatar">
           <Image src={agentAvatar} id="contactCard" alt="Agent Avatar" layout="responsive" width={100} height={100} />
         </div>
-        <div className="contact-form">
+        <div className="contact-form w-full md:w-[55%] mt-5 md:mt-0">
           <form>
             <input type="text" placeholder="Your Name" />
             <input type="email" placeholder="Your Email" />
