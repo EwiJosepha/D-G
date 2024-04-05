@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { Dispatch, SetStateAction } from 'react';
 import type { IPropertyInfo, IProfileInfo } from '@/interfaces/index';
@@ -41,6 +41,10 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         phoneNumber: "",
         bio: ""
     })
+
+    useEffect(() => {
+        if (profileInfo) localStorage.setItem('propertyInfo', JSON.stringify(profileInfo));
+    }, [profileInfo])
 
     return (
         <AppContext.Provider value={{

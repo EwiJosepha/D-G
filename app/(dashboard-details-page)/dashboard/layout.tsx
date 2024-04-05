@@ -96,7 +96,6 @@ const DbLayout: React.FC<Props> = ({ children }) => {
                             </Link>
                             }
 
-
                             <Link
                                 href="/dashboard/vieww"
                                 legacyBehavior>

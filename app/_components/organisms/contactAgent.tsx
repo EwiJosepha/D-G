@@ -34,7 +34,7 @@ const ContactPage = () => {
     window.location.href = `mailto:${agentemail}`
   }
 
-  const  sendWhatsapmsg = () => {
+  const sendWhatsapmsg = () => {
     window.location.href = `https://wa.me/${agentwatsapNum}`
   }
 

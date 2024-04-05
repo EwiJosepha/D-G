@@ -20,16 +20,9 @@ type Prop = {
   agentId: number;
 }
 
-// export interface ComponentProps {
-//     saveData: (key: keyof SharedState, data: any) => void;
-//     existingData: any
-// }
-
 const PropertyEdit: React.FC = () => {
-
-
   const [error, setError] = useState<string>('');
-  const [propertyInfo, setPropertyInfo] = useState<Prop>({
+  const [propertyInfo2, setPropertyInfo2] = useState<Prop>({
     name: "",
     type: "",
     description: "",
@@ -49,7 +42,7 @@ const PropertyEdit: React.FC = () => {
     if (typeof localStorage !== "undefined") {
       const editafields = JSON.parse(localStorage.getItem('editable') as string)
       if (editafields) {
-        setPropertyInfo(prevState => ({
+        setPropertyInfo2(prevState => ({
           ...prevState,
           ...editafields
         }))
@@ -61,74 +54,71 @@ const PropertyEdit: React.FC = () => {
 
   const handleInputChangee = (e: { target: { name: any, value: any } }) => {
     const { name, value } = e.target;
-    setPropertyInfo({ ...propertyInfo, [name]: value })
+    setPropertyInfo2({ ...propertyInfo2, [name]: value })
     setError('')
   };
 
   function save1() {
-    if (propertyInfo.description === "") {
+    if (propertyInfo2.description === "") {
       setError('Please fill this fields')
       return
     }
 
-    if (propertyInfo.name === '') {
+    if (propertyInfo2.name === '') {
       setError('Please fill this fields')
       return
     }
-    if (!propertyInfo.price) {
+    if (!propertyInfo2.price) {
       setError('Please fill this fields')
       return
     }
-    if (propertyInfo.rentOrSale === '') {
+    if (propertyInfo2.rentOrSale === '') {
       setError('Please fill this fields')
       return
     }
-    if (propertyInfo.areaInKm === '') {
+    if (propertyInfo2.areaInKm === '') {
       setError('Please fill this field')
       return
     }
 
-    if (propertyInfo.livingRooms === '') {
+    if (propertyInfo2.livingRooms === '') {
       setError('Please fill this field')
       return
     }
-    if (propertyInfo.location === '' && propertyInfo.location.length > 50) {
+    if (propertyInfo2.location === '' && propertyInfo2.location.length > 50) {
       setError('Please fill this field')
       return
     }
-    if (propertyInfo.kitchen === "") {
+    if (propertyInfo2.kitchen === "") {
       setError('Please fill this field')
       return
     }
-    if (propertyInfo.rooms === "") {
+    if (propertyInfo2.rooms === "") {
       setError('Please fill this field')
       return
     }
-    if (propertyInfo.bath === '') {
+    if (propertyInfo2.bath === '') {
       setError('Please fill this field')
       return
     }
 
-    // if (typeof localStorage !== 'undefined') {
-    //   localStorage.setItem('editable', JSON.stringify(propertyInfo));
-    // }
-  
-  
-    const reqBody = {
+    const updatedValues = {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json'
       },
-      body: JSON.stringify(propertyInfo)
-  };
+      body: JSON.stringify(propertyInfo2)
+  };  
 
-  fetch(updateproperties, reqBody)
+  fetch(updateproperties, updatedValues)
+  
       .then((res) => {
           if (!res.ok) {
               throw new Error('Failed to submit data');
           }
           return res.json();
       })
+
       .then((data) => {
           if (data.status === 201) {
               console.log('Created successfully');
@@ -136,16 +126,16 @@ const PropertyEdit: React.FC = () => {
               console.log('Incomplete data or information');
           } else {
             console.log("updated succesfully");
+            console.log("propInfo", propertyInfo2);
             
               console.log(data);
+
           }
       })
+
       .catch((error) => {
           console.error('Error submitting data:', error);
-      });
-
-    console.log("hey");
-    
+      });    
 
   }
 
@@ -162,7 +152,7 @@ const PropertyEdit: React.FC = () => {
           <input
             type="text"
             name="name"
-            value={propertyInfo.name}
+            value={propertyInfo2.name}
             id="propertyTitle"
             className="border border-gray-200 px-4 py-3 rounded-md w-full"
             onChange={handleInputChangee}
@@ -179,7 +169,7 @@ const PropertyEdit: React.FC = () => {
             id="propertyDescription"
             className="border border-gray-200 px-4 py-3 rounded-md w-full"
             name='description'
-            value={propertyInfo.description}
+            value={propertyInfo2.description}
             required
           ></textarea>
           {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
@@ -194,7 +184,7 @@ const PropertyEdit: React.FC = () => {
             </label>
             <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
               name='type'
-              value={propertyInfo.type}
+              value={propertyInfo2.type}
               onChange={handleInputChangee}>
               <option value='apartment'>Apartment</option>
               <option value='studios'>Studios</option>
@@ -211,7 +201,7 @@ const PropertyEdit: React.FC = () => {
             </label>
             <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
               name='rentOrSale'
-              value={propertyInfo.rentOrSale}
+              value={propertyInfo2.rentOrSale}
               onChange={handleInputChangee}>
               <option value="">All Listings</option>
               <option value="buy">Buy</option>
@@ -232,7 +222,7 @@ const PropertyEdit: React.FC = () => {
             id="propertyPrice"
             className="border border-gray-200 px-4 py-3 rounded-md w-full"
             name='price'
-            value={propertyInfo.price}
+            value={propertyInfo2.price}
             onChange={handleInputChangee}
             required
           />
@@ -250,7 +240,7 @@ const PropertyEdit: React.FC = () => {
             <input
               type="text"
               name="name"
-              value={propertyInfo.areaInKm}
+              value={propertyInfo2.areaInKm}
               id="propertySize"
               className="border border-gray-200 px-4 py-3 rounded-md w-full"
               onChange={handleInputChangee}
@@ -265,7 +255,7 @@ const PropertyEdit: React.FC = () => {
             </label>
             <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
                name="rooms"
-               value={propertyInfo.rooms} onChange={handleInputChangee}>
+               value={propertyInfo2.rooms} onChange={handleInputChangee}>
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -284,7 +274,7 @@ const PropertyEdit: React.FC = () => {
             </label>
             <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
                name="bath"
-               value={propertyInfo.bath} onChange={handleInputChangee}>
+               value={propertyInfo2.bath} onChange={handleInputChangee}>
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -301,7 +291,7 @@ const PropertyEdit: React.FC = () => {
             </label>
             <select className="border border-gray-200 px-4 py-3 rounded-md w-full" 
                name="livingRooms"
-               value={propertyInfo.livingRooms}onChange={handleInputChangee}>
+               value={propertyInfo2.livingRooms}onChange={handleInputChangee}>
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -320,7 +310,7 @@ const PropertyEdit: React.FC = () => {
           <textarea
             id="kitchenDescription"
             name="kitchen"
-            value={propertyInfo.kitchen}
+            value={propertyInfo2.kitchen}
             onChange={handleInputChangee}
             className="border border-gray-200 px-4 py-3 rounded-md w-full"
             required
@@ -337,7 +327,7 @@ const PropertyEdit: React.FC = () => {
             id="propertyLocation"
             className="border border-gray-200 px-4 py-3 rounded-md w-full"
             name="location"
-            value={propertyInfo.location}
+            value={propertyInfo2.location}
             onChange={handleInputChangee}
             required
           />

@@ -66,9 +66,12 @@ const AddNewProperty: React.FC = () => {
                 [key]: data
             }))
         }
+
+        console.log({ [key]: data });
     }
 
     useEffect(() => {
+        console.clear();
         load('DbPropertyOverviewCard')
         load('PropertyListingDetailCard')
         load('PropertyImageCard')

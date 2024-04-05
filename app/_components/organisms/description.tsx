@@ -8,13 +8,9 @@ interface DescriptionPageProps {
 }
 
 const DescriptionPage: React.FC<DescriptionPageProps> = ({}: DescriptionPageProps) => {
-  // const router = useRouter();
-  // const { id } = router.query;
-  // console.log("id from url", id);
-  
+
   const { propertyInfo } = useAppContext();
 
-  // const DescriptionPage: React.FC = () => {
   return (
     <div className="container mx-auto font-serif py-20">
       <div className="items-center justify-center flex flex-col">

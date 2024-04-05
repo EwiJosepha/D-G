@@ -16,6 +16,7 @@ export interface ComponentProps {
 
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
+
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         name: "",
         type: "",
@@ -23,6 +24,10 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
         price: 0,
         rentOrSale: "",
     })
+
+    // type DbPropertyOverviewCard = Omit<IPropertyInfo, 'name' | 'type' | 'description' | 'price' | 'rentOrSale'>;
+
+    // type T = Partial<IProfileInfo>
 
     const [data, setData] = useState<Prop>(existingData || propertyInfo)
 
