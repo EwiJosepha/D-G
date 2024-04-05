@@ -35,7 +35,7 @@ const DescriptionPagee: React.FC<DescriptionPageProps> = ({ }: DescriptionPagePr
   const pathName = usePathname();
   const pathVal = +pathName.split('/')[2]
   const { data } = getOneProperty(pathVal)
-  const dataFromQuery: {name:string, areaInKm: string, location: string,  livingRooms: string,  price: number,  bath: number,rooms: string,rentOrSale: string, description: string;} = data
+  const dataFromQuery: { name: string, areaInKm: string, location: string, livingRooms: string, price: number, bath: number, rooms: string, rentOrSale: string, description: string; } = data
   const { propertyInfo } = useAppContext();
   return (
     <>
@@ -44,7 +44,8 @@ const DescriptionPagee: React.FC<DescriptionPageProps> = ({ }: DescriptionPagePr
       <div className="container mx-auto font-serif py-20">
         <div className="items-center justify-center flex flex-col">
           <h1 className="text-4xl my-4 ">{dataFromQuery?.name}</h1>
-          <p className="text-3xl font-thin">Location:<br/>{dataFromQuery?.location} </p>
+          <p className="text-3xl font-thin">Location:<span className="ml-6">{dataFromQuery?.location}
+          </span></p>
         </div>
 
         <div className="flex mt-16">

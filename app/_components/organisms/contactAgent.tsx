@@ -10,7 +10,6 @@ import Link from "next/link";
 
 interface FormData {
   phoneNumber: number;
-
 }
 
 const ContactPage = () => {
