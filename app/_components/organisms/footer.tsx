@@ -7,7 +7,7 @@ import FooterLogo from './footerLogo'
 function Footer() {
   return (
     <div>
-      <div className="footerWrapper bg-blue text-white">
+      <div className="bg-blue text-white">
         <div className="footerlogoWrapper">
           <div className="footerLogo">
             <div className="flexWrapper ml-12">

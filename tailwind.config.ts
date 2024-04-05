@@ -27,6 +27,16 @@ const config: Config = {
         'lg': '1280px',
         'xl': '1440px',
       },
+
+      keyframes: {
+        walk: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
+      animation: {
+        walk: "walk 20s linear infinite",
+      },
     },
   },
   plugins: [],

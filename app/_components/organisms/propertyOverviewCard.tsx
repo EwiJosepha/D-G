@@ -97,7 +97,6 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             rentOrSale: value,
 
         }));
-        
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
@@ -207,7 +206,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                 />
             </div>
             {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
-            <button onClick={save}>save</button>
+            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
         </div>
     );
 };

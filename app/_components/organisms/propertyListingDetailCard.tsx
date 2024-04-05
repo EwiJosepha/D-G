@@ -52,7 +52,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             livingRooms: value,
         }));
         console.log(value);
-        
+
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
@@ -167,7 +167,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         onChange={handleInputChange}
                         required
                     />
-                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
                 </div>
 
                 <div className="mb-4 w-[45%]">
@@ -245,7 +245,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             </div>
             {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
 
-            <button onClick={save}>Save</button>
+            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
 
         </div>
     );
