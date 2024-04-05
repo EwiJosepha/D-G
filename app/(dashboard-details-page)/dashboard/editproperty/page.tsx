@@ -61,20 +61,20 @@ const PropertyEdit: React.FC = () => {
 
   function save1() {
     if (propertyInfo2.description === "") {
-      setError('Please fill this fields')
+      setError('Please fill this field')
       return
     }
 
     if (propertyInfo2.name === '') {
-      setError('Please fill this fields')
+      setError('Please fill this field')
       return
     }
     if (!propertyInfo2.price) {
-      setError('Please fill this fields')
+      setError('Please fill this field')
       return
     }
     if (propertyInfo2.rentOrSale === '') {
-      setError('Please fill this fields')
+      setError('Please fill this field')
       return
     }
     if (propertyInfo2.areaInKm === '') {
