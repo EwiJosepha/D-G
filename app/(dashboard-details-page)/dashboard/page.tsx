@@ -6,7 +6,18 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { CiBookmarkMinus } from 'react-icons/ci';
 import { FaEye, FaHeart } from 'react-icons/fa';
 
+const data = [
+    { label: 'Label 1', value: 4 },
+    { label: 'Label 2', value: 9 },
+    { label: 'Label 3', value: 12 },
+    { label: 'Label 4', value: 18 },
+    { label: 'Label 5', value: 19 },
+    { label: 'Label 6', value: 2 },
+];
+
 const Dashboard: React.FC = () => {
+    const maxValue = Math.max(...data.map((item) => item.value));
+
     return (
         <DdHeaderProvider header="Dashboard" only_header>
             <>
@@ -25,9 +36,22 @@ const Dashboard: React.FC = () => {
                     </div>
                     <div className='md:flex'>
 
-                        <div className='bg-white p-2 rounded-lg font-bold text-xl w-full md:w-[58%] mr-10 mb-10 md:mb-0'>
-                            <h1 className='py-4 pl-4'>Property Overview</h1>
-                            {/* <BarCharts /> */}
+                        <div className="bg-white p-2 rounded-lg w-full md:w-[58%] mr-10 mb-6 md:mb-0">
+                            <h1 className="pt-4 pb-8 font-bold text-2xl pl-4">Property Overview</h1>
+                            <div className="space-y-2">
+                                {data.map((item) => (
+                                    <div key={item.label} className="flex text-xs items-center">
+                                        <div className=" pl-3 w-14 mb-7">{item.label}</div>
+                                        <div className="flex-1 bg-gray-200 rounded-lg mb-7">
+                                            <div
+                                                className="h-5 bg-orange-300 rounded-lg"
+                                                style={{ width: `${(item.value / maxValue) * 100}%` }}
+                                            ></div>
+                                        </div>
+                                        <div className="w-10 pr-3 text-right mb-7">{item.value}</div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         <div className='container bg-white rounded-lg md:w-[38%] py-2 px-4'>

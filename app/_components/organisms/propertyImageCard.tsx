@@ -15,7 +15,8 @@ type Prop = {
 
 const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
 
-    const [uploadedImages, setUploadedImages] = useState<string[]>(existingData || [])
+    const [uploadedImages, setUploadedImages] = useState<string[]>([])
+    const [imageLimit, setImageLimit] = useState<string[]>([])
 
     const {
         register,
