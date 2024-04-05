@@ -6,6 +6,7 @@ import call from "../../../public/assets/images/8725821_forwaded_call_icon.png"
 import email from "../../../public/assets/images/4202011_email_gmail_mail_logo_social_icon.png"
 import { agentdata } from "@/app/utils/util";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface FormData {
   phoneNumber: number;
@@ -57,15 +58,15 @@ const ContactPage = () => {
             <button type="submit">Send Message</button>
           </form>
           <div className="contact-icons">
-            <a href="#" onClick={sendEmail}>
+            <Link href="#" onClick={sendEmail}>
               <Image src={email} alt="Email Icon" />
-            </a>
-            <a href="#" onClick={makePhoneCall}>
+            </Link>
+            <Link href="#" onClick={makePhoneCall}>
               <Image src={call} alt="Call Icon" />
-            </a>
-            <a href="#" onClick={sendWhatsapmsg}>
+            </Link>
+            <Link href="#" onClick={sendWhatsapmsg}>
               <Image src={whatsap} alt="WhatsApp Icon" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
