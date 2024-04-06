@@ -8,6 +8,7 @@ import { getOneProperty } from "@/app/utils/util";
 
 import { useAppContext } from "@/app/_core/store/app-context";
 import { useState } from "react";
+import AnimatePage from "@/components/molecules/animate";
 
 interface DescriptionPageProps {
   //
@@ -93,6 +94,7 @@ const DescriptionPagee: React.FC<DescriptionPageProps> = ({ }: DescriptionPagePr
         </div>
       </div>
       <ContactPage />
+      <AnimatePage />
       <Footer />
     </>);
 };
