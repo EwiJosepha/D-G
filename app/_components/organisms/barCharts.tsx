@@ -11,3 +11,4 @@ const BarCharts = () => {
 };
 
 export default BarCharts;
+

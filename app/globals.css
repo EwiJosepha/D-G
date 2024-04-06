@@ -540,7 +540,6 @@
 }
 
 .contact-page {
-  display: flex;
   justify-content: space-between;
   gap: 30px;
   align-items: center;
@@ -559,7 +558,6 @@
 }
 
 .contact-form {
-  width: 55%;
   height: 450px;
   /* max-width: 400px; */
   background-color: white;

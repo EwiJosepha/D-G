@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ComponentProps } from "./propertyOverviewCard";
+
 type FormData = {
     profile: FileList;
 };
@@ -17,7 +18,7 @@ type Prop = {
 const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
 
     const [uploadedImages, setUploadedImages] = useState<string[]>([])
-    const [imageLimit, setImageLimit] = useState<string[]>([])
+    // const [imageLimit, setImageLimit] = useState<string[]>([])
 
     const {
         register,

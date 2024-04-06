@@ -32,6 +32,7 @@ const RegisterPage: React.FC = () => {
 
             body: JSON.stringify(formData)
         })
+<<<<<<< HEAD
 
         if (res.status === 201) {
             setErr("Agent already exist please login")
@@ -45,6 +46,17 @@ const RegisterPage: React.FC = () => {
 
 
 
+=======
+        if (res.status === 201) {
+            router.push("login")
+        }
+
+        console.log("formdata", formData)
+        console.log("res", res)
+
+    }
+
+>>>>>>> 6db12446f28d76fc46b7a3f501a091efd95ffbef
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue">
             <div className="bg-white w-96 p-10 rounded shadow">

@@ -85,19 +85,19 @@ const DbLayout: React.FC<Props> = ({ children }) => {
                                 </Link>
                             </li>
 
-                        <li className="md:block md:border-b-2">
-                            <p className="py-4 text-gray-500 hidden md:block">Profile</p>
-                            {!isProfileCreated && <Link
-                                href="/dashboard/profile"
-                                legacyBehavior>
-                                <span
-                                    className="flex hover:underline cursor-pointer items-center pt-4 pb-8"
-                                >
-                                    <FaRegUser className="block mr-4 text-xl" />
-                                    <span className="hidden md:inline">Profile</span>
-                                </span>
-                            </Link>
-                            }
+                            <li className="md:block md:border-b-2">
+                                <p className="py-4 text-gray-500 hidden md:block">Profile</p>
+                                {!isProfileCreated && <Link
+                                    href="/dashboard/profile"
+                                    legacyBehavior>
+                                    <span
+                                        className="flex hover:underline cursor-pointer items-center pt-4 pb-8"
+                                    >
+                                        <FaRegUser className="block mr-4 text-xl" />
+                                        <span className="hidden md:inline">Profile</span>
+                                    </span>
+                                </Link>
+                                }
 
                                 <Link
                                     href="/dashboard/vieww"
