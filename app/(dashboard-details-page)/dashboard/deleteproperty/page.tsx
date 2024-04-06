@@ -39,12 +39,12 @@ function DeleteProperty() {
   }
   return (
     <div>
-      <form onSubmit={(e) => {e.preventDefault();deleteProperty();}}>
+      {/* <form onSubmit={(e) => {e.preventDefault();deleteProperty();}}> */}
       <h1>Are you sure you want to delete this Property?
 
         <button type='submit'>Click here to Delete property</button>
       </h1>
-      </form>
+      {/* </form> */}
     </div>
   )
 }
