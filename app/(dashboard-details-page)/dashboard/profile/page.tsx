@@ -4,6 +4,7 @@ import DdHeaderProvider from '@/app/_components/db-header-provider';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const Profile: React.FC = () => {
@@ -99,9 +100,15 @@ const Profile: React.FC = () => {
                         {/* Profile Image */}
                         {imageUrl && (
                             <div className="mb-4 mt-8 flex items-center">
-                                <label htmlFor="profilepicture" className="block font-medium">
+                                <label htmlFor="profilepicture" className="block font-medium h-16 w-16">
 
-                                    <img src={imageUrl} alt="Profile" className="h-16 w-16 rounded-full" />
+                                    <Image
+                                        src={imageUrl || '/default-profile-picture.jpg'}
+                                        alt="Profile"
+                                        width={64}
+                                        height={64}
+                                        className="rounded-full"
+                                    />
                                 </label>
                                 <button className="text-red-500 ml-2" onClick={handleImageDelete}>
                                     Delete
