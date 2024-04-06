@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image';
 
 interface FormData {
-  imageUrl: string,
+  imageUrl: string;
   username: string;
   firstName: string;
   lastName: string;
@@ -14,6 +14,7 @@ interface FormData {
   phoneNumber: string;
   bio: string;
 }
+
 const EditProfile: React.FC<{ imageUrl: string }> = ({ imageUrl }): JSX.Element | null => {
   const [formData, setFormData] = useState<FormData>({
     imageUrl: imageUrl,
@@ -176,4 +177,4 @@ const EditProfile: React.FC<{ imageUrl: string }> = ({ imageUrl }): JSX.Element 
   )
 }
 
-export default EditProfile
+export default EditProfile;
