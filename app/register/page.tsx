@@ -9,6 +9,7 @@ import { FaTimes } from 'react-icons/fa';
 const RegisterPage: React.FC = () => {
     const router = useRouter()
     const [name, setName] = useState("")
+    const [err, setErr] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -31,14 +32,21 @@ const RegisterPage: React.FC = () => {
 
             body: JSON.stringify(formData)
         })
+
+        if (res.ok) {
+            setErr("Agent already exist please login")
+        }
+
         if (res.status === 201) {
             router.push("login")
         }
 
-        console.log("formdata", formData)
-        console.log("res", res)
-
+        // console.log("formdata",formData)
+        // console.log("res",res)
     }
+
+
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue">
@@ -51,6 +59,7 @@ const RegisterPage: React.FC = () => {
 
                 <form onSubmit={handleRegister}>
                     <div className="mb-4">
+                        {err && <p>Agent already exist please login</p>}
                         <label htmlFor="username" className="block mb-2 font-medium">
                             Username
                         </label>

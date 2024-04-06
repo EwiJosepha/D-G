@@ -1,10 +1,13 @@
 'use client'
 
 import DdHeaderProvider from '@/app/_components/db-header-provider';
-import React from 'react';
+import React, { useState } from 'react';
 import { BsPersonCircle } from 'react-icons/bs';
 import { CiBookmarkMinus } from 'react-icons/ci';
 import { FaEye, FaHeart } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query';
+import { propertiesForAgent } from '@/app/utils/util';
+import axios from 'axios';
 
 const data = [
     { label: 'Label 1', value: 4 },
@@ -15,8 +18,35 @@ const data = [
     { label: 'Label 6', value: 2 },
 ];
 
+type Property = {
+    id: number;
+    name: string;
+    type: string;
+    description: string;
+    rooms: string;
+    bath: number;
+    livingRooms: string;
+    location: string;
+    price: number;
+    areaInKm: string;
+    rentOrSale: string;
+    shortDescription: string;
+    images: string[];
+    agentId: number;
+}
+
 const Dashboard: React.FC = () => {
     const maxValue = Math.max(...data.map((item) => item.value));
+    const[dataLength, setDataLength] = useState(Number)
+    const { data:dataforAgent, isLoading, isError } = useQuery({
+        queryKey: ['propWithAgentId'],
+        queryFn: async () => {
+            const { data } = await axios.get(propertiesForAgent)
+            const dataLength = data.length
+            setDataLength(dataLength)            
+            return data as Property[]
+        }
+    })
 
     return (
         <DdHeaderProvider header="Dashboard" only_header>
@@ -24,7 +54,7 @@ const Dashboard: React.FC = () => {
                 <div className='bg-blue pb-20'>
                     <div className=' hidden md:block bg-white py-7 px-8 rounded-lg mb-10'>
                         <ul className='flex justify-between items-center'>
-                            <li className='text-gray-400'>All Properties <br /><span className='font-serif text-3xl font-bold text-black'>1.9K+</span></li>
+                            <li className='text-gray-400'>All Properties <br /><span className='font-serif text-3xl font-bold text-black'>{dataLength}+</span></li>
                             <li className='text-5xl font-bold'><BsPersonCircle /></li>
                             <li className='text-gray-400'>Total Pending <br /><span className='font-serif text-3xl font-bold text-black'>03</span></li>
                             <li className='text-2xl bg-black p-4 rounded-full text-white font-bold'><CiBookmarkMinus /></li>

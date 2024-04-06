@@ -43,6 +43,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
         enabled: !!rooms
     })
 
+    // debounced so that my end point doesnt get exhausted, fetching onlyafter one second
 
     useEffect(() => {
         if (rooms) {
@@ -65,6 +66,9 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
 
     if (isLoading) return <div>Loading ...</div>
     if (isError) return <div>please try again</div>
+
+
+    // implementing favourites
 
     const toggleFavorite = (id: number) => {
         setFavorites((prevFavorites) => {
