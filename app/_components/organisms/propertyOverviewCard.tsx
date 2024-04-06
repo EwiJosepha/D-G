@@ -1,4 +1,5 @@
 "use-client"
+
 import React, { useState } from 'react'
 import { SharedState } from '@/app/(dashboard-details-page)/dashboard/addNewProperties/page';
 type Prop = {
@@ -108,20 +109,20 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
     function save() {
         if (propertyInfo.description === "") {
-            setError('Please fill this fields')
+            setError('Please fill this field')
             return
         }
 
         if (propertyInfo.name === '') {
-            setError('Please fill this fields')
+            setError('Please fill this field')
             return
         }
         if (!propertyInfo.price) {
-            setError('Please fill this fields')
+            setError('Please fill this field')
             return
         }
         if (propertyInfo.rentOrSale === '') {
-            setError('Please fill this fields')
+            setError('Please fill this field')
             return
         }
 
@@ -166,7 +167,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     </label>
                     <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
                         onChange={handleSelectChange}>
-                            
+
                         <option value=''></option>
                         <option value='apartment'>Apartment</option>
                         <option value='studios'>Studios</option>
