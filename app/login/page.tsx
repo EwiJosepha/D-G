@@ -9,9 +9,6 @@ import { useRouter } from 'next/navigation';
 import cookieSet from '../utils/handle-search';
 import { NextRequest } from 'next/server';
 
-
-
-
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -19,8 +16,6 @@ const LoginPage: React.FC = () => {
     const [succesful, setSuccesful] = useState(Boolean)
     const [redirected, setRedirected] = useState(Boolean)
     const router = useRouter()
-
-
 
     const handleRegister = async (e: any,) => {
         e.preventDefault()
@@ -38,7 +33,7 @@ const LoginPage: React.FC = () => {
             },
             body: JSON.stringify(formData)
         })
-      const badrequest = res.status === 400
+        const badrequest = res.status === 400
         const goodreq = res.status === 201
         setBadreq(badrequest)
         setSuccesful(goodreq)
@@ -54,12 +49,9 @@ const LoginPage: React.FC = () => {
             if (typeof localStorage !== "undefined") {
                 localStorage.setItem("decoded", JSON.stringify(decoded))
             }
-
             router.push('/dashboard')
         }
     }
-
-
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue">
@@ -69,7 +61,7 @@ const LoginPage: React.FC = () => {
                     <Link href='/' passHref ><FaTimes /></Link>
                 </div>
                 <form onSubmit={handleRegister}>
-                    {badreq && <div className=' color-red-800 font-medium text-red-600'>wrong credentials try again!!!</div>}<br />
+                    {badreq && <div className='text-red-600 font-serif text-base'>wrong credentials try again!!!</div>}<br />
 
                     {succesful && <div className=' color-red-800 font-medium text-green-700'>Login succesful</div>}<br />
 
