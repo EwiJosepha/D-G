@@ -14,6 +14,7 @@ const HeroSection: React.FC = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [searchVal, setSearchVal] = useState("")
 
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -29,12 +30,14 @@ const HeroSection: React.FC = () => {
         setSearchVal(e.target.value)
     };
 
+   
     function handleClick() {
         const fun = searchRooms(searchVal)
 
     }
 
-    console.log(searchVal);
+    // console.log(searchVal);
+
     return (
         <div className="font-serif">
             <section className="w-full max-w-full">

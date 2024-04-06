@@ -6,6 +6,7 @@ import PropertyListingDetailCard from '@/app/_components/organisms/propertyListi
 import DbPropertyOverviewCard from '@/app/_components/organisms/propertyOverviewCard';
 import { useEffect, useState } from 'react';
 import { postUrl } from '@/app/utils/util';
+import { useRouter } from 'next/navigation';
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
@@ -41,6 +42,7 @@ const sharedStateDefault = {
     PropertyImageCard: []
 }
 const AddNewProperty: React.FC = () => {
+    const router = useRouter()
     const [shareState, setShareState] = useState<SharedState>(sharedStateDefault)
 
     //save to localstorage
@@ -76,7 +78,7 @@ const AddNewProperty: React.FC = () => {
         load('PropertyImageCard')
     }, [])
 
-    console.log("shar", shareState);
+    // console.log("shar", shareState);
 
     function handleSubmit() {
         //desstructure so as to  remove them from objcts
@@ -95,12 +97,12 @@ const AddNewProperty: React.FC = () => {
             images
         };
 
-        const editableFields: DbPropertyOverviewCard & PropertyListingDetailCard = {
-            ...destructureObj1,
-            ...desstructureObj2,
-        }
+        // const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
+        //     ...destructureObj1,
+        //     ...desstructureObj2,
+        // }
 
-        localStorage.setItem("editable", JSON.stringify(editableFields))
+        // localStorage.setItem("editable", JSON.stringify(editableFields))
 
         const reqBody = {
             method: 'POST',
@@ -124,6 +126,7 @@ const AddNewProperty: React.FC = () => {
                     console.log('Incomplete data or information');
                 } else {
                     console.log(data);
+                    router.push("/dashboard/myProperties")
                 }
             })
             .catch((error) => {

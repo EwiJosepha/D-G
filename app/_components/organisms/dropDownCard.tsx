@@ -16,9 +16,11 @@ const DropDownCard: React.FC = () => {
                     </li>
 
                 </Link>
+                <Link href={"/dashboard/deleteproperty"}>
                 <li className="flex item-center gap-2 cursor-pointer" >
                     <FaTrashAlt /> Delete
                 </li>
+                </Link>
                 <li className="flex item-center gap-2 cursor-pointer">
                     <FaShare /> Share
                 </li>

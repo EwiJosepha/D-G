@@ -38,7 +38,8 @@ const LoginPage: React.FC = () => {
             },
             body: JSON.stringify(formData)
         })
-      const badrequest = res.status === 400
+
+        const badrequest = res.status === 400
         const goodreq = res.status === 201
         setBadreq(badrequest)
         setSuccesful(goodreq)
@@ -59,14 +60,13 @@ const LoginPage: React.FC = () => {
         }
     }
 
-
-
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue">
             <div className="bg-white w-96 p-10 rounded shadow">
                 <div className='items-center flex justify-between mb-6'>
-                    <h2 className="text-2xl font-bold">Login</h2>
-                    <Link href='/' passHref ><FaTimes /></Link>
+                    
+                        <><h2 className="text-2xl font-bold">Login</h2>
+                            <Link href='/' passHref ><FaTimes /></Link> </>
                 </div>
                 <form onSubmit={handleRegister}>
                     {badreq && <div className=' color-red-800 font-medium text-red-600'>wrong credentials try again!!!</div>}<br />
