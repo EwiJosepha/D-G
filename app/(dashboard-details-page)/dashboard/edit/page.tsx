@@ -62,15 +62,16 @@ const EditProfile: React.FC<{ imageUrl: string }> = ({ imageUrl }): JSX.Element 
   return (
     <div>
       <DdHeaderProvider header="Edit Profile">
-        <div className="mx-auto container py-10 px-20 mb-16">
+        <div className="mx-auto container py-10 px-20 mb-10">
 
           <Image
             src={formData?.imageUrl || '/default-profile-picture.jpg'}
-            alt="Profile Picture"
+            alt="DP"
             layout="fixed"
-            height={100}
-            width={100}
+            height={200}
+            width={200}
             className="rounded-full object-cover border"
+            style={{ width: "120px", height: "120px" }}
           />
 
           <input
