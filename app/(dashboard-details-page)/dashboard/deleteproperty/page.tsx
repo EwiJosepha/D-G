@@ -41,7 +41,7 @@ function DeleteProperty() {
     <div>
       <h1>Are you sure you want to delete this Property?
 
-        <button type='submit' onClick={deleteProperty}>Click here to Delete</button>
+        <button type='submit' onClick={deleteProperty}>Click here to Delete property</button>
       </h1>
     </div>
   )
