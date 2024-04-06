@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaBars, FaRegUserCircle, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 import FooterLogo from './footerLogo';
@@ -10,10 +10,25 @@ import MobileMenu from './mobileMenu';
 
 const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isAgentSign, setIsAgentSign] = useState(false)
+
 
     const handleMobileMenuToggle = () => {
         setIsMobileMenuOpen((prevIsMobileMenuOpen) => !prevIsMobileMenuOpen)
     };
+
+    useEffect(() => {
+        if (typeof localStorage !== "undefined") {
+            const decoded = JSON.parse(localStorage.getItem("decoded") as string)
+            if (decoded) {
+                setIsAgentSign(true)
+            }
+        }
+    }, [])
+
+    console.log("agentopen", isAgentSign);
+    console.log("hey");
+
 
     return (
         <nav className="bg-blue ">
@@ -50,13 +65,16 @@ const Navbar: React.FC = () => {
                             <button className="text-white hover:text-gray-300">Contact Us</button>
                         </div>
 
-                        <Link href='/login' >
-                            <span className="relative text-white flex items-center justify-center">
-                                <FaRegUserCircle className='mr-2 text-2xl' />
-                                <button className=" hover:text-gray-300">Log In</button>
-                            </span>
+                        {!isAgentSign &&
+                            <Link href='/login' >
+                                <span className="relative text-white flex items-center justify-center">
+                                    <FaRegUserCircle className='mr-2 text-2xl' />
+                                    <button className=" hover:text-gray-300">Log In</button>
+                                </span>
 
-                        </Link>
+                            </Link>
+                        }
+
                     </div>
 
 
