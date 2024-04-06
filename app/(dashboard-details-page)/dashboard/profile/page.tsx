@@ -30,6 +30,7 @@ const Profile: React.FC = () => {
     //handling form data
     function submitData() {
         const formData = {
+            imageUrl: imageUrl,
             username: username,
             firstName: firstName,
             lastName: lastName,
@@ -40,7 +41,6 @@ const Profile: React.FC = () => {
         localStorage.setItem("agentData", JSON.stringify(formData))
         console.log(formData);
     }
-
 
     const handleUsername = (e: any) => {
         e.preventDefault
@@ -94,13 +94,15 @@ const Profile: React.FC = () => {
     return (
         <DdHeaderProvider header="Profile">
             <>
-                {!isProfileCreated &&
+                {!isProfileCreated && (
                     <div className="mx-auto container py-10 px-20 mb-16">
                         {/* Profile Image */}
                         {imageUrl && (
                             <div className="mb-4 mt-8 flex items-center">
-                                <img src={imageUrl} alt="Profile" className=" h-16 w-16 rounded-full" />
+                                <label htmlFor="profilepicture" className="block font-medium">
 
+                                    <img src={imageUrl} alt="Profile" className="h-16 w-16 rounded-full" />
+                                </label>
                                 <button className="text-red-500 ml-2" onClick={handleImageDelete}>
                                     Delete
                                 </button>
@@ -110,7 +112,6 @@ const Profile: React.FC = () => {
                         <div className="mb-4">
                             <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
                         </div>
-
                         < div className="mb-4">
                             <label htmlFor="username" className="block font-medium">
                                 Username*
@@ -201,7 +202,8 @@ const Profile: React.FC = () => {
                         </Link>
                     </div>
 
-                }
+                )}
+
             </>
         </DdHeaderProvider >
     );

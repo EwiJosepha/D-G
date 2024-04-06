@@ -3,8 +3,10 @@
 import DdHeaderProvider from '@/app/_components/db-header-provider'
 import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image';
 
 interface FormData {
+  imageUrl: string,
   username: string;
   firstName: string;
   lastName: string;
@@ -12,8 +14,9 @@ interface FormData {
   phoneNumber: string;
   bio: string;
 }
-const EditProfile: React.FC<{}> = (): JSX.Element | null => {
+const EditProfile: React.FC<{ imageUrl: string }> = ({ imageUrl }): JSX.Element | null => {
   const [formData, setFormData] = useState<FormData>({
+    imageUrl: imageUrl,
     username: '',
     firstName: '',
     lastName: '',
@@ -42,10 +45,50 @@ const EditProfile: React.FC<{}> = (): JSX.Element | null => {
     }
   };
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormData({ ...formData, imageUrl: reader.result as string });
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+
   return (
     <div>
       <DdHeaderProvider header="Edit Profile">
         <div className="mx-auto container py-10 px-20 mb-16">
+
+          <Image
+            src={formData?.imageUrl || '/default-profile-picture.jpg'}
+            alt="Profile Picture"
+            layout="fixed"
+            height={100}
+            width={100}
+            className="rounded-full object-cover border"
+          />
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="mt-4 text-xs"
+          />
+
+
+          {/* <Image
+            src={formData?.imageUrl || '/default-profile-picture.jpg'}
+            alt="Profile Picture"
+            layout='responsive' height={200} width={200}
+            className="rounded-full object-cover border"
+          /> */}
+
+
           < div className="mb-4 mt-8">
             <label htmlFor="username" className="block font-medium">
               Username*
