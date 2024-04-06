@@ -66,7 +66,6 @@ const LoginPage: React.FC = () => {
                 <div className='items-center flex justify-between mb-6'>
                     
                         <><h2 className="text-2xl font-bold">Login</h2>
-                            <p>hey</p>
                             <Link href='/' passHref ><FaTimes /></Link> </>
                 </div>
                 <form onSubmit={handleRegister}>

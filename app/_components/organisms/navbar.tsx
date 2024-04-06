@@ -25,11 +25,7 @@ const Navbar: React.FC = () => {
             }
         }
     }, [])
-
-    console.log("agentopen", isAgentSign);
-    console.log("hey");
-
-
+    
     return (
         <nav className="bg-blue ">
             <div className="container mx-auto px-4">

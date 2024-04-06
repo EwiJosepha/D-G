@@ -4,6 +4,7 @@ import { parsedId } from '@/app/utils/util';
 import { updateproperties } from '@/app/utils/util';
 import { getsingleDashboardProp } from '@/app/utils/util';
 import { useRouter } from 'next/navigation';
+import DdHeaderProvider from '@/components/db-header-provider';
 
 
 type Prop = {
@@ -153,10 +154,11 @@ const PropertyEdit: React.FC = () => {
 
   return (
     <>
-      <form onSubmit={(e) => { e.preventDefault(); save1(); }}>
+      <DdHeaderProvider header='Edit Property' >
+        <form onSubmit={(e) => { e.preventDefault(); save1(); }} className='p-6 mx-auto container py-10 px-20 mb-0'>
 
-        <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
-          <h3 className="text-xl font-semibold mb-2">Overview</h3>
+          <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
+            <h3 className="text-xl font-semibold mb-4">Overview </h3>
           <div className="mb-4">
             <label htmlFor="propertyTitle" className="block">
               Property Name*
@@ -241,7 +243,7 @@ const PropertyEdit: React.FC = () => {
           </div>
           {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
         </div>
-        <div className="p-4 shadow shadow-blue rounded-lg">
+        <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
           <h3 className="text-xl font-semibold mb-2">Listing Details</h3>
 
           <div className='flex justify-between items-center'>
@@ -344,12 +346,15 @@ const PropertyEdit: React.FC = () => {
               required
             />
           </div>
+
+          </div>
+
           {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
 
-          <button type='submit'>Save</button>
-
-        </div>
-      </form>
+          <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5' type='submit'>Save</button>
+        </form>
+      </DdHeaderProvider>
+      
     </>);
 };
 
