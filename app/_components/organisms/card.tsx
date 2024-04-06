@@ -87,7 +87,7 @@ const Card: React.FC<Property> = ({
                         <img src={images[0]} alt="Owner Avatar" className="w-10 h-10 rounded-full mr-2" />
                     </div>
                     <div className="bg-blue py-2 flex text-white justify-between mt-4 px-6 items-center rounded-xl">
-                        <p className="text-gray-200 mb-2">{shortDescription}</p>
+                        <p className="text-gray-200 mb-2">{rentOrSale}</p>
                         <p className="flex items-center justify-center">
                             2 <FaBed className="ml-1 mr-3" /> 1 <FaBath className="ml-1" />
                         </p>

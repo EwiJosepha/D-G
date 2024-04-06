@@ -6,6 +6,7 @@ import PropertyListingDetailCard from '@/app/_components/organisms/propertyListi
 import DbPropertyOverviewCard from '@/app/_components/organisms/propertyOverviewCard';
 import { useEffect, useState } from 'react';
 import { postUrl } from '@/app/utils/util';
+import { useRouter } from 'next/navigation';
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
@@ -41,6 +42,7 @@ const sharedStateDefault = {
     PropertyImageCard: []
 }
 const AddNewProperty: React.FC = () => {
+    const router = useRouter()
     const [shareState, setShareState] = useState<SharedState>(sharedStateDefault)
 
     //save to localstorage
@@ -124,6 +126,7 @@ const AddNewProperty: React.FC = () => {
                     console.log('Incomplete data or information');
                 } else {
                     console.log(data);
+                    router.push("/dashboard/myProperties")
                 }
             })
             .catch((error) => {

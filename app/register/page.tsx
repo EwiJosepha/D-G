@@ -9,20 +9,21 @@ import { FaTimes } from 'react-icons/fa';
 const RegisterPage: React.FC = () => {
     const router = useRouter()
     const [name, setName] = useState("")
+    const [err, setErr] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
 
-    const handleRegister = async (e: any)=> {
+    const handleRegister = async (e: any) => {
         e.preventDefault()
 
-        const formData  = {
+        const formData = {
             name,
             email,
             hashpassword: password
         }
 
-        const res = await fetch("http://localhost:4000/auth/signup",{
+        const res = await fetch("http://localhost:4000/auth/signup", {
             method: "POST",
             mode: "cors",
             headers: {
@@ -31,17 +32,18 @@ const RegisterPage: React.FC = () => {
 
             body: JSON.stringify(formData)
         })
-        if(res.status === 201){
+
+        if (res.status === 201) {
+            setErr("Agent already exist please login")
             router.push("login")
         }
 
-        console.log("formdata",formData)
-        console.log("res",res)
-
+        // console.log("formdata",formData)
+        // console.log("res",res)
     }
 
-    
-    
+
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue">
@@ -54,11 +56,12 @@ const RegisterPage: React.FC = () => {
 
                 <form onSubmit={handleRegister}>
                     <div className="mb-4">
+                        {err && <p>Agent already exist please login</p>}
                         <label htmlFor="username" className="block mb-2 font-medium">
                             Username
                         </label>
                         <input
-                        onChange={(e)=> setName(e.target.value)}
+                            onChange={(e) => setName(e.target.value)}
                             type="text"
                             id="username"
                             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
@@ -69,8 +72,8 @@ const RegisterPage: React.FC = () => {
                             Email
                         </label>
                         <input
-                        onChange={(e)=> setEmail(e.target.value)}
-                        
+                            onChange={(e) => setEmail(e.target.value)}
+
                             type="email"
                             id="email"
                             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
@@ -81,7 +84,7 @@ const RegisterPage: React.FC = () => {
                             Password
                         </label>
                         <input
-                        onChange={(e)=> setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
 
                             type="password"
                             id="password"

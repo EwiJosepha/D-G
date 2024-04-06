@@ -7,6 +7,7 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { propertiesForAgent } from '@/app/utils/util';
+import Link from 'next/link';
 
 type Property = {
     id: number;
@@ -45,9 +46,9 @@ const MyProperties: React.FC = () => {
             setIsDropdownVisible(true);
             setSelectedPropertyId(propertyId);
         }
-        if(typeof localStorage !== 'undefined'){
-           const  uptPropId = localStorage.setItem('propId',  JSON.stringify(propertyId))
-          }
+        if (typeof localStorage !== 'undefined') {
+            const uptPropId = localStorage.setItem('propId', JSON.stringify(propertyId))
+        }
     };
 
     if (data?.length === 0) {
@@ -70,17 +71,19 @@ const MyProperties: React.FC = () => {
                         </thead>
                         <tbody>
                             {data?.map((property) => (
+                                
                                 <tr key={property.id} className="border-b-2">
-
                                     <td className="px-4 py-6">
-                                        <div className="flex">
-                                            <img src={property.images[1]} alt="Property" className="w-20 h-20 rounded-lg mr-3" />
-                                            <div className="flex flex-col space-y-2">
-                                                <span className="cursor-pointer hover:text-orange-500">{property.name}</span>
-                                                <span className="text-gray-400 text-sm cursor-pointer">{property.location}</span>
-                                                <span className="cursor-pointer">{property.price}</span>
+                                        <Link href={`/details/${property.id}`}>
+                                            <div className="flex cursor-pointer">
+                                                <img src={property.images[1]} alt="Property" className="w-20 h-20 rounded-lg mr-3" />
+                                                <div className="flex flex-col space-y-2">
+                                                    <span className="cursor-pointer hover:text-orange-500">{property.name}</span>
+                                                    <span className="text-gray-400 text-sm cursor-pointer">{property.location}</span>
+                                                    <span className="cursor-pointer">{property.price}</span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     </td>
                                     <td className="px-4 py-2">{property.description}</td>
                                     <td className="px-4 py-2">{property.rentOrSale}</td>

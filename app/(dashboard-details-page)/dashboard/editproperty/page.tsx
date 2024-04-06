@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { parsedId } from '@/app/utils/util';
 import { updateproperties } from '@/app/utils/util';
 import { getsingleDashboardProp } from '@/app/utils/util';
+import { useRouter } from 'next/navigation';
 
 
 type Prop = {
@@ -22,6 +23,7 @@ type Prop = {
 }
 
 const PropertyEdit: React.FC = () => {
+  const router = useRouter()
   const [error, setError] = useState<string>('');
   const { data } = getsingleDashboardProp()
   console.log("editd", data);
@@ -136,11 +138,9 @@ const PropertyEdit: React.FC = () => {
         } else if (data.status === 200) {
           console.log('Incomplete data or information');
         } else {
-          console.log("updated succesfully");
-          console.log("propInfo", propertyInfo2);
-
-          console.log(data);
-
+          // console.log("updated succesfully");
+          // console.log("propInfo", propertyInfo2);
+         router.push("/dashboard/myProperties")
         }
       })
 
@@ -150,8 +150,6 @@ const PropertyEdit: React.FC = () => {
 
   }
 
-  console.log("propname",propertyInfo2.name);
-  
 
   return (
     <>
