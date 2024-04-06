@@ -80,15 +80,6 @@ const EditProfile: React.FC<{ imageUrl: string }> = ({ imageUrl }): JSX.Element 
             className="mt-4 text-xs"
           />
 
-
-          {/* <Image
-            src={formData?.imageUrl || '/default-profile-picture.jpg'}
-            alt="Profile Picture"
-            layout='responsive' height={200} width={200}
-            className="rounded-full object-cover border"
-          /> */}
-
-
           < div className="mb-4 mt-8">
             <label htmlFor="username" className="block font-medium">
               Username*
