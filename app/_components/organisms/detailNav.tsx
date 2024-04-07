@@ -38,7 +38,7 @@ function DetailNav() {
         <div className="hidden md:flex items-center space-x-16">
           <Link href="/contactPage">Contact Us</Link>
           <Link href="/description">Amenities</Link>
-          <Link href="/#">Get Help</Link>
+          <Link href="/dashboard/myProperties">Dashboard</Link>
           <FaHeart />
           <FaCodeMerge />
         </div>
