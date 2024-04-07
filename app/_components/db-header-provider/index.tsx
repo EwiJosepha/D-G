@@ -1,5 +1,7 @@
 'use client';
 
+import Link from "next/link";
+
 interface Props {
     header?: string;
     children: React.ReactNode;
@@ -16,7 +18,7 @@ export default function DdHeaderProvider({ children, only_header, header = '' }:
                 {/* Desktop Menu */}
                 <div className="md:flex items-center space-x-20 pr-28">
                     <div className="relative group">
-                        <button className="hidden md:block hover:text-gray-300">Add Listings</button>
+                        <Link href='/dashboard/addNewProperties' className="hidden md:block hover:text-gray-300 bg-orange-400 py-3 px-8 rounded-lg">Add Listings</Link>
                     </div>
 
                     {/* Avatar */}
