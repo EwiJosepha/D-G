@@ -2,6 +2,8 @@
 
 import DdHeaderProvider from '@/app/_components/db-header-provider';
 import { useEffect, useState } from 'react';
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -63,9 +65,8 @@ const Profile: React.FC = () => {
         const email = e.target.value
         setEmail(email)
     }
-    const handlePhoneNumber = (e: any) => {
-        e.preventDefault
-        const phoneNumber = e.target.value
+    const handlePhoneNumber = (value: any) => {
+        const phoneNumber = value
         setPhoneNumber(phoneNumber)
     }
     const handleBio = (e: any) => {
@@ -172,15 +173,18 @@ const Profile: React.FC = () => {
 
                             <div className="mb-4 w-[45%]">
                                 <label htmlFor="phoneNumber" className="block font-medium">
-                                    Phone Number*
-                                </label>
-                                <input
-                                    type="tel"
-                                    id="phoneNumber"
-                                    value={phoneNumber}
-                                    onChange={(e) => handlePhoneNumber(e)}
-                                    className="border border-gray-300 px-4 py-2 rounded-md w-full"
-                                    required />
+                                    {/* Phone Number* */}
+                                </label><br/>
+                                    < PhoneInput
+                                        country={"cm"}
+                                        inputProps={{
+                                            require: true
+                                        }}
+                                        // id="phoneNumber"
+                                        value={phoneNumber}
+                                        onChange={handlePhoneNumber}
+                                    // style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '8px', width: '100%' }}   
+                                    />
                             </div>
                         </div>
 
