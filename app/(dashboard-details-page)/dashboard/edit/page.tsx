@@ -14,7 +14,8 @@ interface FormData {
   phoneNumber: string;
   bio: string;
 }
-
+// <{ imageUrl: string }> 
+// { imageUrl } 
 const EditProfile: React.FC = (): JSX.Element | null => {
   const [formData, setFormData] = useState<FormData>({
     imageUrl: '',
