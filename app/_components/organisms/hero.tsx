@@ -30,7 +30,7 @@ const HeroSection: React.FC = () => {
         setSearchVal(e.target.value)
     };
 
-   
+
     function handleClick() {
         const fun = searchRooms(searchVal)
 
@@ -49,8 +49,9 @@ const HeroSection: React.FC = () => {
             </section>
             <section className="absolute bottom-1/3 transform -translate-x-1/2 left-1/2">
                 <div className="container mx-auto px-4">
-                    <h1 className="text-white font-extrabold md:text-4xl mb-20 sm:text-3xl md:text-left xs:text-center">
-                        Find Your Dream Home At D&J. The Best Luxury Selection
+                    <h1 className="text-white font-extrabold md:text-3xl mb-20 sm:text-3xl md:text-center xs:text-center bg-blue p-10 bg-opacity-60">
+                        Find Your Dream Home At D&J.
+                        The Best Luxury Selection
                     </h1>
 
                     <div className="text-white -mb-6 bg-blue border-0 px-6 py-4 w-40 rounded-lg">

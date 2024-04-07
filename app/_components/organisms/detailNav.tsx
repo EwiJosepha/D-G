@@ -15,7 +15,7 @@ function DetailNav() {
 
   return (
     <>
-      <div className="detailspageWrapper overflow-x-visible md:px-24 px-6 absolute z-10 border-b-2 border-white w-full text-white font-extrabold text-lg">
+      <div className="detailspageWrapper md:px-24 px-6 z-10 w-full text-white font-extrabold text-lg bg-black bg-opacity-60 fixed ">
 
         <div className="villa">
           <FooterLogo />
