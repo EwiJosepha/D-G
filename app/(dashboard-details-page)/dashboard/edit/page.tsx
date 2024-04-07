@@ -15,9 +15,9 @@ interface FormData {
   bio: string;
 }
 
-const EditProfile: React.FC<{ imageUrl: string }> = ({ imageUrl }): JSX.Element | null => {
+const EditProfile: React.FC = (): JSX.Element | null => {
   const [formData, setFormData] = useState<FormData>({
-    imageUrl: imageUrl,
+    imageUrl: '',
     username: '',
     firstName: '',
     lastName: '',
