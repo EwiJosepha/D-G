@@ -10,16 +10,16 @@ const DropDownCard: React.FC = () => {
         <div>
             <ul className="w-28 shadow-lg p-4 rounded-lg space-y-4 bg-white text-gray-700">
                 <Link href={"/dashboard/editproperty"}>
-                    <li className="flex item-center gap-2 cursor-pointer"
+                    <li className="flex item-center gap-2 cursor-pointer mb-5"
                     >
                         <FaEdit /> Edit
                     </li>
 
                 </Link>
                 <Link href={"/dashboard/deleteproperty"}>
-                <li className="flex item-center gap-2 cursor-pointer" >
-                    <FaTrashAlt /> Delete
-                </li>
+                    <li className="flex item-center gap-2 cursor-pointer" >
+                        <FaTrashAlt /> Delete
+                    </li>
                 </Link>
                 <li className="flex item-center gap-2 cursor-pointer">
                     <FaShare /> Share
