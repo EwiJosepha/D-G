@@ -13,11 +13,11 @@ const DetailHero: React.FC = () => {
     // if(typeof localStorage !== 'undefined'){
     //     localStorage.setItem('propId', pathValstring)
     // } 
-    
+
     console.log(pathValstring);
-    
-    const dataFromQuery: {name:string, areaInKm: string, location: string,  livingRooms: string,  price: number,  bath: number,rooms: string,rentOrSale: string, description: string, images: []} = data
-    
+
+    const dataFromQuery: { name: string, areaInKm: string, location: string, livingRooms: string, price: number, bath: number, rooms: string, rentOrSale: string, description: string, images: [] } = data
+
     const [currentImage, setCurrentImage] = useState(0);
     const previousImage = () => {
         setCurrentImage((prevState) =>
@@ -32,9 +32,9 @@ const DetailHero: React.FC = () => {
     };
 
     return (
-        <div className="relative p-4">
+        <div className="relative">
             <button
-                className="absolute top-1/2 left-7 transform -translate-y-1/2 px-4 py-2 border-4 bg-transparent border-white font-bold"
+                className="absolute top-1/2 left-7 transform -translate-y-1/2 px-4 py-4 bg-black bg-opacity-50 font-bold border-4 border-white rounded-full"
                 onClick={previousImage}
             >
                 <GrPrevious className="text-white" />
@@ -45,7 +45,7 @@ const DetailHero: React.FC = () => {
                 alt="Carousel Image"
             />
             <button
-                className="absolute top-1/2 right-7 transform -translate-y-1/2 px-4 py-2 bg-transparent font-bold border-4 border-white"
+                className="absolute top-1/2 right-7 transform -translate-y-1/2 px-4 py-4 bg-black bg-opacity-50 font-bold border-4 border-white rounded-full"
                 onClick={nextImage}
             >
                 <GrNext className="text-white" />

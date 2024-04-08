@@ -64,14 +64,14 @@ const MyProperties: React.FC = () => {
                         <thead className="bg-black text-white">
                             <tr>
                                 <th className="py-2">Title</th>
-                                <th className="py-2">Date</th>
+                                <th className="py-2">Description</th>
                                 <th className="py-2">Status</th>
                                 <th className="py-2 ">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {data?.map((property) => (
-                                
+
                                 <tr key={property.id} className="border-b-2">
                                     <td className="px-4 py-6">
                                         <Link href={`/details/${property.id}`}>
@@ -85,7 +85,7 @@ const MyProperties: React.FC = () => {
                                             </div>
                                         </Link>
                                     </td>
-                                    <td className="px-4 py-2">{property.description}</td>
+                                    <td className="px-4 py-2 w-[45%]">{property.description}</td>
                                     <td className="px-4 py-2">{property.rentOrSale}</td>
                                     <td className="px-4 py-2">
                                         <div className="flex items-center">

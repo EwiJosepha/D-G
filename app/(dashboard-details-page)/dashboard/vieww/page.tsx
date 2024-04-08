@@ -28,15 +28,13 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null => {
         <div className="mx-auto py-10 px-20 items-center justify-center flex flex-col">
           <div className="flex justify-center mb-6 w-52 h-52">
 
-            <Image alt='DP' src='/av5.jpg' layout='responsive' height={200} width={200} className='rounded-full object-cover' />
-
             {/* use this image because is gotten from the profile update there we have to add the Pictureprofile to the formdata  */}
-            {/* <Image
-              src={formData?.profilePicture || '/default-profile-picture.jpg'}
-              alt="Profile Picture"
+            <Image
+              src={formData?.imageUrl || '/default-profile-picture.jpg'}
+              alt="Profile Pic"
               layout='responsive' height={200} width={200}
               className="rounded-full object-cover border"
-            /> */}
+            />
           </div>
 
           <p className="font-bold text-3xl font-serif capitalize">{formData?.username}</p>
