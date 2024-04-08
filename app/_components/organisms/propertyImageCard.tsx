@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ComponentProps } from "./propertyOverviewCard";
+import Image from "next/image";
 
 type FormData = {
     profile: FileList;
@@ -80,16 +81,21 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
                 Upload to Cloud
             </button>
 
-            <div className="flex">
+            <div className="grid grid-cols-8 gap-1">
                 {uploadedImages?.map((imageUrl, index) => (
-                    <img
-                        key={index}
-                        src={imageUrl}
-                        alt={`Uploaded Image ${index + 1}`}
-                        className="w-32 h-32 mr-2 mt-2 object-cover rounded"
-                    />
+                    <div key={index} className="w-32 h-32">
+                        <Image
+                            src={imageUrl}
+                            alt={`Uploaded Image ${index + 1}`}
+                            width={120}
+                            height={120}
+                            layout="responsive"
+                            className="object-cover rounded"
+                        />
+                    </div>
                 ))}
             </div>
+
         </form>
     );
 }
