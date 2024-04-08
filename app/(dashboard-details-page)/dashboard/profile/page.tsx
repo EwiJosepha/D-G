@@ -10,8 +10,6 @@ import { agentdata } from '@/app/utils/util';
 
 
 const Profile: React.FC = () => {
-    const { data } = agentdata()
-
     const router = useRouter()
     const [isProfileCreated, setIsProfileCreated] = useState(false)
     const [imageUrl, setImageUrl] = useState('');
@@ -23,11 +21,10 @@ const Profile: React.FC = () => {
     const [errorf, setErrorf] = useState<string>('');
     const [errorl, setErrorl] = useState<string>('');
     const [errorn, setErrorn] = useState<string>('');
-    const [errorb, setErrorb] = useState<string>('');
-
-    const [email, setEmail] = useState('')
+    const [errorb, setErrorb] = useState<string>(''); const [email, setEmail] = useState('')
     const [bio, setBio] = useState('');
     const [wrongEmail, setWrongEmail] = useState(false);
+    const { data } = agentdata()
     const emailAgent = data?.email
 
     useEffect(() => {
@@ -41,6 +38,7 @@ const Profile: React.FC = () => {
     }, [])
 
     //handling form data
+
     function submitData() {
         const formData = {
             username: username,
@@ -54,17 +52,14 @@ const Profile: React.FC = () => {
         console.log(formData);
     }
 
-
     const handleUsername = (e: any) => {
         e.preventDefault
         const name = e.target.value
         if (name === "" || name.length > 9) {
             setError('user name is too long')
             console.log("name", name.length);
-
         }
         setUsername(name)
-
     }
 
     const handleFirstName = (e: any) => {
@@ -75,25 +70,26 @@ const Profile: React.FC = () => {
         }
         setFirstName(firstname)
     }
+
     const handleLastName = (e: any) => {
         e.preventDefault
         const lastname = e.target.value
         if (lastName === "" || lastName.length > 9) {
             setErrorl('your firstname is too long')
         }
-      
         setLastName(lastname)
     }
+
     const handleEmail = (e: any) => {
         e.preventDefault
         const email = e.target.value
         if (email === emailAgent) {
             setEmail(email)
-
         } else {
             return setWrongEmail(true)
         }
     }
+
     const handlePhoneNumber = (value: any) => {
         const phoneNumber = value
         if (phoneNumber === "" || phoneNumber.length > 10) {
@@ -101,11 +97,12 @@ const Profile: React.FC = () => {
         }
         setPhoneNumber(phoneNumber)
     }
+
     const handleBio = (e: any) => {
         e.preventDefault
         const bio = e.target.value
         if (bio === "" || bio.length > 300) {
-            setErrorn('too long')
+            setErrorb('too long')
         }
         setBio(bio)
     }
@@ -117,11 +114,9 @@ const Profile: React.FC = () => {
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         const reader = new FileReader();
-
         reader.onloadend = () => {
             setImageUrl(reader.result as string);
         };
-
         if (file) {
             reader.readAsDataURL(file);
         }
@@ -132,7 +127,6 @@ const Profile: React.FC = () => {
             <>
                 {!isProfileCreated &&
                     <div className="mx-auto container py-10 px-20 mb-16">
-                        {/* Profile Image */}
                         {imageUrl && (
                             <div className="mb-4 mt-8 flex items-center">
                                 <img src={imageUrl} alt="Profile" className=" h-16 w-16 rounded-full" />
@@ -158,7 +152,7 @@ const Profile: React.FC = () => {
                                 onChange={(e) => handleUsername(e)}
                                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 required />
-                                  {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
                         </div>
 
                         <div className='flex justify-between'>
@@ -174,7 +168,7 @@ const Profile: React.FC = () => {
                                     onChange={(e) => handleFirstName(e)}
                                     className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                     required />
-                                      {errorf && <p className="p-4 shadow shadow-blue rounded-lg">{errorf}</p>}
+                                {errorf && <p className="p-4 shadow shadow-blue rounded-lg">{errorf}</p>}
                             </div>
 
                             {/* Last Name */}
@@ -189,7 +183,7 @@ const Profile: React.FC = () => {
                                     onChange={(e) => handleLastName(e)}
                                     className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 />
-                                  {errorl && <p className="p-4 shadow shadow-blue rounded-lg">{errorl}</p>}
+                                {errorl && <p className="p-4 shadow shadow-blue rounded-lg">{errorl}</p>}
                             </div>
                         </div>
 
@@ -206,7 +200,7 @@ const Profile: React.FC = () => {
                                     onChange={(e) => handleEmail(e)}
                                     className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 />
-                                
+
                                 {wrongEmail && <p style={{ color: "red" }}>Wrong</p>}
                             </div>
 
@@ -240,7 +234,7 @@ const Profile: React.FC = () => {
                                 onChange={(e) => handleBio(e)}
                                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 required></textarea>
-                                  {errorb && <p className="p-4 shadow shadow-blue rounded-lg">{errorb}</p>}
+                            {errorb && <p className="p-4 shadow shadow-blue rounded-lg">{errorb}</p>}
                         </div>
                         <Link href={"/dashboard/vieww"}>
                             <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mr-16 mt-10' onClick={submitData}>submit</button>
