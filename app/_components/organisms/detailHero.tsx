@@ -18,18 +18,25 @@ const DetailHero: React.FC = () => {
 
     const dataFromQuery: { name: string, areaInKm: string, location: string, livingRooms: string, price: number, bath: number, rooms: string, rentOrSale: string, description: string, images: [] } = data
 
+    const images = dataFromQuery?.images || [];
+
     const [currentImage, setCurrentImage] = useState(0);
     const previousImage = () => {
-        setCurrentImage((prevState) =>
-            prevState === 0 ? dataFromQuery.images.length - 1 : prevState - 1
-        );
+        if (dataFromQuery && dataFromQuery.images) {
+            setCurrentImage((prevState) =>
+                prevState === 0 ? dataFromQuery.images.length - 1 : prevState - 1
+            );
+        }
     };
 
     const nextImage = () => {
-        setCurrentImage((prevState) =>
-            prevState === dataFromQuery.images.length - 1 ? 0 : prevState + 1
-        );
+        if (dataFromQuery && dataFromQuery.images) {
+            setCurrentImage((prevState) =>
+                prevState === dataFromQuery.images.length - 1 ? 0 : prevState + 1
+            );
+        }
     };
+
 
     return (
         <div className="relative">
@@ -41,7 +48,7 @@ const DetailHero: React.FC = () => {
             </button>
             <img
                 className="h-[85vh] w-full object-cover top-0 cursor-pointer hover:transition-opacity"
-                src={dataFromQuery?.images[currentImage]}
+                src={images[currentImage]}
                 alt="Carousel Image"
             />
             <button
@@ -52,7 +59,7 @@ const DetailHero: React.FC = () => {
             </button>
 
             <div className="mt-3 flex justify-center">
-                {dataFromQuery?.images.map((image, index) => (
+                {images.map((image, index) => (
                     <img
                         key={index}
                         className={`w-full h-24 object-cover mx-2 cursor-pointer ${index === currentImage ? 'border-2' : ''

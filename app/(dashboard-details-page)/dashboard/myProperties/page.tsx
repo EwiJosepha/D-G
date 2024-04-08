@@ -76,7 +76,7 @@ const MyProperties: React.FC = () => {
                                     <td className="px-4 py-6">
                                         <Link href={`/details/${property.id}`}>
                                             <div className="flex cursor-pointer">
-                                                <img src={property.images[1]} alt="Property" className="w-20 h-20 rounded-lg mr-3" />
+                                                <img src={property.images[1]} alt="Property" className="w-28 h-24 rounded-lg mr-3" />
                                                 <div className="flex flex-col space-y-2">
                                                     <span className="cursor-pointer hover:text-orange-500">{property.name}</span>
                                                     <span className="text-gray-400 text-sm cursor-pointer">{property.location}</span>
