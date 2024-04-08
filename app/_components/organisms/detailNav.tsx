@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FooterLogo from './footerLogo';
 import Link from 'next/link';
 import { FaBars, FaHeart, FaTimes } from 'react-icons/fa';
@@ -8,10 +8,20 @@ import { FaCodeMerge } from 'react-icons/fa6';
 
 function DetailNav() {
   const [isMobileView, setIsMobileView] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false)
 
   const handleMobile = () => {
     setIsMobileView((prevIsMobileView) => !prevIsMobileView);
   };
+
+  useEffect(()=>{
+    if(typeof localStorage !== 'undefined'){
+      const decoded = JSON.parse(localStorage.getItem('decoded') as string)
+      if(decoded){
+        setShowDashboard(true)
+      }
+    }
+  },[])
 
   return (
     <>
@@ -38,7 +48,8 @@ function DetailNav() {
         <div className="hidden md:flex items-center space-x-16">
           <Link href="/contactPage">Contact Us</Link>
           <Link href="/description">Amenities</Link>
-          <Link href="/dashboard/myProperties">Dashboard</Link>
+          {showDashboard && <Link href="/dashboard/myProperties">Dashboard</Link>
+}
           <FaHeart />
           <FaCodeMerge />
         </div>

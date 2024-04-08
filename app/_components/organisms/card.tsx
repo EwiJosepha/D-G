@@ -89,7 +89,7 @@ const Card: React.FC<Property> = ({
                     <div className="bg-blue py-2 flex text-white justify-between mt-4 px-6 items-center rounded-xl">
                         <p className="text-gray-200 mb-2">{rentOrSale}</p>
                         <p className="flex items-center justify-center">
-                            2 <FaBed className="ml-1 mr-3" /> 1 <FaBath className="ml-1" />
+                            {rooms} <FaBed className="ml-1 mr-3" />{bath}<FaBath className="ml-1" />
                         </p>
                     </div>
                 </Link>
