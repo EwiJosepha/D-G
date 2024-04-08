@@ -41,6 +41,7 @@ const sharedStateDefault = {
     PropertyListingDetailCard: {},
     PropertyImageCard: []
 }
+
 const AddNewProperty: React.FC = () => {
     const router = useRouter()
     const [shareState, setShareState] = useState<SharedState>(sharedStateDefault)
@@ -67,7 +68,6 @@ const AddNewProperty: React.FC = () => {
                 [key]: data
             }))
         }
-
         console.log({ [key]: data });
     }
 
@@ -87,7 +87,7 @@ const AddNewProperty: React.FC = () => {
         const desstructureObj2: { areaKm: string, bath: string, livingRooms: number, rooms: number, location: string, kitchen: string, agent: string } = shareState.PropertyListingDetailCard
 
         //obtaining images from propertyImgCard component
-        
+
         const images = shareState.PropertyImageCard
 
         //spreading to get all values
@@ -136,7 +136,7 @@ const AddNewProperty: React.FC = () => {
 
         console.log(combinedObject);
     };
-    
+
     return (
         <DdHeaderProvider header="New Properties">
             <div className="mx-auto container py-6 px-4 md:px-20">
