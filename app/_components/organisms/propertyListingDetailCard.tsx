@@ -148,7 +148,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             agentId: propertyInfo.agentId,
         });
     }
-    console.log("com", propertyInfo);
+    // console.log("com", propertyInfo);
 
 
     return (

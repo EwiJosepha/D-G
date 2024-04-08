@@ -7,6 +7,7 @@ import DbPropertyOverviewCard from '@/app/_components/organisms/propertyOverview
 import { useEffect, useState } from 'react';
 import { postUrl } from '@/app/utils/util';
 import { useRouter } from 'next/navigation';
+import Spinner from '@/components/molecules/loaders/Spinner';
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
@@ -45,6 +46,8 @@ const sharedStateDefault = {
 const AddNewProperty: React.FC = () => {
     const router = useRouter()
     const [shareState, setShareState] = useState<SharedState>(sharedStateDefault)
+    const [loading, setLoading] = useState(false)
+    const [showSubmit, setShowSubmit] = useState(false)
 
     //save to localstorage
 
@@ -98,6 +101,10 @@ const AddNewProperty: React.FC = () => {
             images
         };
 
+        if (destructureObj1 && desstructureObj2) {
+            setShowSubmit(true)
+        }
+
         // const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
         //     ...destructureObj1,
         //     ...desstructureObj2,
@@ -126,7 +133,7 @@ const AddNewProperty: React.FC = () => {
                 } else if (data.status === 200) {
                     console.log('Incomplete data or information');
                 } else {
-                    console.log(data);
+                    setLoading(true)
                     router.push("/dashboard/myProperties")
                 }
             })
@@ -152,7 +159,10 @@ const AddNewProperty: React.FC = () => {
                     <PropertyImageCard saveData={saveData} existingData={shareState.PropertyImageCard} />
 
                 </div>
-                <button type="submit" className='text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>Submit Property</button>
+                {showSubmit && <button type="submit"
+                    disabled={loading} className='disabled:bg-slate-400 disabled:hover:cursor-wait flex items-center justify-center text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>{loading ? <Spinner /> : "Submit Property"}</button>
+                }
+
             </div>
         </DdHeaderProvider>
     );

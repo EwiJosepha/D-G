@@ -1,3 +1,4 @@
+'use client'
 import React, { use } from 'react'
 import { uptPropId } from '@/app/utils/util'
 import { useQuery } from '@tanstack/react-query'
@@ -29,6 +30,7 @@ function DeleteProperty() {
       return res.json()
     }).then((data) => {
       if (data.status === 200) {
+        alert("click on okay to confirm delete")
         console.log("delete succeeded");
       }
     }).catch((err) => {
@@ -39,12 +41,12 @@ function DeleteProperty() {
   }
   return (
     <div>
-      {/* <form onSubmit={(e) => {e.preventDefault();deleteProperty();}}> */}
+      <form onSubmit={(e) => { e.preventDefault(); deleteProperty();}}>
       <h1>Are you sure you want to delete this Property?
 
         <button type='submit'>Click here to Delete property</button>
       </h1>
-      {/* </form> */}
+      </form>
     </div>
   )
 }
