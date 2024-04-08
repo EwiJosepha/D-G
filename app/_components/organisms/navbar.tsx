@@ -25,9 +25,9 @@ const Navbar: React.FC = () => {
             }
         }
     }, [])
-    
+
     return (
-        <nav className="bg-blue ">
+        <nav className="bg-blue py-5">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center h-16 py-5">
                     {/* Logo */}
