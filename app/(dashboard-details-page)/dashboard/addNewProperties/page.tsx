@@ -7,6 +7,7 @@ import DbPropertyOverviewCard from '@/app/_components/organisms/propertyOverview
 import { useEffect, useState } from 'react';
 import { postUrl } from '@/app/utils/util';
 import { useRouter } from 'next/navigation';
+import Spinner from '@/components/molecules/loaders/Spinner';
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
@@ -41,9 +42,12 @@ const sharedStateDefault = {
     PropertyListingDetailCard: {},
     PropertyImageCard: []
 }
+
 const AddNewProperty: React.FC = () => {
     const router = useRouter()
     const [shareState, setShareState] = useState<SharedState>(sharedStateDefault)
+    const [loading, setLoading] = useState(false)
+    const [showSubmit, setShowSubmit] = useState(false)
 
     //save to localstorage
 
@@ -67,7 +71,6 @@ const AddNewProperty: React.FC = () => {
                 [key]: data
             }))
         }
-
         console.log({ [key]: data });
     }
 
@@ -87,6 +90,7 @@ const AddNewProperty: React.FC = () => {
         const desstructureObj2: { areaKm: string, bath: string, livingRooms: number, rooms: number, location: string, kitchen: string, agent: string } = shareState.PropertyListingDetailCard
 
         //obtaining images from propertyImgCard component
+
         const images = shareState.PropertyImageCard
 
         //spreading to get all values
@@ -96,6 +100,10 @@ const AddNewProperty: React.FC = () => {
             ...desstructureObj2,
             images
         };
+
+        if (destructureObj1 && desstructureObj2) {
+            setShowSubmit(true)
+        }
 
         // const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
         //     ...destructureObj1,
@@ -125,7 +133,7 @@ const AddNewProperty: React.FC = () => {
                 } else if (data.status === 200) {
                     console.log('Incomplete data or information');
                 } else {
-                    console.log(data);
+                    setLoading(true)
                     router.push("/dashboard/myProperties")
                 }
             })
@@ -135,6 +143,7 @@ const AddNewProperty: React.FC = () => {
 
         console.log(combinedObject);
     };
+
     return (
         <DdHeaderProvider header="New Properties">
             <div className="mx-auto container py-6 px-4 md:px-20">
@@ -150,7 +159,10 @@ const AddNewProperty: React.FC = () => {
                     <PropertyImageCard saveData={saveData} existingData={shareState.PropertyImageCard} />
 
                 </div>
-                <button type="submit" className='text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>Submit Property</button>
+                {showSubmit && <button type="submit"
+                    disabled={loading} className='disabled:bg-slate-400 disabled:hover:cursor-wait flex items-center justify-center text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>{loading ? <Spinner /> : "Submit Property"}</button>
+                }
+
             </div>
         </DdHeaderProvider>
     );

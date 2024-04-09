@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import cookieSet from '../utils/handle-search';
 import { NextRequest } from 'next/server';
+import Spinner from '@/components/molecules/loaders/Spinner';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState("")
@@ -15,10 +16,12 @@ const LoginPage: React.FC = () => {
     const [badreq, setBadreq] = useState(Boolean)
     const [succesful, setSuccesful] = useState(Boolean)
     const [redirected, setRedirected] = useState(Boolean)
+    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
     const handleRegister = async (e: any,) => {
         e.preventDefault()
+        setIsLoading(true)
 
         const formData = {
             email,
@@ -36,6 +39,7 @@ const LoginPage: React.FC = () => {
         const badrequest = res.status === 400
         const goodreq = res.status === 201
         setBadreq(badrequest)
+        setIsLoading(false)
         setSuccesful(goodreq)
 
 
@@ -49,6 +53,7 @@ const LoginPage: React.FC = () => {
             if (typeof localStorage !== "undefined") {
                 localStorage.setItem("decoded", JSON.stringify(decoded))
             }
+            setIsLoading(false)
             router.push('/dashboard')
         }
     }
@@ -90,9 +95,10 @@ const LoginPage: React.FC = () => {
                         />
                     </div>
                     <button
+                    disabled={isLoading}
                         type="submit"
-                        className="w-full bg-blue text-white py-2 px-4 rounded hover:bg-blue transition-colors duration-300">
-                        Login
+                        className=" disabled:bg-slate-400 disabled:hover:cursor-wait w-full flex items-center justify-center bg-blue text-white py-2 px-4 rounded hover:bg-blue transition-all duration-300">
+                      {isLoading?  <Spinner /> : "Login"}
                     </button>
                 </form>
                 <p className="text-sm text-gray-600 mt-4">

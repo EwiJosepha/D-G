@@ -26,7 +26,7 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
         handleSubmit,
     } = useForm<FormData>();
 
-    console.log("uploaded", uploadedImages);
+    // console.log("uploaded", uploadedImages);
 
     const onSubmit: SubmitHandler<FormData> = async (data, event) => {
         const image = data.profile[0];
@@ -48,7 +48,7 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
 
     function submitUrl() {
         saveData("PropertyImageCard", uploadedImages);
-        console.log("save", saveData);
+        // console.log("save", saveData);
     }
 
     return (

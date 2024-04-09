@@ -47,6 +47,7 @@ export const agentInfo = `http://localhost:4000/api/v1/agent/${parsedId}`
 export const logOutUrl = "http://localhost:4000/auth/signout"
 
 export const postUrl = "http://localhost:4000/properties"
+export const  deleteProp = `http://localhost:4000/properties/${uptPropId}`
 
 //agentData
 export const agentdata = () => {

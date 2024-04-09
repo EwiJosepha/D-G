@@ -85,7 +85,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
         setHide(true)
     }
 
-    const displayedProperties = showLink ? properties.slice(0, 3) : properties;
+    const displayedProperties = showLink ? data?.slice(0, 3) : data;
 
     return (
         <>
@@ -109,7 +109,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
 
                 {!rooms ? (<>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                        {data?.map((prop, i) => (
+                        {displayedProperties?.map((prop, i) => (
                             <div key={i}>
                                 <Card
                                     key={i}

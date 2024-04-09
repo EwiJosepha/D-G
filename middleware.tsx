@@ -1,6 +1,6 @@
 
 import { NextResponse, type NextRequest } from "next/server";
-// import { verify } from "./app/utils/pathManager";
+import { verify } from "./app/utils/pathManager";
 
 export default function middleware(req: NextRequest) {
 

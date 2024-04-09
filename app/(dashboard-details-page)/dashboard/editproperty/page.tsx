@@ -5,6 +5,7 @@ import { updateproperties } from '@/app/utils/util';
 import { getsingleDashboardProp } from '@/app/utils/util';
 import { useRouter } from 'next/navigation';
 import DdHeaderProvider from '@/components/db-header-provider';
+import Spinner from '@/components/molecules/loaders/Spinner';
 
 
 type Prop = {
@@ -26,6 +27,8 @@ type Prop = {
 const PropertyEdit: React.FC = () => {
   const router = useRouter()
   const [error, setError] = useState<string>('');
+  const [loading, setLoading]= useState(false)
+
   const { data } = getsingleDashboardProp()
   console.log("editd", data);
 
@@ -139,8 +142,7 @@ const PropertyEdit: React.FC = () => {
         } else if (data.status === 200) {
           console.log('Incomplete data or information');
         } else {
-          // console.log("updated succesfully");
-          // console.log("propInfo", propertyInfo2);
+          setLoading(true)
          router.push("/dashboard/myProperties")
         }
       })
@@ -349,9 +351,11 @@ const PropertyEdit: React.FC = () => {
 
           </div>
 
-          {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+          {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}<br/>
 
-          <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5' type='submit'>Save</button>
+          <button
+            disabled={loading} className=' disabled:bg-slate-400 disabled:hover:cursor-wait w-full flex items-center justify-center bg-blue text-white py-2 px-4 rounded hover:bg-blue transition-all duration-300' type='submit'
+          >{loading? <Spinner/>: "save"}</button>
         </form>
       </DdHeaderProvider>
       
