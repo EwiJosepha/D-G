@@ -57,39 +57,48 @@ const Profile: React.FC = () => {
     const handleUsername = (e: any) => {
         e.preventDefault
         const name = e.target.value
-        if (name === "" || name.length > 9) {
-            setError('user name is too long')
-            console.log("name", name.length);
-        }
         setUsername(name)
+        if (name.length > 9) {
+            setError('user name is too long')
+        } else (setError(""))
+
     }
 
     const handleFirstName = (e: any) => {
         e.preventDefault
         const firstname = e.target.value
-        if (firstName === "" || firstName.length > 9) {
-            setErrorf('your firstname is too long')
-        }
         setFirstName(firstname)
+        if (firstName.length > 9) {
+            setErrorf('your firstname is too long')
+        } else {
+            setErrorf('')
+        }
     }
 
     const handleLastName = (e: any) => {
         e.preventDefault
         const lastname = e.target.value
-        if (lastName === "" || lastName.length > 9) {
-            setErrorl('your firstname is too long')
-        }
         setLastName(lastname)
+        if (lastName.length > 9) {
+            setErrorl('your firstname is too long')
+        } else {
+            setErrorl("")
+        }
     }
 
     const handleEmail = (e: any) => {
         e.preventDefault
         const email = e.target.value
-        if (email === emailAgent) {
-            setEmail(email)
-        } else {
-            return setWrongEmail(true)
+        // if (email == emailAgent) {
+        //     setEmail()
+        // } else {
+        //     return setWrongEmail(true)
+        // }
+        setEmail(emailAgent)
+        if (!email) {
+            setWrongEmail(true)
         }
+
     }
 
     const handlePhoneNumber = (value: any) => {
@@ -133,15 +142,15 @@ const Profile: React.FC = () => {
                             <div className="mb-4 mt-8 flex items-center">
                                 <label htmlFor="profilepicture" className="block font-medium h-16 w-16">
 
-<Image
+                                    <Image
 
-    src={imageUrl || '/default-profile-picture.jpg'}
-    alt="Profile"
-    width={64}
-    height={64}
-    className="rounded-full"
-/>
-</label>
+                                        src={imageUrl || '/default-profile-picture.jpg'}
+                                        alt="Profile"
+                                        width={64}
+                                        height={64}
+                                        className="rounded-full"
+                                    />
+                                </label>
 
                                 <button className="text-red-500 ml-2" onClick={handleImageDelete}>
                                     Delete
