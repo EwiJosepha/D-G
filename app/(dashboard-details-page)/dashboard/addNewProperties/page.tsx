@@ -49,6 +49,7 @@ const AddNewProperty: React.FC = () => {
     const [loading, setLoading] = useState(false)
     const [showSubmit, setShowSubmit] = useState(false)
 
+
     //save to localstorage
 
     function saveData(key: keyof SharedState, data: any) {

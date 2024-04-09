@@ -16,6 +16,7 @@ type Prop = {
 
 const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
+    const[disable, setDisable]= useState(false)
 
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         rooms: "",
@@ -143,10 +144,15 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             setError('Please fill this field')
             return
         }
+
         saveData('PropertyListingDetailCard', {
             ...data,
             agentId: propertyInfo.agentId,
         });
+
+        alert("save successfully")
+        setDisable(true)
+
     }
     // console.log("com", propertyInfo);
 
@@ -245,7 +251,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             </div>
             {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
 
-            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
+            <button disabled={disable} className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
 
         </div>
     );
