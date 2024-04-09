@@ -33,7 +33,7 @@ const RegisterPage: React.FC = () => {
             body: JSON.stringify(formData)
         })
 
-        if (res.ok) {
+        if (!res.ok) {
             setErr("Agent already exist please login")
         }
 
@@ -59,7 +59,7 @@ const RegisterPage: React.FC = () => {
 
                 <form onSubmit={handleRegister}>
                     <div className="mb-4">
-                        {err && <p>Agent already exist please login</p>}
+                        {err && <p className='text-red-600 font-serif text-base' >Agent already exist please login</p>}
                         <label htmlFor="username" className="block mb-2 font-medium">
                             Username
                         </label>

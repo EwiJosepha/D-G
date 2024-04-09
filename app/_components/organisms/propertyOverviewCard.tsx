@@ -200,7 +200,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
             <div className="mb-4">
                 <label htmlFor="propertyPrice" className="block">
-                    Price*
+                    Price*($)
                 </label>
                 <input
                     type="text"
