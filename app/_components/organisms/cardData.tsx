@@ -7,7 +7,7 @@ import { properties } from '@/app/propertyData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios'
 import { getAllProperties } from '@/app/utils/util'
-import { debounceFetch } from "../../service/debounce"
+import { debounceFetch } from "@/app/service/debounce"
 
 type Property = {
     id: number;

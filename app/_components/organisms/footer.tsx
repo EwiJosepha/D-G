@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import facebook from "../../../public/assets/images/5365678_fb_facebook_facebook logo_icon.png"
-import instagram from "../../../public/assets/images/5296765_camera_instagram_instagram logo_icon.png"
+import facebook from "@/public/assets/images/realestate-listing/5365678_fb_facebook_facebook logo_icon.png";
+import instagram from '@/public/assets/images/realestate-listing/5296765_camera_instagram_instagram logo_icon.png'
+
 import FooterLogo from './footerLogo'
 
 function Footer() {

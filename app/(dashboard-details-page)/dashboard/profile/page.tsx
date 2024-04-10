@@ -22,8 +22,10 @@ const Profile: React.FC = () => {
     const [errorf, setErrorf] = useState<string>('');
     const [errorl, setErrorl] = useState<string>('');
     const [errorn, setErrorn] = useState<string>('');
-    const [errorb, setErrorb] = useState<string>(''); const [email, setEmail] = useState('')
+    const [errorb, setErrorb] = useState<string>('');
+    const [email, setEmail] = useState('')
     const [bio, setBio] = useState('');
+    const [isLoading, setIsLoading]= useState(false)
     const [wrongEmail, setWrongEmail] = useState(false);
     const { data } = agentdata()
     const emailAgent = data?.email
@@ -52,6 +54,7 @@ const Profile: React.FC = () => {
         }
         localStorage.setItem("agentData", JSON.stringify(formData))
         console.log(formData);
+        setIsLoading(true)
     }
 
     const handleUsername = (e: any) => {
@@ -103,19 +106,24 @@ const Profile: React.FC = () => {
 
     const handlePhoneNumber = (value: any) => {
         const phoneNumber = value
-        if (phoneNumber === "" || phoneNumber.length > 10) {
-            setErrorn('Incorrect Number')
-        }
         setPhoneNumber(phoneNumber)
+        if (phoneNumber.length > 10) {
+            setErrorn('Incorrect Number')
+        } else {
+            setErrorn("")
+        }
+
     }
 
     const handleBio = (e: any) => {
         e.preventDefault
         const bio = e.target.value
-        if (bio === "" || bio.length > 300) {
-            setErrorb('too long')
-        }
         setBio(bio)
+        if (bio.length > 300) {
+            setErrorb('too long')
+        } else {
+            setErrorb("")
+        }
     }
 
     const handleImageDelete = () => {
@@ -257,7 +265,8 @@ const Profile: React.FC = () => {
                             {errorb && <p className="p-4 shadow shadow-blue rounded-lg">{errorb}</p>}
                         </div>
                         <Link href={"/dashboard/vieww"}>
-                            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mr-16 mt-10' onClick={submitData}>submit</button>
+                            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mr-16 mt-10 disabled:bg-slate-400 disabled:hover:cursor-wait  flex items-center justify-center' onClick={submitData}
+                            disabled={isLoading}>submit</button>
                         </Link>
                     </div>
 
