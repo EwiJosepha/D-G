@@ -1,6 +1,6 @@
 'use-client'
 import Image from "next/image";
-import agentAvatar from "@/public/assets/images/realestate-listing/istockphoto-1319747564-170667a.webp"
+import agentAvatar from "@/public/assets/images/realestate-listing/istockphoto-1456194325-1024x1024.jpg"
 import whatsap from "@/public/assets/images/realestate-listing/8010452_whatsapp_phone_communication_interaction_call_icon.png"
 import call from "@/public/assets/images/realestate-listing/8725821_forwaded_call_icon.png"
 import email from "@/public/assets/images/realestate-listing/4202011_email_gmail_mail_logo_social_icon.png"

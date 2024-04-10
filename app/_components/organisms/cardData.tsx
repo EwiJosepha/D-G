@@ -88,6 +88,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
     function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
         setRooms(e.target.value)
         setHide(true)
+        setNotfound(false)
 
     }
 
