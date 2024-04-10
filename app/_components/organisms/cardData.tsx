@@ -29,6 +29,7 @@ type Property = {
 const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
     const [favorites, setFavorites] = useState<number[]>([]);
     const [hide, setHide] = useState(false);
+    const [notfound, setNotfound] = useState(false)
 
     //getting rooms
 
@@ -37,6 +38,10 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
         queryKey: ["rooms"],
         queryFn: async () => {
             const { data } = await axios.get(`http://localhost:4000/properties/room/${rooms}`)
+            const dataLength = data.length
+            if (dataLength === 0) {
+                setNotfound(true)
+            }
 
             return data as Property[]
         },
@@ -61,7 +66,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
             const { data } = await axios.get(getAllProperties)
             return data as Property[]
         }
-        
+
     })
 
     if (isLoading) return <div>Loading ...</div>
@@ -83,6 +88,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
     function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
         setRooms(e.target.value)
         setHide(true)
+
     }
 
     const displayedProperties = showLink ? data?.slice(0, 3) : data;
@@ -157,6 +163,12 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
                             ))}
                         </div>
                     </>)}
+                <div className="flex items-center justify-center">
+                    {notfound && <h1 className="text-lg text-gray-600">The room(s) you are looking for does not exist.</h1>
+
+                    }
+                </div>
+
             </div>
         </>
     );
