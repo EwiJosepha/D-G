@@ -107,7 +107,7 @@ const Profile: React.FC = () => {
     const handlePhoneNumber = (value: any) => {
         const phoneNumber = value
         setPhoneNumber(phoneNumber)
-        if (phoneNumber.length > 10) {
+        if (phoneNumber.length > 12) {
             setErrorn('Incorrect Number')
         } else {
             setErrorn("")

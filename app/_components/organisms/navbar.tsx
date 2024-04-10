@@ -53,8 +53,8 @@ const Navbar: React.FC = () => {
                             </Link>
                         </div>
                         <div className="relative">
-                            <Link href="/properties" className="text-white hover:text-gray-300">
-                                Home
+                            <Link href="/dashboard" className="text-white hover:text-gray-300">
+                                Dashboard
                             </Link>
                         </div>
                         <div className="relative group">

@@ -10,6 +10,7 @@ import Link from "next/link";
 
 interface FormData {
   phoneNumber: number;
+  imageUrl:string
 }
 
 const ContactPage = () => {
@@ -25,10 +26,11 @@ const ContactPage = () => {
       if (storedData) {
         const parsedData = JSON.parse(storedData);
         setFormInfo(parsedData);
-        console.log("parsed data", parsedData);
+        // console.log("parsed data", parsedData);
       }
     }
   }, []);
+
 
   const sendEmail = () => {
     window.location.href = `mailto:${agentemail}`
@@ -47,7 +49,7 @@ const ContactPage = () => {
       <h2 id="contactText">Contact Real Estate Agent</h2>
       <div className="contact-page md:flex">
         <div className="contact-avatar">
-          <Image src={agentAvatar} id="contactCard" alt="Agent Avatar" layout="responsive" width={100} height={100} />
+          <Image src={formInfo?.imageUrl || agentAvatar} id="contactCard" alt="Agent Avatar" layout="responsive" width={100} height={100} />
         </div>
         <div className="contact-form w-full md:w-[55%] mt-5 md:mt-0">
           <form>
