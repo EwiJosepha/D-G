@@ -174,7 +174,7 @@ const PropertyEdit: React.FC = () => {
               onChange={handleInputChangee}
               required
             />
-            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+            {error && <p className="text-red-600 font-serif text-base">{error}</p>}
           </div>
           <div className="mb-4">
             <label htmlFor="propertyDescription" className="block">
@@ -188,7 +188,7 @@ const PropertyEdit: React.FC = () => {
               value={propertyInfo2.description}
               required
             ></textarea>
-            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+            {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
           </div>
 
@@ -208,7 +208,7 @@ const PropertyEdit: React.FC = () => {
                 <option value='villas'>Villas</option>
                 <option value='self-contain'>Self Contain</option>
               </select>
-              {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
             </div>
             <div className="mb-4 w-[45%]">
@@ -224,7 +224,7 @@ const PropertyEdit: React.FC = () => {
                 <option value="sell">Sell</option>
                 <option value="rent">Rent</option>
               </select>
-              {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
             </div>
           </div>
@@ -262,7 +262,7 @@ const PropertyEdit: React.FC = () => {
                 onChange={handleInputChangee}
                 required
               />
-              {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
             </div>
 
             <div className="mb-4 w-[45%]">
@@ -279,7 +279,7 @@ const PropertyEdit: React.FC = () => {
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
-              {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
             </div>
           </div>
@@ -298,7 +298,7 @@ const PropertyEdit: React.FC = () => {
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
-              {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
             </div>
             <div className="mb-4 w-[45%]">
@@ -315,7 +315,7 @@ const PropertyEdit: React.FC = () => {
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
-              {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
             </div>
           </div>
@@ -331,7 +331,7 @@ const PropertyEdit: React.FC = () => {
               className="border border-gray-200 px-4 py-3 rounded-md w-full"
               required
             ></textarea>
-            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+            {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
           </div>
           <div className="mb-4">
