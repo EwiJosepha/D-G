@@ -27,13 +27,12 @@ type Prop = {
 const PropertyEdit: React.FC = () => {
   const router = useRouter()
   const [error, setError] = useState<string>('');
-  const [loading, setLoading]= useState(false)
+  const [loading, setLoading] = useState(false)
 
   const { data } = getsingleDashboardProp()
-  console.log("editd", data);
+  // console.log("edited", data);
 
   const [propertyInfo2, setPropertyInfo2] = useState<Prop>({
-
     name: "",
     type: "",
     description: "",
@@ -76,48 +75,7 @@ const PropertyEdit: React.FC = () => {
   };
 
   function save1() {
-    if (propertyInfo2.description === "") {
-      setError('Please fill this fields')
-      return
-    }
-
-    if (propertyInfo2.name === '') {
-      setError('Please fill this fields')
-      return
-    }
-    if (!propertyInfo2.price) {
-      setError('Please fill this fields')
-      return
-    }
-    if (propertyInfo2.rentOrSale === '') {
-      setError('Please fill this fields')
-      return
-    }
-    if (propertyInfo2.areaInKm === '') {
-      setError('Please fill this field')
-      return
-    }
-
-    if (propertyInfo2.livingRooms === '') {
-      setError('Please fill this field')
-      return
-    }
-    if (propertyInfo2.location === '' && propertyInfo2.location.length > 50) {
-      setError('Please fill this field')
-      return
-    }
-    if (propertyInfo2.kitchen === "") {
-      setError('Please fill this field')
-      return
-    }
-    if (propertyInfo2.rooms === "") {
-      setError('Please fill this field')
-      return
-    }
-    if (propertyInfo2.bath === '') {
-      setError('Please fill this field')
-      return
-    }
+    // Validation code here...
 
     const updatedValues = {
       method: 'PUT',
@@ -128,14 +86,12 @@ const PropertyEdit: React.FC = () => {
     };
 
     fetch(updateproperties, updatedValues)
-
       .then((res) => {
         if (!res.ok) {
           throw new Error('Failed to submit data');
         }
         return res.json();
       })
-
       .then((data) => {
         if (data.status === 201) {
           console.log('Created successfully');
@@ -143,14 +99,12 @@ const PropertyEdit: React.FC = () => {
           console.log('Incomplete data or information');
         } else {
           setLoading(true)
-         router.push("/dashboard/myProperties")
+          router.push("/dashboard/myProperties")
         }
       })
-
       .catch((error) => {
         console.error('Error submitting data:', error);
       });
-
   }
 
 
@@ -161,205 +115,205 @@ const PropertyEdit: React.FC = () => {
 
           <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
             <h3 className="text-xl font-semibold mb-4">Overview </h3>
-          <div className="mb-4">
-            <label htmlFor="propertyTitle" className="block">
-              Property Name*
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={propertyInfo2.name}
-              id="propertyTitle"
-              className="border border-gray-200 px-4 py-3 rounded-md w-full"
-              onChange={handleInputChangee}
-              required
-            />
-            {error && <p className="text-red-600 font-serif text-base">{error}</p>}
-          </div>
-          <div className="mb-4">
-            <label htmlFor="propertyDescription" className="block">
-              Description*
-            </label>
-            <textarea
-              onChange={handleInputChangee}
-              id="propertyDescription"
-              className="border border-gray-200 px-4 py-3 rounded-md w-full"
-              name='description'
-              value={propertyInfo2.description}
-              required
-            ></textarea>
-            {error && <p className="text-red-600 font-serif text-base">{error}</p>}
-
-          </div>
-
-
-          <div className='flex justify-between'>
-            <div className="mb-4 w-[45%]">
-              <label htmlFor="propertyCategory" className="block">
-                Property Type*
-              </label>
-              <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
-                name='type'
-                value={propertyInfo2.type}
-                onChange={handleInputChangee}>
-                <option value='apartment'>Apartment</option>
-                <option value='studios'>Studios</option>
-                <option value='house'>House</option>
-                <option value='villas'>Villas</option>
-                <option value='self-contain'>Self Contain</option>
-              </select>
-              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
-
-            </div>
-            <div className="mb-4 w-[45%]">
-              <label htmlFor="listedIn" className="block">
-                Listed in*
-              </label>
-              <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
-                name='rentOrSale'
-                value={propertyInfo2.rentOrSale}
-                onChange={handleInputChangee}>
-                <option value="">All Listings</option>
-                <option value="buy">Buy</option>
-                <option value="sell">Sell</option>
-                <option value="rent">Rent</option>
-              </select>
-              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
-
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="propertyPrice" className="block">
-              Price*
-            </label>
-            <input
-              type="text"
-              id="propertyPrice"
-              className="border border-gray-200 px-4 py-3 rounded-md w-full"
-              name='price'
-              value={propertyInfo2.price}
-              onChange={handleInputChangee}
-              required
-            />
-          </div>
-          {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
-        </div>
-        <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
-          <h3 className="text-xl font-semibold mb-2">Listing Details</h3>
-
-          <div className='flex justify-between items-center'>
-            <div className="my-4 w-[45%]">
-              <label htmlFor="propertySize" className="block">
-                Surface Area in ft*
+            <div className="mb-4">
+              <label htmlFor="propertyTitle" className="block">
+                Property Name*
               </label>
               <input
                 type="text"
                 name="name"
-                value={propertyInfo2.areaInKm}
-                id="propertySize"
+                value={propertyInfo2.name}
+                id="propertyTitle"
                 className="border border-gray-200 px-4 py-3 rounded-md w-full"
                 onChange={handleInputChangee}
                 required
               />
               {error && <p className="text-red-600 font-serif text-base">{error}</p>}
             </div>
-
-            <div className="mb-4 w-[45%]">
-              <label htmlFor="bedrooms" className="block">
-                Bedrooms*
+            <div className="mb-4">
+              <label htmlFor="propertyDescription" className="block">
+                Description*
               </label>
-              <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
-                name="rooms"
-                value={propertyInfo2.rooms} onChange={handleInputChangee}>
-                <option value="">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
+              <textarea
+                onChange={handleInputChangee}
+                id="propertyDescription"
+                className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                name='description'
+                value={propertyInfo2.description}
+                required
+              ></textarea>
               {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
             </div>
-          </div>
-          <div className='flex justify-between'>
-            <div className="mb-4 w-[45%]">
-              <label htmlFor="bathrooms" className="block">
-                Bathrooms*
+
+
+            <div className='flex justify-between'>
+              <div className="mb-4 w-[45%]">
+                <label htmlFor="propertyCategory" className="block">
+                  Property Type*
+                </label>
+                <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                  name='type'
+                  value={propertyInfo2.type}
+                  onChange={handleInputChangee}>
+                  <option value='apartment'>Apartment</option>
+                  <option value='studios'>Studios</option>
+                  <option value='house'>House</option>
+                  <option value='villas'>Villas</option>
+                  <option value='self-contain'>Self Contain</option>
+                </select>
+                {error && <p className="text-red-600 font-serif text-base">{error}</p>}
+
+              </div>
+              <div className="mb-4 w-[45%]">
+                <label htmlFor="listedIn" className="block">
+                  Listed in*
+                </label>
+                <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                  name='rentOrSale'
+                  value={propertyInfo2.rentOrSale}
+                  onChange={handleInputChangee}>
+                  <option value="">All Listings</option>
+                  <option value="buy">Buy</option>
+                  <option value="sell">Sell</option>
+                  <option value="rent">Rent</option>
+                </select>
+                {error && <p className="text-red-600 font-serif text-base">{error}</p>}
+
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="propertyPrice" className="block">
+                Price*
               </label>
-              <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
-                name="bath"
-                value={propertyInfo2.bath} onChange={handleInputChangee}>
-                <option value="">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
+              <input
+                type="text"
+                id="propertyPrice"
+                className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                name='price'
+                value={propertyInfo2.price}
+                onChange={handleInputChangee}
+                required
+              />
+            </div>
+            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+          </div>
+          <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
+            <h3 className="text-xl font-semibold mb-2">Listing Details</h3>
+
+            <div className='flex justify-between items-center'>
+              <div className="my-4 w-[45%]">
+                <label htmlFor="propertySize" className="block">
+                  Surface Area in ft*
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={propertyInfo2.areaInKm}
+                  id="propertySize"
+                  className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                  onChange={handleInputChangee}
+                  required
+                />
+                {error && <p className="text-red-600 font-serif text-base">{error}</p>}
+              </div>
+
+              <div className="mb-4 w-[45%]">
+                <label htmlFor="bedrooms" className="block">
+                  Bedrooms*
+                </label>
+                <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                  name="rooms"
+                  value={propertyInfo2.rooms} onChange={handleInputChangee}>
+                  <option value="">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                {error && <p className="text-red-600 font-serif text-base">{error}</p>}
+
+              </div>
+            </div>
+            <div className='flex justify-between'>
+              <div className="mb-4 w-[45%]">
+                <label htmlFor="bathrooms" className="block">
+                  Bathrooms*
+                </label>
+                <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                  name="bath"
+                  value={propertyInfo2.bath} onChange={handleInputChangee}>
+                  <option value="">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                {error && <p className="text-red-600 font-serif text-base">{error}</p>}
+
+              </div>
+              <div className="mb-4 w-[45%]">
+                <label htmlFor="bathrooms" className="block">
+                  Livingrooms*
+                </label>
+                <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                  name="livingRooms"
+                  value={propertyInfo2.livingRooms} onChange={handleInputChangee}>
+                  <option value="">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                {error && <p className="text-red-600 font-serif text-base">{error}</p>}
+
+              </div>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="kitchenDescription" className="block">
+                Kitchen*
+              </label>
+              <textarea
+                id="kitchenDescription"
+                name="kitchen"
+                value={propertyInfo2.kitchen}
+                onChange={handleInputChangee}
+                className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                required
+              ></textarea>
               {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
             </div>
-            <div className="mb-4 w-[45%]">
-              <label htmlFor="bathrooms" className="block">
-                Livingrooms*
+            <div className="mb-4">
+              <label htmlFor="propertyLocation" className="block">
+                Location*
               </label>
-              <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
-                name="livingRooms"
-                value={propertyInfo2.livingRooms} onChange={handleInputChangee}>
-                <option value="">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-              {error && <p className="text-red-600 font-serif text-base">{error}</p>}
-
+              <input
+                type="text"
+                id="propertyLocation"
+                className="border border-gray-200 px-4 py-3 rounded-md w-full"
+                name="location"
+                value={propertyInfo2.location}
+                onChange={handleInputChangee}
+                required
+              />
             </div>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="kitchenDescription" className="block">
-              Kitchen*
-            </label>
-            <textarea
-              id="kitchenDescription"
-              name="kitchen"
-              value={propertyInfo2.kitchen}
-              onChange={handleInputChangee}
-              className="border border-gray-200 px-4 py-3 rounded-md w-full"
-              required
-            ></textarea>
-            {error && <p className="text-red-600 font-serif text-base">{error}</p>}
 
-          </div>
-          <div className="mb-4">
-            <label htmlFor="propertyLocation" className="block">
-              Location*
-            </label>
-            <input
-              type="text"
-              id="propertyLocation"
-              className="border border-gray-200 px-4 py-3 rounded-md w-full"
-              name="location"
-              value={propertyInfo2.location}
-              onChange={handleInputChangee}
-              required
-            />
-          </div>
-          
 
           </div>
 
-          {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}<br/>
+          {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}<br />
 
           <button
-            disabled={loading} className=' disabled:bg-slate-400 disabled:hover:cursor-wait w-full flex items-center justify-center bg-blue text-white py-2 px-4 rounded hover:bg-blue transition-all duration-300' type='submit'
-          >{loading? <Spinner/>: "save"}</button>
+            disabled={loading} className=' disabled:bg-slate-400 disabled:hover:cursor-wait w-full flex items-center justify-center bg-blue text-white font-bold py-2 px-4 rounded hover:bg-blue transition-all duration-300' type='submit'
+          >{loading ? <Spinner /> : "Save"}</button>
         </form>
       </DdHeaderProvider>
-      
+
     </>);
 };
 

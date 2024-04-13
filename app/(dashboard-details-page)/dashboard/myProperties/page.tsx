@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { propertiesForAgent } from '@/app/utils/util';
 import Link from 'next/link';
+import { FaLocationPin } from 'react-icons/fa6';
 
 type Property = {
     id: number;
@@ -88,8 +89,8 @@ const MyProperties: React.FC = () => {
                                                 <img src={property.images[1]} alt="Property" className="w-28 h-24 rounded-lg mr-3" />
                                                 <div className="flex flex-col space-y-2">
                                                     <span className="cursor-pointer hover:text-orange-500">{property.name}</span>
-                                                    <span className="text-gray-400 text-sm cursor-pointer">{property.location}</span>
-                                                    <span className="cursor-pointer">{property.price}</span>
+                                                    <span className="text-gray-400 flex items-center text-sm cursor-pointer"><FaLocationPin className='mr-2 text-blue' />{property.location}</span>
+                                                    <span className="cursor-pointer">${property.price}</span>
                                                 </div>
                                             </div>
                                         </Link>
