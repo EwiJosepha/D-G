@@ -26,8 +26,8 @@ type Property = {
     agentId: number;
 }
 
-const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
-    const [favorites, setFavorites] = useState<number[]>([]);
+const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
+    // const [favorites, setFavorites] = useState<number[]>([]);
     const [hide, setHide] = useState(false);
     const [notfound, setNotfound] = useState(false)
 
@@ -75,15 +75,15 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
 
     // implementing favourites
 
-    const toggleFavorite = (id: number) => {
-        setFavorites((prevFavorites) => {
-            if (prevFavorites.includes(id)) {
-                return prevFavorites.filter((favId) => favId !== id)
-            } else {
-                return [...prevFavorites, id]
-            }
-        })
-    }
+    // const toggleFavorite = (id: number) => {
+    //     setFavorites((prevFavorites) => {
+    //         if (prevFavorites.includes(id)) {
+    //             return prevFavorites.filter((favId) => favId !== id)
+    //         } else {
+    //             return [...prevFavorites, id]
+    //         }
+    //     })
+    // }
 
     function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
         setRooms(e.target.value)
@@ -93,6 +93,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
     }
 
     const displayedProperties = showLink ? data?.slice(0, 3) : data;
+    const reversedProperties = displayedProperties?.slice().reverse();
 
     return (
         <>
@@ -116,7 +117,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
 
                 {!rooms ? (<>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                        {displayedProperties?.map((prop, i) => (
+                        {reversedProperties?.map((prop, i) => (
                             <div key={i}>
                                 <Card
                                     key={i}
