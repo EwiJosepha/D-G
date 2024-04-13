@@ -96,7 +96,7 @@ const AddNewProperty: React.FC = () => {
     // console.log("shar", shareState);
 
     function handleSubmit() {
-        //desstructure so as to  remove them from objcts
+        //destructure so as to  remove them from objcts
 
         const destructureObj1: { name: string, description: string, type: string, rentOrSale: string, price: string } = shareState.DbPropertyOverviewCard
         const desstructureObj2: { areaKm: string, bath: string, livingRooms: number, rooms: number, location: string, kitchen: string, agent: string } = shareState.PropertyListingDetailCard
@@ -172,8 +172,8 @@ const AddNewProperty: React.FC = () => {
                     <PropertyImageCard saveData={saveData} existingData={shareState.PropertyImageCard} />
 
                 </div>
-                {showSubmit && <button type="submit"
-                    disabled={loading} className='disabled:bg-slate-400 disabled:hover:cursor-wait flex items-center justify-center text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>{loading ? <Spinner /> : "Submit Property"}</button>
+                {showSubmit && (<button type="submit"
+                    disabled={loading} className='disabled:bg-slate-400 disabled:hover:cursor-wait flex items-center justify-center text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>{loading ? <Spinner /> : "Submit Property"}</button>)
                 }
 
             </div>
