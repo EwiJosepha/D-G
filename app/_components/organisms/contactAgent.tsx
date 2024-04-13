@@ -57,7 +57,7 @@ const ContactPage = () => {
             <input className="border border-gray-300 rounded px-3 py-2 w-full mb-2" type="text" placeholder="Your Name" />
             <input className="border border-gray-300 rounded px-3 py-2 w-full mb-2" type="email" placeholder="Your Email" />
             <textarea className="border border-gray-300 rounded px-3 py-2 w-full mb-2" placeholder="Message"></textarea>
-            <button className=" text-white bg-blue px-4 py-2 rounded w-full my-10" type="submit">Send Message</button>
+            <button className=" text-white bg-blue px-4 py-2 rounded w-full my-7" type="submit">Send Message</button>
           </form>
           <div className="flex justify-around mt-5 items-center">
             <h1 className="text-blue font-bold text-xl my-5 ">Contact Agent 📲</h1>
