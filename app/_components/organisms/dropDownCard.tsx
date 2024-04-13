@@ -48,7 +48,7 @@ const DropDownCard: React.FC = () => {
 
         })
 
-        router.push("/myProperties")
+        router.push("/dashboard/myProperties")
     }
 
     return (

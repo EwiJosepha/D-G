@@ -57,7 +57,7 @@ const Card: React.FC<Property> = ({
                     <div className="relative overflow-hidden  mb-4">
                         <img src={images[1]} alt="Property" className="w-full h-72 rounded-xl" />
                         <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                        <p className="absolute bottom-2 left-4 text-white font-extrabold text-xl">{price}</p>
+                        <p className="absolute bottom-2 left-4 text-white font-extrabold text-xl">${price}</p>
 
                     </div>
                 </Link>
