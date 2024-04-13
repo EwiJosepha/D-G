@@ -165,8 +165,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
                         </div>
                     </>)}
                 <div className="flex items-center justify-center">
-                    {notfound && <h1 className="text-lg text-gray-600">The room(s) you are looking for does not exist.</h1>
-
+                    {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }
                 </div>
 
