@@ -18,7 +18,7 @@ const ContactPage = () => {
   const [formInfo, setFormInfo] = useState<FormData>()
   const agentemail = data?.email
   const phoneNum = formInfo?.phoneNumber
-  const agentwatsapNum = formInfo?.phoneNumber
+  const agentwhatsapNum = data?.whatsapp
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
@@ -37,7 +37,7 @@ const ContactPage = () => {
   }
 
   const sendWhatsapmsg = () => {
-    window.location.href = `https://wa.me/${agentwatsapNum}`
+    window.location.href = `https://wa.me/${agentwhatsapNum}`
   }
 
   const makePhoneCall = () => {
@@ -52,23 +52,26 @@ const ContactPage = () => {
           <Image src={formInfo?.imageUrl || agentAvatar} alt="Agent Avatar" layout="responsive" objectFit="cover" width={200} height={200} />
         </div>
         <div className="w-full bg-white p-6 md:w-1/2 md:ml-5 mt-5 md:mt-0">
-          <h1 className="text-blue font-bold text-xl my-5 ">Contact Us Here 📲</h1>
+          <h1 className="text-blue font-bold text-xl my-5 ">Send A Mail To The Agency 📲</h1>
           <form className="gap-6">
             <input className="border border-gray-300 rounded px-3 py-2 w-full mb-2" type="text" placeholder="Your Name" />
             <input className="border border-gray-300 rounded px-3 py-2 w-full mb-2" type="email" placeholder="Your Email" />
             <textarea className="border border-gray-300 rounded px-3 py-2 w-full mb-2" placeholder="Message"></textarea>
             <button className=" text-white bg-blue px-4 py-2 rounded w-full my-10" type="submit">Send Message</button>
           </form>
-          <div className="contact-icons flex justify-center mt-5">
-            <Link href="#" onClick={sendEmail} className="mx-2">
-              <Image src={email} alt="Email Icon" width={40} height={40} />
-            </Link>
-            <Link href="#" onClick={makePhoneCall} className="mx-2">
-              <Image src={call} alt="Call Icon" width={40} height={40} />
-            </Link>
-            <Link href="#" onClick={sendWhatsapmsg} className="mx-2">
-              <Image src={whatsap} alt="WhatsApp Icon" width={40} height={40} />
-            </Link>
+          <div className="flex justify-around mt-5 items-center">
+            <h1 className="text-blue font-bold text-xl my-5 ">Contact Agent 📲</h1>
+            <div className="flex">
+              <Link href="#" onClick={sendEmail} className="mr-6">
+                <Image src={email} alt="Email Icon" width={40} height={40} />
+              </Link>
+              <Link href="#" onClick={makePhoneCall} className="mx-6">
+                <Image src={call} alt="Call Icon" width={40} height={40} />
+              </Link>
+              <Link href="#" onClick={sendWhatsapmsg} className="ml-6">
+                <Image src={whatsap} alt="WhatsApp Icon" width={40} height={40} />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
