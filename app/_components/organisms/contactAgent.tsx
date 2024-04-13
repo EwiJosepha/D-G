@@ -10,7 +10,7 @@ import Link from "next/link";
 
 interface FormData {
   phoneNumber: number;
-  imageUrl:string
+  imageUrl: string
 }
 
 const ContactPage = () => {
@@ -51,8 +51,9 @@ const ContactPage = () => {
         <div className="contact-avatar">
           <Image src={formInfo?.imageUrl || agentAvatar} id="contactCard" alt="Agent Avatar" layout="responsive" width={100} height={100} />
         </div>
-        <div className="contact-form w-full md:w-[55%] mt-5 md:mt-0">
-          <form>
+        <div className="contact-form w-full md:w-[50%] md:mr-16 mt-5 md:mt-0">
+          <h1 className="text-black w-auto flex font-bold text-xl my-10">Contact Us Here 📲</h1>
+          <form className="gap-6">
             <input type="text" placeholder="Your Name" />
             <input type="email" placeholder="Your Email" />
             <textarea placeholder="Message"></textarea>

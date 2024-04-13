@@ -548,8 +548,10 @@
 }
 
 .contact-avatar {
-  width: 50%;
+  width: 40%;
+  /* height: 20%; */
   margin-top: 20px;
+  margin-left: 40px;
 }
 
 .contact-avatar img {
@@ -558,13 +560,13 @@
 }
 
 .contact-form {
-  height: 450px;
+  height: 650px;
   /* max-width: 400px; */
   background-color: white;
   padding: 30px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding-top: 30px;
+  /* padding-top: 30px; */
 }
 
 .contact-form h2 {
