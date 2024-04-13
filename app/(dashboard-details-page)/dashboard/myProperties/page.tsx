@@ -52,7 +52,16 @@ const MyProperties: React.FC = () => {
     };
 
     if (data?.length === 0) {
-        return <div><h1>Upload property</h1></div>
+        return <DdHeaderProvider header="My Properties">
+            <div className="flex flex-col items-center justify-center h-96">
+                <h1 className="text-2xl text-red-500 font-bold mb-20">😐 Sorry, You Don't have any Listings Uploaded</h1>
+                <Link href="/dashboard/addNewProperties">
+                    <button className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
+                        Create New Listing
+                    </button>
+                </Link>
+            </div>
+        </DdHeaderProvider>
     }
 
 
