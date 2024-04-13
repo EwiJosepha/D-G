@@ -82,6 +82,18 @@ const AddNewProperty: React.FC = () => {
         load('PropertyImageCard')
     }, [])
 
+
+    useEffect(() => {
+        if (typeof localStorage !== "undefined") {
+            const objc1 = JSON.parse(localStorage.getItem("DbPropertyOverviewCard") as string)
+            if (objc1) {
+                setShowSubmit(true)
+            }
+        }
+
+        console.log("show", showSubmit);
+    }, [])
+
     // console.log("shar", shareState);
 
     function handleSubmit() {
@@ -102,9 +114,10 @@ const AddNewProperty: React.FC = () => {
             images
         };
 
-        if (destructureObj1 && desstructureObj2) {
-            setShowSubmit(true)
-        }
+
+        // if (destructureObj1 && desstructureObj2) {
+        //     setShowSubmit(true)
+        // }
 
         // const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
         //     ...destructureObj1,
