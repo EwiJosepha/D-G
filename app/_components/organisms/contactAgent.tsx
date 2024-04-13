@@ -45,33 +45,48 @@ const ContactPage = () => {
   }
 
   return (
-    <div className="aget">
-      <h2 id="contactText">Contact Real Estate Agent</h2>
-      <div className="contact-page md:flex">
-        <div className="contact-avatar">
-          <Image src={formInfo?.imageUrl || agentAvatar} id="contactCard" alt="Agent Avatar" layout="responsive" width={100} height={100} />
+    <div className=" bg-blue min-h-screen pt-20 text-white">
+      <h2 className="text-center text-3xl font-bold text-white mb-16">Contact Real Estate Agent</h2>
+      <div className="flex flex-col md:flex-row justify-center">
+        <div className="w-96 h-96 relative">
+          <Image src={formInfo?.imageUrl || agentAvatar} alt="Agent Avatar" layout="responsive" objectFit="cover" width={200} height={200} />
         </div>
-        <div className="contact-form w-full md:w-[50%] md:mr-16 mt-5 md:mt-0">
-          <h1 className="text-black w-auto flex font-bold text-xl my-10">Contact Us Here 📲</h1>
+        <div className="w-full bg-white p-6 md:w-1/2 md:ml-5 mt-5 md:mt-0">
+          <h1 className="text-blue font-bold text-xl my-5 ">Contact Us Here 📲</h1>
           <form className="gap-6">
-            <input type="text" placeholder="Your Name" />
-            <input type="email" placeholder="Your Email" />
-            <textarea placeholder="Message"></textarea>
-            <button type="submit">Send Message</button>
+            <input className="border border-gray-300 rounded px-3 py-2 w-full mb-2" type="text" placeholder="Your Name" />
+            <input className="border border-gray-300 rounded px-3 py-2 w-full mb-2" type="email" placeholder="Your Email" />
+            <textarea className="border border-gray-300 rounded px-3 py-2 w-full mb-2" placeholder="Message"></textarea>
+            <button className=" text-white bg-blue px-4 py-2 rounded w-full my-10" type="submit">Send Message</button>
           </form>
-          <div className="contact-icons">
-            <Link href="#" onClick={sendEmail}>
-              <Image src={email} alt="Email Icon" />
+          <div className="contact-icons flex justify-center mt-5">
+            <Link href="#" onClick={sendEmail} className="mx-2">
+              <Image src={email} alt="Email Icon" width={40} height={40} />
             </Link>
-            <Link href="#" onClick={makePhoneCall}>
-              <Image src={call} alt="Call Icon" />
+            <Link href="#" onClick={makePhoneCall} className="mx-2">
+              <Image src={call} alt="Call Icon" width={40} height={40} />
             </Link>
-            <Link href="#" onClick={sendWhatsapmsg}>
-              <Image src={whatsap} alt="WhatsApp Icon" />
+            <Link href="#" onClick={sendWhatsapmsg} className="mx-2">
+              <Image src={whatsap} alt="WhatsApp Icon" width={40} height={40} />
             </Link>
           </div>
         </div>
       </div>
+
+      <div className="items-center justify-center w-[50%] mt-10 flex flex-col text-xl font-serif ml-[25%]">
+
+        <h2>Get in contact with the ownerr of this listings and schedule a meetup.</h2>
+
+        <h4 className="text-sm text-black font-extrabold">Or</h4>
+
+        <h2> Send a message to D&J Collections if you haven't found your dream home and live a description of what you want. </h2>
+        <h2>We will attend to you as soon as we recieve you message. </h2>
+
+        <h1 className="text-3xl font-extrabold text-orange-600 pt-5">Thank You!</h1>
+
+      </div>
+
+
     </div>
   );
 };

@@ -154,7 +154,7 @@ const AddNewProperty: React.FC = () => {
                 console.error('Error submitting data:', error);
             });
 
-        console.log(combinedObject);
+        // console.log(combinedObject);
     };
 
     return (
