@@ -91,7 +91,6 @@ const AddNewProperty: React.FC = () => {
             }
         }
 
-        console.log("show", showSubmit);
     }, [])
 
     // console.log("shar", shareState);
