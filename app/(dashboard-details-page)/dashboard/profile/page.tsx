@@ -91,7 +91,7 @@ const Profile: React.FC = () => {
     }
 
     const handlePhoneNumber = (value: any) => {
-        const phoneNumber = value
+        setPhoneNumber(value)
         if (phoneNumber === "" && phoneNumber.length > 10) {
             setErrorn('Incorrect Number')
         } else {
@@ -102,7 +102,7 @@ const Profile: React.FC = () => {
 
     const handleBio = (e: any) => {
         e.preventDefault
-        const bio = e.target.value
+        setBio(e.target.value)
         if (bio === "" && bio.length > 300) {
             setErrorb('too long')
         } else {
@@ -219,23 +219,19 @@ const Profile: React.FC = () => {
 
                             <div className="mb-4 w-[45%]">
                                 <label htmlFor="phoneNumber" className="block font-medium">
-                                    {/* Phone Number* */}
+                                    Phone Number*
                                 </label><br />
-                                < PhoneInput
+                                <PhoneInput
                                     country={"cm"}
                                     inputProps={{
                                         require: true
                                     }}
-                                    // id="phoneNumber"
                                     value={phoneNumber}
                                     onChange={handlePhoneNumber}
-                                // style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '8px', width: '100%' }}   
                                 />
                                 {errorn && <p className="text-red-600 text-sm py-4">{errorn}</p>}
-
                             </div>
                         </div>
-
 
                         <div className="mb-4">
                             <label htmlFor="bio" className="block font-medium">
@@ -244,13 +240,14 @@ const Profile: React.FC = () => {
                             <textarea
                                 id="bio"
                                 value={bio}
-                                onChange={(e) => handleBio(e)}
+                                onChange={handleBio}
                                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 required></textarea>
                             {errorb && <p className="text-red-600 text-sm ">{errorb}</p>}
                         </div>
+
                         <Link href={"/dashboard/vieww"}>
-                            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-10' onClick={submitData}>submit</button>
+                            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-10' onClick={submitData}>Submit</button>
                         </Link>
                     </div>
 
