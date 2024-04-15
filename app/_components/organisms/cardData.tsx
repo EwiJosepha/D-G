@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios'
 import { getAllProperties } from '@/app/utils/util'
 import { debounceFetch } from "@/app/service/debounce"
+import Spinner from '../molecules/loaders/Spinner';
 
 type Property = {
     id: number;
@@ -69,7 +70,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
 
     })
 
-    if (isLoading) return <div>Loading ...</div>
+    if (isLoading) return <Spinner />
     if (isError) return <div>please try again</div>
 
 
@@ -169,6 +170,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                     {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }
                 </div>
+                <Spinner />
 
             </div>
         </>
