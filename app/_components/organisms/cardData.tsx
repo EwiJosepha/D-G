@@ -71,7 +71,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     })
 
     if (isLoading) return <Spinner />
-    if (isError) return <div>please try again</div>
+    if (isError) return <div className='flex justify-center items-center text-red-500'>Try again</div>
 
 
     // implementing favourites
@@ -170,8 +170,6 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                     {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }
                 </div>
-                <Spinner />
-
             </div>
         </>
     );
