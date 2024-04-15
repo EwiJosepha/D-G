@@ -272,7 +272,7 @@ const PropertyEdit: React.FC = () => {
               <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
                 name="rooms"
                 value={propertyInfo2.rooms} onChange={handleInputChangee}>
-                <option value="">0</option>
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -291,7 +291,7 @@ const PropertyEdit: React.FC = () => {
               <select className="border border-gray-200 px-4 py-3 rounded-md w-full"
                 name="bath"
                 value={propertyInfo2.bath} onChange={handleInputChangee}>
-                <option value="">0</option>
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
