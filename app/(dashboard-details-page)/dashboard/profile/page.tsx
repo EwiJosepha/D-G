@@ -131,11 +131,9 @@ const Profile: React.FC = () => {
                 {!isProfileCreated && (
                     <div className="mx-auto container py-10 px-20 mb-10">
                         {imageUrl && (
-                            <div className="mb-4 mt-8 flex items-center">
-                                <label htmlFor="profilepicture" className="block font-medium h-16 w-16">
-
+                            <div className="mb-4 mt-4 flex items-center">
+                                <label htmlFor="profilepicture" className="block">
                                     <Image
-
                                         src={imageUrl || '/default-profile-picture.jpg'}
                                         alt="Profile"
                                         width={64}
