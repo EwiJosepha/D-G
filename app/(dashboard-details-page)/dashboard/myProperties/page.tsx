@@ -2,7 +2,7 @@
 
 import DdHeaderProvider from '@/app/_components/db-header-provider';
 import DropDownCard from '@/app/_components/organisms/dropDownCard';
-import React from 'react';
+import React, { useState } from 'react';
 import { FiMoreVertical } from 'react-icons/fi';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -31,12 +31,17 @@ type Property = {
 const MyProperties: React.FC = () => {
     const [isDropdownVisible, setIsDropdownVisible] = React.useState(false);
     const [selectedPropertyId, setSelectedPropertyId] = React.useState<number | null>(null);
+    const [dataLen, setDataLen] = useState(false)
     const dropdownRef = React.useRef<HTMLDivElement>(null);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ['propWithAgentId'],
         queryFn: async () => {
             const { data } = await axios.get(propertiesForAgent)
+            const datalen = data.length
+            if (datalen === 0) {
+                setDataLen(true)
+            }
             return data as Property[]
         }
     })
@@ -57,24 +62,26 @@ const MyProperties: React.FC = () => {
         return <Spinner />;
     }
 
-    if (data?.length === 0) {
-        return <DdHeaderProvider header="My Properties">
-            <div className="flex flex-col items-center justify-center h-96">
-                <h1 className="text-2xl text-red-500 font-bold mb-20">😐 Sorry, You Don't have any Listings Uploaded</h1>
-                <Link href="/dashboard/addNewProperties">
-                    <button className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
-                        Create New Listing
-                    </button>
-                </Link>
-            </div>
-        </DdHeaderProvider>
-    }
+
 
 
     return (
+
         <DdHeaderProvider header="My Properties">
+            {
+                dataLen && (
+                    <div className="flex flex-col items-center justify-center h-96">
+                        <h1 className="text-2xl text-red-500 font-bold mb-20">😐 Sorry, You Don't have any Listings Uploaded</h1>
+                        <Link href="/dashboard/addNewProperties">
+                            <button className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
+                                Create New Listing
+                            </button>
+                        </Link>
+                    </div>
+                )
+            }
             <>
-                <div className="mt-10 p-6 overflow-x-scroll md:overflow-hidden">
+                {!dataLen && (<div className="mt-10 p-6 overflow-x-scroll md:overflow-hidden">
                     <table className="container mb-10">
                         <thead className="bg-black text-white">
                             <tr>
@@ -121,7 +128,7 @@ const MyProperties: React.FC = () => {
                             ))}
                         </tbody>
                     </table>
-                </div>
+                </div>)}
             </>
         </DdHeaderProvider>
     );
