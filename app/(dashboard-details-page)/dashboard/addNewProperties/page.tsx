@@ -1,6 +1,5 @@
 'use client'
 
-
 import DdHeaderProvider from '@/app/_components/db-header-provider';
 import PropertyImageCard from '@/app/_components/organisms/propertyImageCard';
 import PropertyListingDetailCard from '@/app/_components/organisms/propertyListingDetailCard';

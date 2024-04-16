@@ -9,6 +9,7 @@ import axios from 'axios';
 import { propertiesForAgent } from '@/app/utils/util';
 import Link from 'next/link';
 import { FaLocationPin } from 'react-icons/fa6';
+import Spinner from '@/components/molecules/loaders/Spinner';
 
 type Property = {
     id: number;
@@ -51,6 +52,10 @@ const MyProperties: React.FC = () => {
             const uptPropId = localStorage.setItem('propId', JSON.stringify(propertyId))
         }
     };
+
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     if (data?.length === 0) {
         return <DdHeaderProvider header="My Properties">
