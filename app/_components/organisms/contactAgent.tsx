@@ -18,7 +18,7 @@ const ContactPage = () => {
   const [formInfo, setFormInfo] = useState<FormData>()
   const agentemail = data?.email
   const phoneNum = formInfo?.phoneNumber
-  const agentwhatsapNum = data?.whatsapp
+  const agentwhatsapNum = formInfo?.phoneNumber
 
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
