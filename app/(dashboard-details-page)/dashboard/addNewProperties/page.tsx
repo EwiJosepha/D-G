@@ -49,79 +49,57 @@ const AddNewProperty: React.FC = () => {
     const [loading, setLoading] = useState(false)
     const [showSubmit, setShowSubmit] = useState(false)
 
-
-    //save to localstorage
-
+    // Save data to local storage
     function saveData(key: keyof SharedState, data: any) {
-        const items = localStorage.setItem(key, JSON.stringify(data))
-
+        localStorage.setItem(key, JSON.stringify(data));
         setShareState((prevState) => ({
             ...prevState,
             [key]: data
-        }))
+        }));
     }
 
-    //function to load data from ls
-
+    // Load data from local storage
     function load(key: keyof SharedState) {
-        const data = JSON.parse(localStorage.getItem(key) as any)
-
+        const data = JSON.parse(localStorage.getItem(key) || 'null');
         if (data) {
             setShareState((prevState) => ({
                 ...prevState,
                 [key]: data
-            }))
+            }));
         }
-        console.log({ [key]: data });
     }
 
     useEffect(() => {
-        console.clear();
-        load('DbPropertyOverviewCard')
-        load('PropertyListingDetailCard')
-        load('PropertyImageCard')
+        load('DbPropertyOverviewCard');
+        load('PropertyListingDetailCard');
+        load('PropertyImageCard');
     }, [])
 
-    // console.log("shar", shareState);
+    useEffect(() => {
+        const objc1 = shareState.DbPropertyOverviewCard;
+        if (objc1 && objc1.name && objc1.description && objc1.type && objc1.rentOrSale && objc1.price) {
+            setShowSubmit(true);
+        } else {
+            setShowSubmit(false);
+        }
+    }, [shareState.DbPropertyOverviewCard])
 
     function handleSubmit() {
-        //desstructure so as to  remove them from objcts
-
-        const destructureObj1: { name: string, description: string, type: string, rentOrSale: string, price: string } = shareState.DbPropertyOverviewCard
-        const desstructureObj2: { areaKm: string, bath: string, livingRooms: number, rooms: number, location: string, kitchen: string, agent: string } = shareState.PropertyListingDetailCard
-
-        //obtaining images from propertyImgCard component
-
-        const images = shareState.PropertyImageCard
-
-        //spreading to get all values
-
-        const combinedObject: DbPropertyOverviewCard & PropertyListingDetailCard & PropertyImageCard = {
-            ...destructureObj1,
-            ...desstructureObj2,
-            images
+        const combinedObject = {
+            ...shareState.DbPropertyOverviewCard,
+            ...shareState.PropertyListingDetailCard,
+            images: shareState.PropertyImageCard.images
         };
 
-        if (destructureObj1 && desstructureObj2) {
-            setShowSubmit(true)
-        }
+        setLoading(true);
 
-        // const editableFields : DbPropertyOverviewCard & PropertyListingDetailCard = {
-        //     ...destructureObj1,
-        //     ...desstructureObj2,
-        // }
-
-        // localStorage.setItem("editable", JSON.stringify(editableFields))
-
-        const reqBody = {
+        fetch(postUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(combinedObject)
-        };
-
-        fetch(postUrl, reqBody)
+        })
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to submit data');
@@ -129,44 +107,38 @@ const AddNewProperty: React.FC = () => {
                 return res.json();
             })
             .then((data) => {
-                if (data.status === 201) {
-                    console.log('Created successfully');
-                } else if (data.status === 200) {
-                    console.log('Incomplete data or information');
-                } else {
-                    setLoading(true)
-                    router.push("/dashboard/myProperties")
-                }
+                console.log(data);
+                setLoading(false);
+                router.push("/dashboard/myProperties");
             })
             .catch((error) => {
                 console.error('Error submitting data:', error);
+                setLoading(false);
             });
-
-        console.log(combinedObject);
     };
 
     return (
         <DdHeaderProvider header="New Properties">
             <div className="mx-auto container py-6 px-4 md:px-20">
-
                 <div className="space-y-16">
-
                     <DbPropertyOverviewCard saveData={saveData} existingData={shareState.DbPropertyOverviewCard} />
-
-
                     <PropertyListingDetailCard saveData={saveData} existingData={shareState.PropertyListingDetailCard} />
-
-
                     <PropertyImageCard saveData={saveData} existingData={shareState.PropertyImageCard} />
-
                 </div>
-                {showSubmit && <button type="submit"
-                    disabled={loading} className='disabled:bg-slate-400 disabled:hover:cursor-wait flex items-center justify-center text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5' onClick={handleSubmit}>{loading ? <Spinner /> : "Submit Property"}</button>
-                }
-
+                {showSubmit && (
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className='disabled:bg-slate-400 disabled:hover:cursor-wait flex items-center justify-center text-white font-bold w-40 bg-blue px-4 py-2 rounded-md mt-8 mb-5'
+                        onClick={handleSubmit}
+                    >
+                        {loading ? <Spinner /> : "Submit Property"}
+                    </button>
+                )}
             </div>
         </DdHeaderProvider>
     );
 };
 
 export default AddNewProperty;
+

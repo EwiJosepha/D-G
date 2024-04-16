@@ -17,7 +17,7 @@ export interface ComponentProps {
 
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
-    const[disable, setDisable]= useState(false)
+    const [disable, setDisable] = useState(false)
 
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         name: "",
@@ -110,20 +110,20 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
     function save() {
         if (propertyInfo.description === "") {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
 
         if (propertyInfo.name === '') {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
         if (!propertyInfo.price) {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
         if (propertyInfo.rentOrSale === '') {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
 
@@ -147,7 +147,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     onChange={handleInputChangee}
                     required
                 />
-                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                {error && <p className="text-red-500 text-sm py-2">{error}</p>}
             </div>
             <div className="mb-4">
                 <label htmlFor="propertyDescription" className="block">
@@ -159,7 +159,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     required
                 ></textarea>
-                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
             </div>
 
@@ -179,7 +179,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                         <option value='villas'>Villas</option>
                         <option value='self-contain'>Self Contain</option>
                     </select>
-                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
                 </div>
                 <div className="mb-4 w-[45%]">
@@ -193,7 +193,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                         <option value="sell">Sell</option>
                         <option value="rent">Rent</option>
                     </select>
-                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
                 </div>
             </div>
@@ -210,7 +210,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     required
                 />
             </div>
-            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+            {error && <p className="text-red-500 text-sm py-2">{error}</p>}
             <button disabled={disable} className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
         </div>
     );
