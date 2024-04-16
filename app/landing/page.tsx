@@ -6,7 +6,6 @@ import CardData from "../_components/organisms/cardData";
 import Footer from "../_components/organisms/footer";
 
 const LandingPage: React.FC = () => {
-
     return (
         <div>
             <Navbar />

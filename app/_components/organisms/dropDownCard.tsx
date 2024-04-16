@@ -1,28 +1,26 @@
 'use client'
-import React from "react";
+
+
+import React, { useState, useEffect, useRef } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { FaShare } from "react-icons/fa6";
 import Link from "next/link";
 import Popup from "../molecules/popup";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteProp } from "@/app/utils/util";
 
-
 const DropDownCard: React.FC = () => {
     const router = useRouter()
-    const [openModal, setOpenModal] = useState(false)
-
-    // if (!open) return null;
+    const [openModal, setOpenModal] = useState(false);
 
     function isModalOpen() {
-        setOpenModal(true)
-        console.log("hey");
+        setOpenModal(true);
+    }
 
-    }
     function isModalClose() {
-        setOpenModal(false)
+        setOpenModal(false);
     }
+
 
     function deleteListing() {
         const reqbody = {
@@ -55,17 +53,13 @@ const DropDownCard: React.FC = () => {
         <div>
             <ul className="w-28 shadow-lg p-4 rounded-lg space-y-4 bg-white text-gray-700">
                 <Link href={"/dashboard/editproperty"}>
-                    <li className="flex item-center gap-2 cursor-pointer mb-5"
-                    >
+                    <li className="flex item-center gap-2 cursor-pointer mb-5">
                         <FaEdit /> Edit
                     </li>
-
                 </Link>
-
-                <li className="flex item-center gap-2 cursor-pointer" >
-                    <FaTrashAlt onClick={isModalOpen} /> Delete
+                <li className="flex item-center gap-2 cursor-pointer" onClick={isModalOpen}>
+                    <FaTrashAlt /> Delete
                 </li>
-
                 <li className="flex item-center gap-2 cursor-pointer">
                     <FaShare /> Share
                 </li>

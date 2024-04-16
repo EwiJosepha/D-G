@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ComponentProps } from "./propertyOverviewCard";
 import Image from "next/image";
+import { FaTimes } from "react-icons/fa";
 
 type FormData = {
     profile: FileList;
@@ -51,8 +52,12 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
         saveData("PropertyImageCard", uploadedImages);
 
         // console.log("save", saveData);
-
     }
+
+    const handleDeleteImage = (index: number) => {
+        setUploadedImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    };
+
 
     return (
         <form className="mt-4 p-4 shadow shadow-blue rounded-lg" onSubmit={handleSubmit(onSubmit)}>
@@ -84,20 +89,27 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
                 Upload to Cloud
             </button>
 
-            <div className="grid grid-cols-8 gap-1">
+            <div className="grid grid-cols-8 gap-2">
                 {uploadedImages?.map((imageUrl, index) => (
-                    <div key={index} className="w-32 h-32">
+                    <div key={index} className="relative w-32 h-32 ">
                         <Image
                             src={imageUrl}
                             alt={`Uploaded Image ${index + 1}`}
-                            width={120}
-                            height={120}
-                            layout="responsive"
-                            className="object-cover rounded"
+                            layout="fill"
+                            objectFit="cover"
+                            objectPosition="center"
+                            className="rounded"
                         />
+                        <button
+                            className="absolute top-1 right-2 p-1 bg-red-500 rounded-full text-white"
+                            onClick={() => handleDeleteImage(index)}
+                        >
+                            <FaTimes />
+                        </button>
                     </div>
                 ))}
             </div>
+
 
         </form>
     );

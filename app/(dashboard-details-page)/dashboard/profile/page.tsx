@@ -25,7 +25,7 @@ const Profile: React.FC = () => {
     const [errorb, setErrorb] = useState<string>('');
     const [email, setEmail] = useState('')
     const [bio, setBio] = useState('');
-    const [isLoading, setIsLoading]= useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [wrongEmail, setWrongEmail] = useState(false);
     const { data } = agentdata()
     const emailAgent = data?.email
@@ -61,20 +61,17 @@ const Profile: React.FC = () => {
         e.preventDefault
         const name = e.target.value
         setUsername(name)
-        if (name.length > 9) {
-            setError('user name is too long')
-        } else (setError(""))
-
+        // if (name === "") {
+        //     setError('Field is required*')
+        // }
     }
 
     const handleFirstName = (e: any) => {
         e.preventDefault
         const firstname = e.target.value
         setFirstName(firstname)
-        if (firstName.length > 9) {
-            setErrorf('your firstname is too long')
-        } else {
-            setErrorf('')
+        if (firstName === "") {
+            setError('Field is required*')
         }
     }
 
@@ -82,32 +79,20 @@ const Profile: React.FC = () => {
         e.preventDefault
         const lastname = e.target.value
         setLastName(lastname)
-        if (lastName.length > 9) {
-            setErrorl('your firstname is too long')
-        } else {
-            setErrorl("")
+        if (lastName === "") {
+            setError('Field is required*')
         }
     }
 
     const handleEmail = (e: any) => {
         e.preventDefault
         const email = e.target.value
-        // if (email == emailAgent) {
-        //     setEmail()
-        // } else {
-        //     return setWrongEmail(true)
-        // }
-        setEmail(emailAgent)
-        if (!email) {
-            setWrongEmail(true)
-        }
-
+        setEmail(email)
     }
 
     const handlePhoneNumber = (value: any) => {
-        const phoneNumber = value
-        setPhoneNumber(phoneNumber)
-        if (phoneNumber.length > 12) {
+        setPhoneNumber(value)
+        if (phoneNumber === "" && phoneNumber.length > 10) {
             setErrorn('Incorrect Number')
         } else {
             setErrorn("")
@@ -117,9 +102,8 @@ const Profile: React.FC = () => {
 
     const handleBio = (e: any) => {
         e.preventDefault
-        const bio = e.target.value
-        setBio(bio)
-        if (bio.length > 300) {
+        setBio(e.target.value)
+        if (bio === "" && bio.length > 300) {
             setErrorb('too long')
         } else {
             setErrorb("")
@@ -145,13 +129,11 @@ const Profile: React.FC = () => {
         <DdHeaderProvider header="Profile">
             <>
                 {!isProfileCreated && (
-                    <div className="mx-auto container py-10 px-20 mb-16">
+                    <div className="mx-auto container py-10 px-20 mb-10">
                         {imageUrl && (
-                            <div className="mb-4 mt-8 flex items-center">
-                                <label htmlFor="profilepicture" className="block font-medium h-16 w-16">
-
+                            <div className="mb-4 mt-4 flex items-center">
+                                <label htmlFor="profilepicture" className="block">
                                     <Image
-
                                         src={imageUrl || '/default-profile-picture.jpg'}
                                         alt="Profile"
                                         width={64}
@@ -180,7 +162,7 @@ const Profile: React.FC = () => {
                                 onChange={(e) => handleUsername(e)}
                                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 required />
-                            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                            {/* {error && <p className="text-red-600 text-sm py-4">{error}</p>} */}
                         </div>
 
                         <div className='flex justify-between'>
@@ -196,7 +178,7 @@ const Profile: React.FC = () => {
                                     onChange={(e) => handleFirstName(e)}
                                     className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                     required />
-                                {errorf && <p className="p-4 shadow shadow-blue rounded-lg">{errorf}</p>}
+                                {errorf && <p className="text-red-600 text-sm py-4">{errorf}</p>}
                             </div>
 
                             {/* Last Name */}
@@ -211,7 +193,7 @@ const Profile: React.FC = () => {
                                     onChange={(e) => handleLastName(e)}
                                     className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 />
-                                {errorl && <p className="p-4 shadow shadow-blue rounded-lg">{errorl}</p>}
+                                {errorl && <p className="text-red-600 text-sm pt-4">{errorl}</p>}
                             </div>
                         </div>
 
@@ -235,22 +217,19 @@ const Profile: React.FC = () => {
 
                             <div className="mb-4 w-[45%]">
                                 <label htmlFor="phoneNumber" className="block font-medium">
-                                    {/* Phone Number* */}
+                                    Phone Number*
                                 </label><br />
-                                < PhoneInput
+                                <PhoneInput
                                     country={"cm"}
                                     inputProps={{
                                         require: true
                                     }}
-                                    // id="phoneNumber"
                                     value={phoneNumber}
                                     onChange={handlePhoneNumber}
-                                // style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '8px', width: '100%' }}   
                                 />
+                                {errorn && <p className="text-red-600 text-sm py-4">{errorn}</p>}
                             </div>
-                            {errorn && <p className="p-4 shadow shadow-blue rounded-lg">{errorn}</p>}
                         </div>
-
 
                         <div className="mb-4">
                             <label htmlFor="bio" className="block font-medium">
@@ -259,14 +238,14 @@ const Profile: React.FC = () => {
                             <textarea
                                 id="bio"
                                 value={bio}
-                                onChange={(e) => handleBio(e)}
+                                onChange={handleBio}
                                 className="border border-gray-300 px-4 py-2 rounded-md w-full"
                                 required></textarea>
-                            {errorb && <p className="p-4 shadow shadow-blue rounded-lg">{errorb}</p>}
+                            {errorb && <p className="text-red-600 text-sm ">{errorb}</p>}
                         </div>
+
                         <Link href={"/dashboard/vieww"}>
-                            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mr-16 mt-10 disabled:bg-slate-400 disabled:hover:cursor-wait  flex items-center justify-center' onClick={submitData}
-                            disabled={isLoading}>submit</button>
+                            <button className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-10' onClick={submitData}>Submit</button>
                         </Link>
                     </div>
 

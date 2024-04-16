@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios'
 import { getAllProperties } from '@/app/utils/util'
 import { debounceFetch } from "@/app/service/debounce"
+import Spinner from '../molecules/loaders/Spinner';
 
 type Property = {
     id: number;
@@ -26,8 +27,8 @@ type Property = {
     agentId: number;
 }
 
-const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
-    const [favorites, setFavorites] = useState<number[]>([]);
+const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
+    // const [favorites, setFavorites] = useState<number[]>([]);
     const [hide, setHide] = useState(false);
     const [notfound, setNotfound] = useState(false)
 
@@ -69,21 +70,21 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
 
     })
 
-    if (isLoading) return <div>Loading ...</div>
-    if (isError) return <div>please try again</div>
+    if (isLoading) return <Spinner />
+    if (isError) return <div className='flex justify-center items-center text-red-500'>Try again</div>
 
 
     // implementing favourites
 
-    const toggleFavorite = (id: number) => {
-        setFavorites((prevFavorites) => {
-            if (prevFavorites.includes(id)) {
-                return prevFavorites.filter((favId) => favId !== id)
-            } else {
-                return [...prevFavorites, id]
-            }
-        })
-    }
+    // const toggleFavorite = (id: number) => {
+    //     setFavorites((prevFavorites) => {
+    //         if (prevFavorites.includes(id)) {
+    //             return prevFavorites.filter((favId) => favId !== id)
+    //         } else {
+    //             return [...prevFavorites, id]
+    //         }
+    //     })
+    // }
 
     function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
         setRooms(e.target.value)
@@ -93,6 +94,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
     }
 
     const displayedProperties = showLink ? data?.slice(0, 3) : data;
+    const reversedProperties = displayedProperties?.slice().reverse();
 
     return (
         <>
@@ -116,7 +118,7 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
 
                 {!rooms ? (<>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                        {displayedProperties?.map((prop, i) => (
+                        {reversedProperties?.map((prop, i) => (
                             <div key={i}>
                                 <Card
                                     key={i}
@@ -165,11 +167,9 @@ const CardData: React.FC<{ showLink?: boolean }> = ({ showLink = true }) => {
                         </div>
                     </>)}
                 <div className="flex items-center justify-center">
-                    {notfound && <h1 className="text-lg text-gray-600">The room(s) you are looking for does not exist.</h1>
-
+                    {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }
                 </div>
-
             </div>
         </>
     );

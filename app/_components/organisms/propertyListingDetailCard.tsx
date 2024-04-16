@@ -16,7 +16,7 @@ type Prop = {
 
 const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
-    const[disable, setDisable]= useState(false)
+    const [disable, setDisable] = useState(false)
 
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         rooms: "",
@@ -129,19 +129,19 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             return
         }
         if (propertyInfo.location === '' && propertyInfo.location.length > 50) {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
         if (propertyInfo.kitchen === "") {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
         if (propertyInfo.rooms === "") {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
         if (propertyInfo.bath === '') {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
 
@@ -173,7 +173,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         onChange={handleInputChange}
                         required
                     />
-                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
                 </div>
 
                 <div className="mb-4 w-[45%]">
@@ -188,7 +188,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
                 </div>
             </div>
@@ -205,7 +205,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
                 </div>
                 <div className="mb-4 w-[45%]">
@@ -220,7 +220,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
                 </div>
             </div>
@@ -234,7 +234,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     required
                 ></textarea>
-                {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+                {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
             </div>
             <div className="mb-4">
@@ -249,7 +249,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     required
                 />
             </div>
-            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+            {error && <p className="text-red-500 text-sm py-2">{error}</p>}
 
             <button disabled={disable} className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
 
