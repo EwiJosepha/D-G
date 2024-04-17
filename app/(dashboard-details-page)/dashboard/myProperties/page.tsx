@@ -62,13 +62,6 @@ const MyProperties: React.FC = () => {
         }
     };
 
-    if (isLoading) {
-        return <Spinner />;
-    }
-
-
-
-
     return (
 
         <DdHeaderProvider header="My Properties">
@@ -102,7 +95,7 @@ const MyProperties: React.FC = () => {
                                     <td className="px-4 py-6">
                                         <Link href={`/details/${property.id}`}>
                                             <div className="flex cursor-pointer">
-                                                <img src={property.images[1]} alt="Property" className="w-28 h-24 rounded-lg mr-3" />
+                                                <Image src={property.images[1]} alt="Property" width={100} height={100} className="w-28 h-24 rounded-lg mr-3" />
                                                 <div className="flex flex-col space-y-2">
                                                     <span className="cursor-pointer hover:text-orange-500">{property.name}</span>
                                                     <span className="text-gray-400 flex items-center text-sm cursor-pointer"><FaLocationPin className='mr-2 text-blue' />{property.location}</span>

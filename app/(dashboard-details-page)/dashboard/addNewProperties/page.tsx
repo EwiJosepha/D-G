@@ -141,4 +141,3 @@ const AddNewProperty: React.FC = () => {
 };
 
 export default AddNewProperty;
-

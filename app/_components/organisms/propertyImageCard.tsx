@@ -21,8 +21,6 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
 
     const [uploadedImages, setUploadedImages] = useState<string[]>([])
 
-    // const [imageLimit, setImageLimit] = useState<string[]>([])
-
     const {
         register,
         handleSubmit,
@@ -31,28 +29,42 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
     // console.log("uploaded", uploadedImages);
 
     const onSubmit: SubmitHandler<FormData> = async (data, event) => {
-        const image = data.profile[0];
-        const formData = new FormData();
-        formData.append("file", image);
-        formData.append("upload_preset", "real-estate-preset");
-        const uploadResponse = await fetch(
-            "https://api.cloudinary.com/v1_1/beri-cloud/image/upload",
-            {
-                method: "POST",
-                body: formData,
+        try {
+            const image = data.profile[0];
+            const formData = new FormData();
+            formData.append("file", image);
+            formData.append("upload_preset", "real-estate-preset");
+
+            const uploadResponse = await fetch(
+                "https://api.cloudinary.com/v1_1/beri-cloud/image/upload",
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
+
+            if (!uploadResponse.ok) {
+                throw new Error("Failed to upload image");
             }
-        );
-        const uploadedImageData = await uploadResponse.json();
-        const imageUrl = uploadedImageData.secure_url;
-        setUploadedImages((prevImages) => [...prevImages, imageUrl]);
-        event?.target.reset(); // Reset the form after successful upload
+
+            const uploadedImageData = await uploadResponse.json();
+            const imageUrl = uploadedImageData.secure_url;
+            setUploadedImages((prevImages) => [...prevImages, imageUrl]);
+            event?.target.reset(); // Reset the form after successful upload
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            // Handle the error, e.g., display an error message to the user
+        }
     };
 
-    function submitUrl() {
-        saveData("PropertyImageCard", uploadedImages);
-
-        // console.log("save", saveData);
-    }
+    const submitUrl = async () => {
+        try {
+            await saveData("PropertyImageCard", uploadedImages);
+        } catch (error) {
+            console.error("Error saving image URLs:", error);
+            // Handle the error, e.g., display an error message to the user
+        }
+    };
 
     const handleDeleteImage = (index: number) => {
         setUploadedImages((prevImages) => prevImages.filter((_, i) => i !== index));
@@ -89,7 +101,7 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
                 Upload to Cloud
             </button>
 
-            <div className="grid grid-cols-8 gap-2">
+            <div className="grid md:grid-cols-8 gap-4">
                 {uploadedImages?.map((imageUrl, index) => (
                     <div key={index} className="relative w-32 h-32 ">
                         <Image
@@ -109,8 +121,6 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
                     </div>
                 ))}
             </div>
-
-
         </form>
     );
 }

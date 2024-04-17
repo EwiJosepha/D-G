@@ -215,7 +215,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             </div>
             {error && <p className="text-red-500 text-sm py-2">{error}</p>}
             <button disabled={disable} className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
-            <Toast/>
+            <Toast />
         </div>
     );
 };
