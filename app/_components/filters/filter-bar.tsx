@@ -66,7 +66,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ properties, onFilter }) => {
     };
 
     return (
-        <div className="flex justify-between items-center mb-4">
+        <div className="container mx-auto my-10 items-center justify-center md:mx-auto md:w-[67%] ">
             {/* Filter buttons and dropdowns */}
             <button onClick={handleReset}>Reset Filters</button>
         </div>
