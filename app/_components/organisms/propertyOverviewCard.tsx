@@ -21,7 +21,7 @@ export interface ComponentProps {
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
     const [disable, setDisable] = useState(false)
-    const notify = () => toast.success("Save Property successfully")
+    const notify = () => toast.success("Saved successfully")
 
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         name: "",

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { SharedState } from "@/app/(dashboard-details-page)/dashboard/addNewProperties/page";
 import { ComponentProps } from "./propertyOverviewCard";
 import { parsedId } from "@/app/utils/util";
+import Toast from "../molecules/toast";
+import { toast } from "react-toastify";
 
 type Prop = {
     rooms: string;
@@ -17,6 +19,8 @@ type Prop = {
 const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
     const [disable, setDisable] = useState(false)
+    const notify = () => toast.success("Saved successfully")
+
 
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         rooms: "",
@@ -150,7 +154,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             agentId: propertyInfo.agentId,
         });
 
-        alert("save successfully")
+        notify()
         setDisable(true)
 
     }
