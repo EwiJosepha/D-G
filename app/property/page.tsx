@@ -1,28 +1,20 @@
 'use client'
 
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../_components/organisms/navbar";
 import Footer from "../_components/organisms/footer";
 import CardData from "../_components/organisms/cardData";
-import FilterBar from "@/components/filters/filter-bar";
-import { Property } from "../types";
-
-const properties: Property[] = [
-    //
-]
+import PropertyTypeFilter from "@/components/filters/property-type";
 
 const PropertyPage: React.FC = () => {
-    const [filteredProperties, setFilteredProperties] = useState<Property[]>(properties)
-
-    const handleFilter = (filteredProps: Property[]) => {
-        setFilteredProperties(filteredProps);
-    };
 
     return (
         <>
             <Navbar />
             <div>
-                <FilterBar properties={properties} onFilter={handleFilter} />
+
+                <PropertyTypeFilter />
+                {/* <FilterBar /> */}
                 <CardData showLink={false} />
             </div>
             <Footer />
