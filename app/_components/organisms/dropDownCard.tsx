@@ -9,7 +9,11 @@ import Popup from "../molecules/popup";
 import { useRouter } from "next/navigation";
 import { deleteProp } from "@/app/utils/util";
 
-const DropDownCard: React.FC = () => {
+interface Props {
+    refetch: (...args: any) => Promise<any>;
+}
+
+const DropDownCard: React.FC<Props> = ({ refetch }) => {
     const router = useRouter()
     const [openModal, setOpenModal] = useState(false);
 
@@ -31,22 +35,21 @@ const DropDownCard: React.FC = () => {
 
         }
 
-        fetch(deleteProp, reqbody).then((res) => {
+        fetch(deleteProp, reqbody).then(async (res) => {
             if (!res.ok) {
                 throw new Error("failed to delete")
+            } else if (res.ok) {
+                await refetch();
+                alert("deleted successfully")
+                setOpenModal(false)
+                router.push("/dashboard/myProperties");
             }
-            return res.json()
-        }).then((data) => {
-            if (data.status === 200) {
-                console.log("deleted succesfully");
 
-            }
         }).catch((er) => {
             console.log(er);
 
         })
 
-        router.push("/dashboard/myProperties")
     }
 
     return (
@@ -62,7 +65,7 @@ const DropDownCard: React.FC = () => {
                 </li>
                 <li className="flex item-center gap-2 cursor-pointer">
                     <FaShare /> Share
-                </li>
+                </li>                                                                                                                                                                                                           
             </ul>
             {openModal && (
                 <Popup onClose={isModalClose}>
