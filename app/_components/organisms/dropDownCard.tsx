@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useState } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { FaShare } from "react-icons/fa6";
 import Link from "next/link";
 import Popup from "../molecules/popup";
 import { useRouter } from "next/navigation";
 import { deleteProp } from "@/app/utils/util";
-import Spinner from "@/components/molecules/loaders/Spinner";
+import Toast from "../molecules/toast";
+import { toast } from "react-toastify";
 
 interface Props {
     refetch: (...args: any) => Promise<any>;
@@ -16,7 +18,7 @@ interface Props {
 const DropDownCard: React.FC<Props> = ({ refetch }) => {
     const router = useRouter()
     const [openModal, setOpenModal] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const notify = () => toast.success("Save Property successfully")
 
     function isModalOpen() {
         setOpenModal(true);
@@ -26,9 +28,9 @@ const DropDownCard: React.FC<Props> = ({ refetch }) => {
         setOpenModal(false);
     }
 
+
     function deleteListing() {
-        setLoading(true);
-        fetch(deleteProp, {
+        const reqbody = {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +43,7 @@ const DropDownCard: React.FC<Props> = ({ refetch }) => {
                 throw new Error("failed to delete")
             } else if (res.ok) {
                 await refetch();
-                alert("deleted successfully")
+                notify()
                 setOpenModal(false)
                 router.push("/dashboard/myProperties");
             }
@@ -73,7 +75,7 @@ const DropDownCard: React.FC<Props> = ({ refetch }) => {
                     <p className="mb-10 text-xl font-bold">Are you sure you want to delete this listing?</p>
                     <div className="flex justify-between">
                         <button className="bg-red-500 text-white px-4 py-2 rounded mr-2" onClick={deleteListing}>
-                            {loading ? <Spinner /> : "Delete"}
+                            Delete
                         </button>
                         <button className="bg-blue text-white px-4 py-2 rounded" onClick={isModalClose}>
                             Cancel
@@ -81,6 +83,7 @@ const DropDownCard: React.FC<Props> = ({ refetch }) => {
                     </div>
                 </Popup>
             )}
+            <Toast />
         </div>
     );
 };

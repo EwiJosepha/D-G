@@ -4,7 +4,6 @@
 import DdHeaderProvider from '@/app/_components/db-header-provider';
 import DropDownCard from '@/app/_components/organisms/dropDownCard';
 import React, { useState } from 'react';
-import React, { useState } from 'react';
 import { FiMoreVertical } from 'react-icons/fi';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -33,7 +32,6 @@ type Property = {
 
 const MyProperties: React.FC = () => {
     const [isDropdownVisible, setIsDropdownVisible] = React.useState(false);
-    const [dataLen, setDataLen] = useState(false)
     const [selectedPropertyId, setSelectedPropertyId] = React.useState<number | null>(null);
     const [dataLen, setDataLen] = useState(false)
     const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -116,7 +114,7 @@ const MyProperties: React.FC = () => {
                                             </button>
                                             {selectedPropertyId === property.id && (
                                                 <div className="absolute right-24" ref={dropdownRef}>
-                                                    <DropDownCard />
+                                                    <DropDownCard refetch={refetch} />
                                                 </div>
                                             )}
                                         </div>
