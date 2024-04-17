@@ -5,7 +5,7 @@ const Toast = () => {
     return (
         <ToastContainer
             position="top-right"
-            autoClose={3000} // Close the toast after 3 seconds
+            autoClose={1500} // Close the toast after 3 seconds
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
