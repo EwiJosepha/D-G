@@ -1,30 +1,19 @@
-// FilterBar.tsx
-import React, { useState } from 'react';
-import { Property, FilterOptions } from '@/app/types';
-import PropertyTypeFilter from './property-type';
+// FilterBar.tsx 
 
-// interface FilterBarProps {
-//     properties: Property[];
-//     onFilter: (filteredProperties: Property[]) => void;
-// }
+import React from 'react';
+import PropertyTypeFilter from './property-type';
+import BedroomFilter from './bedrooms';
 
 const FilterBar: React.FC = () => {
 
-
-    // const handleFilterChange = (updatedFilters: FilterOptions) => {
-    //     setFilters(updatedFilters);
-    //     const filteredProps = filterProperties(properties, updatedFilters);
-    //     onFilter(filteredProps);
-    // };
-
-
     return (
         <div>
-            <div className="container mx-auto my-10 items-center justify-center md:mx-auto md:w-[67%] ">
+            <div className="container mx-auto my-10 items-center justify-start md:mx-auto md:w-[67%] flex">
                 {/* Filter buttons and dropdowns */}
                 <PropertyTypeFilter />
+                <BedroomFilter />
 
-                <button >Reset Filters</button>
+
             </div>
         </div>
     );

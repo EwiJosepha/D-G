@@ -1,31 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { FaTimes } from 'react-icons/fa';
 
 const PropertyTypeFilter: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedType, setSelectedType] = useState('');
+    const [appliedType, setAppliedType] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const modalRef = useRef<HTMLDivElement>(null);
 
-    const propertyTypes = ['Apartment', 'House', 'Condo', 'Townhouse'];
+    const propertyTypes = ['Apartment', 'Studio', 'Villa', 'SelfContain'];
 
     const handleApplyFilter = () => {
-        // Apply selectedType filter
-        // Update property listing based on the filter
+        setAppliedType(selectedType);
         setIsModalOpen(false);
     };
 
+    const handleCancelFilter = () => {
+        setAppliedType('');
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            setIsModalOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.body.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.body.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div>
-            <button className="bg-blue-500 text-black px-4 py-2 rounded mr-2 z-50" onClick={() => setIsModalOpen(true)}>
-                Property Type
-            </button>
+            {!appliedType && (
+                <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
+                    Property Type
+                </button>
+            )}
+            {appliedType && (
+                <div className=" items-center">
+                    <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
+                        {appliedType} <FaTimes className="ml-2 text-xl" />
+                    </button>
+                </div>
+            )}
             {isModalOpen && (
-                <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-4 rounded-lg">
-                        <h2 className="text-lg font-semibold mb-4">Select Property Type</h2>
+                <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+                    <div ref={modalRef} className="bg-white p-4 rounded-lg">
+                        <h2 className="text-sm font-semibold mb-4">Property Type</h2>
                         <ul>
                             {propertyTypes.map((type) => (
                                 <li key={type} className="mb-2">
                                     <button
-                                        className={`w-full text-left py-2 px-4 rounded ${selectedType === type ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                                        className={`w-full text-left py-2 px-4 rounded ${selectedType === type ? 'bg-sky-200 text-black' : 'bg-gray-100'}`}
                                         onClick={() => setSelectedType(type)}
                                     >
                                         {type}
@@ -34,11 +62,8 @@ const PropertyTypeFilter: React.FC = () => {
                             ))}
                         </ul>
                         <div className="flex justify-end mt-4">
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={handleApplyFilter}>
+                            <button className="bg-blue text-white w-full px-4 py-2 rounded mr-2" onClick={handleApplyFilter}>
                                 Apply
-                            </button>
-                            <button className="bg-gray-500 text-white px-4 py-2 rounded" onClick={() => setIsModalOpen(false)}>
-                                Close
                             </button>
                         </div>
                     </div>
