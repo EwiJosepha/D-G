@@ -1,17 +1,18 @@
 'use client'
 
-
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { FaShare } from "react-icons/fa6";
 import Link from "next/link";
 import Popup from "../molecules/popup";
 import { useRouter } from "next/navigation";
 import { deleteProp } from "@/app/utils/util";
+import Spinner from "@/components/molecules/loaders/Spinner";
 
 const DropDownCard: React.FC = () => {
-    const router = useRouter()
+    const router = useRouter();
     const [openModal, setOpenModal] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     function isModalOpen() {
         setOpenModal(true);
@@ -21,32 +22,34 @@ const DropDownCard: React.FC = () => {
         setOpenModal(false);
     }
 
-
     function deleteListing() {
-        const reqbody = {
+        setLoading(true);
+        fetch(deleteProp, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
-            },
-
-        }
-
-        fetch(deleteProp, reqbody).then((res) => {
-            if (!res.ok) {
-                throw new Error("failed to delete")
             }
-            return res.json()
-        }).then((data) => {
-            if (data.status === 200) {
-                console.log("deleted succesfully");
-
-            }
-        }).catch((er) => {
-            console.log(er);
-
         })
-
-        router.push("/dashboard/myProperties")
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to delete");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log("Deleted successfully");
+                isModalClose(); // Close the modal upon successful deletion
+                setTimeout(() => {
+                    router.push("/dashboard/myProperties");
+                }, 1000); // Redirect after 1 second (adjust delay as needed)
+            })
+            .catch((error) => {
+                console.error("Error deleting:", error);
+                // Optionally, display an error message to the user
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     return (
@@ -69,7 +72,7 @@ const DropDownCard: React.FC = () => {
                     <p className="mb-10 text-xl font-bold">Are you sure you want to delete this listing?</p>
                     <div className="flex justify-between">
                         <button className="bg-red-500 text-white px-4 py-2 rounded mr-2" onClick={deleteListing}>
-                            Delete
+                            {loading ? <Spinner /> : "Delete"}
                         </button>
                         <button className="bg-blue text-white px-4 py-2 rounded" onClick={isModalClose}>
                             Cancel

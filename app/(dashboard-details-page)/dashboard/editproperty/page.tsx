@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useEffect, useState } from 'react'
 import { parsedId } from '@/app/utils/util';
 import { updateproperties } from '@/app/utils/util';
@@ -6,6 +7,7 @@ import { getsingleDashboardProp } from '@/app/utils/util';
 import { useRouter } from 'next/navigation';
 import DdHeaderProvider from '@/components/db-header-provider';
 import Spinner from '@/components/molecules/loaders/Spinner';
+import { log } from 'console';
 
 
 type Prop = {
@@ -94,9 +96,10 @@ const PropertyEdit: React.FC = () => {
       })
       .then((data) => {
         if (data.status === 201) {
-          console.log('Created successfully');
+          // console.log('Created successfully');
+          // console.log("data not working", data)
         } else if (data.status === 200) {
-          console.log('Incomplete data or information');
+          // console.log('Incomplete data or information');
         } else {
           setLoading(true)
           router.push("/dashboard/myProperties")
@@ -157,9 +160,9 @@ const PropertyEdit: React.FC = () => {
                   value={propertyInfo2.type}
                   onChange={handleInputChangee}>
                   <option value='apartment'>Apartment</option>
-                  <option value='studios'>Studios</option>
+                  <option value='studio'>Studio</option>
                   <option value='house'>House</option>
-                  <option value='villas'>Villas</option>
+                  <option value='villa'>Villa</option>
                   <option value='self-contain'>Self Contain</option>
                 </select>
                 {error && <p className="text-red-600 font-serif text-base">{error}</p>}
@@ -197,7 +200,7 @@ const PropertyEdit: React.FC = () => {
                 required
               />
             </div>
-            {error && <p className="p-4 shadow shadow-blue rounded-lg">{error}</p>}
+            {error && <p className="text-red-600 font-serif text-base">{error}</p>}
           </div>
           <div className="mt-4 p-4 shadow shadow-blue rounded-lg">
             <h3 className="text-xl font-semibold mb-2">Listing Details</h3>

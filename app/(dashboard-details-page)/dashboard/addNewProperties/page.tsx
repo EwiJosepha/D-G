@@ -88,7 +88,7 @@ const AddNewProperty: React.FC = () => {
         const combinedObject = {
             ...shareState.DbPropertyOverviewCard,
             ...shareState.PropertyListingDetailCard,
-            images: shareState.PropertyImageCard.images
+            images: shareState.PropertyImageCard
         };
 
         setLoading(true);
@@ -141,4 +141,3 @@ const AddNewProperty: React.FC = () => {
 };
 
 export default AddNewProperty;
-

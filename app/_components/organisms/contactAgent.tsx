@@ -48,7 +48,7 @@ const ContactPage = () => {
     <div className=" bg-blue min-h-screen pt-20 text-white">
       <h2 className="text-center text-3xl font-bold text-white mb-16">Contact Real Estate Agent</h2>
       <div className="flex flex-col md:flex-row justify-center">
-        <div className="w-96 h-96 relative">
+        <div className="w-full max-w-96 max-h-96 relative">
           <Image src={formInfo?.imageUrl || agentAvatar} alt="Agent Avatar" layout="responsive" objectFit="cover" width={200} height={200} />
         </div>
         <div className="w-full bg-white p-6 md:w-1/2 md:ml-5 mt-5 md:mt-0">

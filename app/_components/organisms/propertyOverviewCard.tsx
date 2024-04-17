@@ -1,7 +1,10 @@
 "use-client"
 
 import React, { useState } from 'react'
+import Toast from '../molecules/toast';
 import { SharedState } from '@/app/(dashboard-details-page)/dashboard/addNewProperties/page';
+import { toast } from 'react-toastify';
+
 type Prop = {
     name: string;
     type: string;
@@ -18,6 +21,7 @@ export interface ComponentProps {
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
     const [disable, setDisable] = useState(false)
+    const notify = () => toast.success("Save Property successfully")
 
     const [propertyInfo, setPropertyInfo] = useState<Prop>({
         name: "",
@@ -128,7 +132,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
         }
 
         saveData('DbPropertyOverviewCard', data)
-        alert("save successfully")
+        notify()
         setDisable(true)
 
     }
@@ -212,6 +216,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             </div>
             {error && <p className="text-red-500 text-sm py-2">{error}</p>}
             <button disabled={disable} className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
+            <Toast />
         </div>
     );
 };
