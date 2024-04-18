@@ -64,7 +64,7 @@ const BedBathFilter: React.FC = () => {
             {appliedRooms && (
                 <div className="items-center">
                     <button className=" px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
-                        {appliedRooms} <FaTimes className="text-lg ml-2" />
+                        {numBeds > 0 && `${numBeds} Beds`} {numBeds > 0 && numBaths > 0 && ','} {numBaths > 0 && `${numBaths} Baths`} <FaTimes className="text-lg ml-2" />
                     </button>
                 </div>
             )}
