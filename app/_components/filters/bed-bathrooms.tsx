@@ -4,18 +4,19 @@ import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
 const BedBathFilter: React.FC = () => {
     const [numBeds, setNumBeds] = useState(0);
     const [numBaths, setNumBaths] = useState(0)
-    const [appliedRooms, setAppliedRooms] = useState(0);
+    const [appliedRooms, setAppliedRooms] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
     const handleApplyFilter = () => {
-        setAppliedRooms(numBeds);
+        setAppliedRooms(`${numBeds}  + Beds, ${numBaths} + Baths`);
         setIsModalOpen(false);
     };
 
     const handleCancelFilter = () => {
-        setNumBeds(appliedRooms);
-        setNumBaths(appliedRooms)
+        setNumBeds(0);
+        setNumBaths(0);
+        setAppliedRooms('');
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -62,7 +63,7 @@ const BedBathFilter: React.FC = () => {
             {appliedRooms && (
                 <div className="items-center">
                     <button className=" px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
-                        {appliedRooms} + <FaTimes className="ml-2 text-xl" />
+                        {appliedRooms} <FaTimes className="ml-2 text-xl" />
                     </button>
                 </div>
             )}
@@ -91,9 +92,6 @@ const BedBathFilter: React.FC = () => {
                                 <FaPlus />
                             </button>
                         </div>
-
-
-
 
                         <div className="flex justify-end mt-4">
                             <button className="bg-blue text-white w-full px-4 py-2 rounded-full mr-2" onClick={handleApplyFilter}>
