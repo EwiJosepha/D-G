@@ -7,3 +7,5 @@ const StatusFilter: React.FC = () => {
         </>
     )
 }
+
+export default StatusFilter

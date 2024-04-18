@@ -4,6 +4,8 @@ import React from 'react';
 import PropertyTypeFilter from './property-type';
 import BedBathFilter from './bed-bathrooms';
 import PriceRangeFilter from './price-range';
+import PropertySizeFilter from './property-size';
+import StatusFilter from './status-filter';
 
 const FilterBar: React.FC = () => {
 
@@ -14,6 +16,8 @@ const FilterBar: React.FC = () => {
                 <PropertyTypeFilter />
                 <BedBathFilter />
                 <PriceRangeFilter />
+                <PropertySizeFilter />
+                <StatusFilter />
             </div>
         </div>
     );
