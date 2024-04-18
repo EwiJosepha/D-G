@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
+import { FiMinus, FiPlus } from 'react-icons/fi';
 
 const BedBathFilter: React.FC = () => {
     const [numBeds, setNumBeds] = useState(0);
@@ -63,7 +64,7 @@ const BedBathFilter: React.FC = () => {
             {appliedRooms && (
                 <div className="items-center">
                     <button className=" px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
-                        {appliedRooms} <FaTimes className="ml-2 text-xl" />
+                        {appliedRooms} <FaTimes className="text-lg ml-2" />
                     </button>
                 </div>
             )}
@@ -74,22 +75,23 @@ const BedBathFilter: React.FC = () => {
                         <div className="flex justify-around items-center border-b border-gray-200 mb-3 pb-3">
                             <h2 className=" my-4">Beds</h2>
                             <button className="bg-gray-200 p-2 rounded-full" onClick={() => handleDecrement('beds')}>
-                                <FaMinus />
+                                <FiMinus />
                             </button>
-                            <span>{numBeds} +</span>
+                            <span>{numBeds > 0 ? `${numBeds} +` : 'Any'}</span>
                             <button className="bg-gray-200 p-2 rounded-full ml-2" onClick={() => handleIncrement('beds')}>
-                                <FaPlus />
+                                <FiPlus />
                             </button>
                         </div>
 
                         <div className="flex justify-around items-center">
                             <h2 className=" my-4">Baths</h2>
                             <button className="bg-gray-200 p-2 rounded-full" onClick={() => handleDecrement('baths')}>
-                                <FaMinus />
+                                <FiMinus />
                             </button>
-                            <span>{numBaths} +</span>
+                            <span>{numBaths > 0 ? `${numBaths} +` : 'Any'}</span>
+
                             <button className="bg-gray-200 p-2 rounded-full ml-2" onClick={() => handleIncrement('baths')}>
-                                <FaPlus />
+                                <FiPlus />
                             </button>
                         </div>
 

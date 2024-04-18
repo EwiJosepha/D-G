@@ -41,7 +41,7 @@ const PropertyTypeFilter: React.FC = () => {
             {appliedType && (
                 <div className=" items-center">
                     <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
-                        {appliedType} <FaTimes className="ml-2 text-xl" />
+                        {appliedType} <FaTimes className="text-lg ml-2" />
                     </button>
                 </div>
             )}
