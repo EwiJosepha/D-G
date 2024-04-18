@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { GrStatusInfo } from 'react-icons/gr';
 
 const StatusFilter: React.FC = () => {
     const [selectedStats, setSelectedStats] = useState('');
@@ -34,8 +35,8 @@ const StatusFilter: React.FC = () => {
     return (
         <div>
             {!appliedStats && (
-                <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
-                    Status
+                <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={() => setIsModalOpen(true)}>
+                    <GrStatusInfo className='mr-3 text-lg' />    STATUS
                 </button>
             )}
             {appliedStats && (

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { GrHome } from 'react-icons/gr';
 
 const PropertyTypeFilter: React.FC = () => {
     const [selectedType, setSelectedType] = useState('');
@@ -34,8 +35,8 @@ const PropertyTypeFilter: React.FC = () => {
     return (
         <div>
             {!appliedType && (
-                <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
-                    Home Type
+                <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={() => setIsModalOpen(true)}>
+                    <GrHome className='mr-2 text-lg' /> HOME TYPE
                 </button>
             )}
             {appliedType && (

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 
@@ -8,28 +9,28 @@ const PropertySizeFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    // fetch predefined prices from the backend 
+    // fetch predefined sizes from the backend 
     // const [predefinedMinSizes, setPredefinedMinSizes] = useState<number[]>([]);
     // const [predefinedMaxSizes, setPredefinedMaxSizes] = useState<number[]>([]);
 
     // useEffect(() => {
-    //     // Fetch predefined prices from backend when component mounts
-    //     fetchPredefinedPrices();
+    //     // Fetch predefined sizes from backend when component mounts
+    //     fetchPredefinedsizes();
     // }, []);
 
-    // const fetchPredefinedPrices = async () => {
+    // const fetchPredefinedsizes = async () => {
     //     try {
-    //         // Make an HTTP GET request to your backend API to fetch predefined prices
-    //         const response = await fetch('your-backend-url/predefined-prices');
+    //         // Make an HTTP GET request to your backend API to fetch predefined sizes
+    //         const response = await fetch('your-backend-url/predefined-sizes');
     //         if (!response.ok) {
-    //             throw new Error('Failed to fetch predefined prices');
+    //             throw new Error('Failed to fetch predefined sizes');
     //         }
     //         const data = await response.json();
-    //         // Update state with fetched predefined prices
+    //         // Update state with fetched predefined sizes
     //         setPredefinedMinSizes(data.predefinedMinSizes);
     //         setPredefinedMaxSizes(data.predefinedMaxSizes);
     //     } catch (error) {
-    //         console.error('Error fetching predefined prices:', error);
+    //         console.error('Error fetching predefined sizes:', error);
     //     }
     // };
 
@@ -65,8 +66,8 @@ const PropertySizeFilter: React.FC = () => {
     return (
         <div className="text-blue">
             {!appliedSize && (
-                <button className="px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
-                    Meter Square
+                <button className="px-2 py-1 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={() => setIsModalOpen(true)}>
+                    <Image src='/m2.png' width={30} height={30} alt="m2" /> METER SQUARE
                 </button>
             )}
             {appliedSize && (
@@ -88,17 +89,17 @@ const PropertySizeFilter: React.FC = () => {
 
                                 <select className="bg-transparent focus:outline-none" value={minSize} onChange={(e) => setMinSize(e.target.value)}>
                                     <option value="">Mininum</option>
-                                    {predefinedMinSizes.map((price, index) => (
-                                        <option key={index} value={price}>{price}   m² </option>
+                                    {predefinedMinSizes.map((size, index) => (
+                                        <option key={index} value={size}>{size}   m² </option>
                                     ))}
                                 </select>
 
-                                {/* fetched prices are then used to populate the dropdown options for selecting minimum and maximum prices. */}
+                                {/* fetched sizes are then used to populate the dropdown options for selecting minimum and maximum sizes. */}
 
                                 {/* <select className="bg-transparent focus:outline-none" value={minSize} onChange={(e) => setMinSize(e.target.value)}>
                                     <option value="">Minimum</option>
-                                    {predefinedMinSizes.map((price, index) => (
-                                        <option key={index} value={price}>{price}   m² </option>
+                                    {predefinedMinSizes.map((size, index) => (
+                                        <option key={index} value={size}>{size}   m² </option>
                                     ))}
                                 </select> */}
                             </div>
@@ -110,8 +111,8 @@ const PropertySizeFilter: React.FC = () => {
                             <div className="border py-3 px-8 my-3 rounded-full">
                                 <select className="bg-transparent focus:outline-none" value={maxSize} onChange={(e) => setMaxSize(e.target.value)}>
                                     <option value="">Maximum</option>
-                                    {predefinedMaxSizes.map((price, index) => (
-                                        <option key={index} value={price}>{price}   m² </option>
+                                    {predefinedMaxSizes.map((size, index) => (
+                                        <option key={index} value={size}>{size}   m² </option>
                                     ))}
                                 </select>
                             </div>

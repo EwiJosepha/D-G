@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { FaBedPulse } from 'react-icons/fa6';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 
 const BedBathFilter: React.FC = () => {
@@ -57,8 +58,8 @@ const BedBathFilter: React.FC = () => {
     return (
         <div className='text-blue'>
             {!appliedRooms && (
-                <button className=" px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
-                    Beds & Baths
+                <button className=" px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={() => setIsModalOpen(true)}>
+                    <FaBedPulse className='mr-2 text-lg' />  BEDS & BATHS
                 </button>
             )}
             {appliedRooms && (

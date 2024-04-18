@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaDollarSign, FaTimes } from "react-icons/fa";
 
 const PriceRangeFilter: React.FC = () => {
     const [minPrice, setMinPrice] = useState('');
@@ -65,8 +65,8 @@ const PriceRangeFilter: React.FC = () => {
     return (
         <div className="text-blue">
             {!appliedRange && (
-                <button className="px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
-                    Price Range
+                <button className="px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={() => setIsModalOpen(true)}>
+                    <FaDollarSign className="mr-2 text-sm" />   PRICE RANGE
                 </button>
             )}
             {appliedRange && (
