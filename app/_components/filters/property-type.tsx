@@ -35,7 +35,7 @@ const PropertyTypeFilter: React.FC = () => {
         <div>
             {!appliedType && (
                 <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
-                    Property Type
+                    Home Type
                 </button>
             )}
             {appliedType && (
@@ -47,13 +47,13 @@ const PropertyTypeFilter: React.FC = () => {
             )}
             {isModalOpen && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                    <div ref={modalRef} className="bg-white p-4 rounded-lg">
-                        <h2 className="text-sm font-semibold mb-4">Property Type</h2>
-                        <ul>
+                    <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
+                        <h2 className="text-sm font-semibold my-4 ">Home Type</h2>
+                        <ul className='grid grid-cols-2 gap-4'>
                             {propertyTypes.map((type) => (
                                 <li key={type} className="mb-2">
                                     <button
-                                        className={`w-full text-left py-2 px-4 rounded ${selectedType === type ? 'bg-sky-200 text-black' : 'bg-gray-100'}`}
+                                        className={`w-full text-center py-2 px-4 rounded-full ${selectedType === type ? 'bg-sky-200 text-black' : 'bg-gray-100'}`}
                                         onClick={() => setSelectedType(type)}
                                     >
                                         {type}
@@ -62,7 +62,7 @@ const PropertyTypeFilter: React.FC = () => {
                             ))}
                         </ul>
                         <div className="flex justify-end mt-4">
-                            <button className="bg-blue text-white w-full px-4 py-2 rounded mr-2" onClick={handleApplyFilter}>
+                            <button className="bg-blue text-white w-full px-4 py-2 rounded-full mr-2" onClick={handleApplyFilter}>
                                 Apply
                             </button>
                         </div>
