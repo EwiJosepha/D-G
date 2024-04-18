@@ -4,13 +4,13 @@ import { FaTimes } from "react-icons/fa";
 const PropertySizeFilter: React.FC = () => {
     const [minSize, setMinSize] = useState('');
     const [maxSize, setMaxSize] = useState('');
-    const [appliedRange, setAppliedRange] = useState('');
+    const [appliedSize, setAppliedSize] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
     // fetch predefined prices from the backend 
-    // const [predefinedminSizes, setPredefinedminSizes] = useState<number[]>([]);
-    // const [predefinedmaxSizes, setPredefinedmaxSizes] = useState<number[]>([]);
+    // const [predefinedMinSizes, setPredefinedMinSizes] = useState<number[]>([]);
+    // const [predefinedMaxSizes, setPredefinedMaxSizes] = useState<number[]>([]);
 
     // useEffect(() => {
     //     // Fetch predefined prices from backend when component mounts
@@ -26,18 +26,18 @@ const PropertySizeFilter: React.FC = () => {
     //         }
     //         const data = await response.json();
     //         // Update state with fetched predefined prices
-    //         setPredefinedminSizes(data.predefinedminSizes);
-    //         setPredefinedmaxSizes(data.predefinedmaxSizes);
+    //         setPredefinedMinSizes(data.predefinedMinSizes);
+    //         setPredefinedMaxSizes(data.predefinedMaxSizes);
     //     } catch (error) {
     //         console.error('Error fetching predefined prices:', error);
     //     }
     // };
 
-    const predefinedminSizes = [50, 100, 200, 500, 1000, 5000, 10000, 50000, 100000, 500000];
-    const predefinedmaxSizes = [500000, 700000, 1000000, 1500000, 2000000, 5000000, 7500000, 10000000];
+    const predefinedMinSizes = [100, 150, 200, 300, 400, 500, 700, 1000];
+    const predefinedMaxSizes = [1000, 1500, 2000, 2500, 5000, 10000];
 
     const handleApplyFilter = () => {
-        setAppliedRange(`$${minSize} - $${maxSize}`);
+        setAppliedSize(`${minSize} m² - ${maxSize} m²`);
         setIsModalOpen(false);
         // filter search here
     };
@@ -46,7 +46,7 @@ const PropertySizeFilter: React.FC = () => {
     const handleCancelFilter = () => {
         setMinSize('');
         setMaxSize('');
-        setAppliedRange('');
+        setAppliedSize('');
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -64,21 +64,21 @@ const PropertySizeFilter: React.FC = () => {
 
     return (
         <div className="text-blue">
-            {!appliedRange && (
+            {!appliedSize && (
                 <button className="px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
-                    Price Range
+                    Meter Square
                 </button>
             )}
-            {appliedRange && (
+            {appliedSize && (
                 <div className="items-center">
                     <button className="px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
-                        {minSize && `$${minSize}`}{maxSize && ` - $${maxSize}`} <FaTimes className="text-lg ml-2" />
+                        {minSize && `${minSize} m²`}{maxSize && ` - ${maxSize} m²`} <FaTimes className="text-lg ml-2" />
                     </button>
                 </div>
             )}
             {isModalOpen && (<div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                 <div ref={modalRef} className="bg-white p-4 rounded-lg md:w-[23%]">
-                    <h1 className="my-6 font-bold">Price Range</h1>
+                    <h1 className="my-6 font-bold">Meter Square</h1>
 
                     <div className="flex items-center justify-between">
                         <div className="flex flex-col">
@@ -88,8 +88,8 @@ const PropertySizeFilter: React.FC = () => {
 
                                 <select className="bg-transparent focus:outline-none" value={minSize} onChange={(e) => setMinSize(e.target.value)}>
                                     <option value="">Mininum</option>
-                                    {predefinedminSizes.map((price, index) => (
-                                        <option key={index} value={price}>${price}</option>
+                                    {predefinedMinSizes.map((price, index) => (
+                                        <option key={index} value={price}>{price}   m² </option>
                                     ))}
                                 </select>
 
@@ -97,8 +97,8 @@ const PropertySizeFilter: React.FC = () => {
 
                                 {/* <select className="bg-transparent focus:outline-none" value={minSize} onChange={(e) => setMinSize(e.target.value)}>
                                     <option value="">Minimum</option>
-                                    {predefinedminSizes.map((price, index) => (
-                                        <option key={index} value={price}>${price}</option>
+                                    {predefinedMinSizes.map((price, index) => (
+                                        <option key={index} value={price}>{price}   m² </option>
                                     ))}
                                 </select> */}
                             </div>
@@ -110,8 +110,8 @@ const PropertySizeFilter: React.FC = () => {
                             <div className="border py-3 px-8 my-3 rounded-full">
                                 <select className="bg-transparent focus:outline-none" value={maxSize} onChange={(e) => setMaxSize(e.target.value)}>
                                     <option value="">Maximum</option>
-                                    {predefinedmaxSizes.map((price, index) => (
-                                        <option key={index} value={price}>${price}</option>
+                                    {predefinedMaxSizes.map((price, index) => (
+                                        <option key={index} value={price}>{price}   m² </option>
                                     ))}
                                 </select>
                             </div>
