@@ -13,7 +13,7 @@ type Property = {
     livingRooms: string;
     location: string;
     price: number;
-    areaInKm: string;
+    areaInKm: number;
     rentOrSale: string;
     shortDescription: string;
     images: string[];

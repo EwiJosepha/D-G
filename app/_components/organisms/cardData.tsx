@@ -20,7 +20,7 @@ type Property = {
     livingRooms: string;
     location: string;
     price: number;
-    areaInKm: string;
+    areaInKm: number;
     rentOrSale: string;
     shortDescription: string;
     images: string[];
@@ -98,7 +98,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
 
     return (
         <>
-            <div className="container mx-auto py-8 mt-28 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
+            <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
                 {showLink && (<div className='flex justify-between items-center mb-8'>
                     <div className='flex items-center font-bold font-serif'>

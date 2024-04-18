@@ -8,6 +8,8 @@ import Link from "next/link";
 import Popup from "../molecules/popup";
 import { useRouter } from "next/navigation";
 import { deleteProp } from "@/app/utils/util";
+import Toast from "../molecules/toast";
+import { toast } from "react-toastify";
 
 interface Props {
     refetch: (...args: any) => Promise<any>;
@@ -16,6 +18,7 @@ interface Props {
 const DropDownCard: React.FC<Props> = ({ refetch }) => {
     const router = useRouter()
     const [openModal, setOpenModal] = useState(false);
+    const notify = () => toast.success("Save Property successfully")
 
     function isModalOpen() {
         setOpenModal(true);
@@ -40,7 +43,7 @@ const DropDownCard: React.FC<Props> = ({ refetch }) => {
                 throw new Error("failed to delete")
             } else if (res.ok) {
                 await refetch();
-                alert("deleted successfully")
+                notify()
                 setOpenModal(false)
                 router.push("/dashboard/myProperties");
             }
@@ -65,7 +68,7 @@ const DropDownCard: React.FC<Props> = ({ refetch }) => {
                 </li>
                 <li className="flex item-center gap-2 cursor-pointer">
                     <FaShare /> Share
-                </li>                                                                                                                                                                                                           
+                </li>
             </ul>
             {openModal && (
                 <Popup onClose={isModalClose}>
@@ -80,6 +83,7 @@ const DropDownCard: React.FC<Props> = ({ refetch }) => {
                     </div>
                 </Popup>
             )}
+            <Toast />
         </div>
     );
 };

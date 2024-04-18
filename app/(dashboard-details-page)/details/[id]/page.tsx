@@ -24,7 +24,7 @@ type Prop = {
   livingRooms: string;
   location: string;
   price: number;
-  areaInKm: string;
+  areaInKm: number;
   rentOrSale: string;
   shortDescription: string;
   images: string[];
@@ -36,7 +36,7 @@ const DescriptionPagee: React.FC<DescriptionPageProps> = ({ }: DescriptionPagePr
   const pathName = usePathname();
   const pathVal = +pathName.split('/')[2]
   const { data } = getOneProperty(pathVal)
-  const dataFromQuery: { name: string, areaInKm: string, location: string, livingRooms: string, price: number, bath: number, rooms: string, rentOrSale: string, description: string; } = data
+  const dataFromQuery: { name: string, areaInKm: number, location: string, livingRooms: string, price: number, bath: number, rooms: string, rentOrSale: string, description: string; } = data
   const { propertyInfo } = useAppContext();
   return (
     <>
@@ -72,7 +72,7 @@ const DescriptionPagee: React.FC<DescriptionPageProps> = ({ }: DescriptionPagePr
                 </div>
                 <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                   <p className="mr-4">Area:</p>
-                  <p className="text-lg font-semibold">{dataFromQuery?.areaInKm}km</p>
+                  <p className="text-lg font-semibold">{dataFromQuery?.areaInKm} m²</p>
                 </div>
                 <div className="w-full border-t border-gray-600 flex items-center sm:w-1/2 p-4">
                   <p className="mr-4">Price:</p>

@@ -8,7 +8,7 @@ interface IPropertyInfo {
     livingRooms: string;
     location: string;
     price: number;
-    areaInKm: string;
+    areaInKm: number;
     rentOrSale: string;
     shortDescription: string;
     images: string[];
@@ -19,7 +19,7 @@ export type {
     IPropertyInfo,
 }
 
-interface IProfileInfo  {
+interface IProfileInfo {
     username: string,
     firstName: string,
     lastName: string,

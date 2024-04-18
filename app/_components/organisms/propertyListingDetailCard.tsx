@@ -5,14 +5,13 @@ import { parsedId } from "@/app/utils/util";
 import Toast from "../molecules/toast";
 import { toast } from 'react-toastify';
 
-
 type Prop = {
     rooms: string;
     bath: string;
     livingRooms: string;
     location: string;
     kitchen: string;
-    areaInKm: string;
+    areaInKm: number;
     shortDescription: string;
     agentId: number;
 }
@@ -29,7 +28,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         livingRooms: "",
         location: "",
         kitchen: "",
-        areaInKm: "",
+        areaInKm: 0,
         shortDescription: "",
         agentId: parsedId,
     })
@@ -99,12 +98,12 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         const { value } = e.target;
         setPropertyInfo((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            areaInKm: value,
+            areaInKm: parseFloat(value),
         }));
 
         setData((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            areaInKm: value,
+            areaInKm: parseFloat(value),
         }));
         setError('')
     };
@@ -124,7 +123,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
     }
 
     function save() {
-        if (propertyInfo.areaInKm === '') {
+        if (propertyInfo.areaInKm === 0) {
             setError('Please fill this field')
             return
         }
