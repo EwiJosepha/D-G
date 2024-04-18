@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropertyTypeFilter from './property-type';
-import BedroomFilter from './bedrooms';
+import BedBathFilter from './bed-bathrooms';
 
 const FilterBar: React.FC = () => {
 
@@ -11,9 +11,7 @@ const FilterBar: React.FC = () => {
             <div className="container mx-auto mt-10 mb-2 items-center justify-start md:mx-auto md:w-[67%] flex">
                 {/* Filter buttons and dropdowns */}
                 <PropertyTypeFilter />
-                <BedroomFilter />
-
-
+                <BedBathFilter />
             </div>
         </div>
     );

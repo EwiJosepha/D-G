@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
 
-const BedroomFilter: React.FC = () => {
+const BedBathFilter: React.FC = () => {
     const [numBeds, setNumBeds] = useState(0);
     const [numBaths, setNumBaths] = useState(0)
     const [appliedRooms, setAppliedRooms] = useState(0);
@@ -15,6 +15,7 @@ const BedroomFilter: React.FC = () => {
 
     const handleCancelFilter = () => {
         setNumBeds(appliedRooms);
+        setNumBaths(appliedRooms)
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,13 +33,10 @@ const BedroomFilter: React.FC = () => {
 
     const handleIncrement = (type: 'beds' | 'baths') => {
         if (type === 'beds') {
-            if (numBeds > 0) {
-                setNumBeds((prevNumBeds) => prevNumBeds + 1)
-            }
+
+            setNumBeds((prevNumBeds) => prevNumBeds + 1)
         } else if (type === 'baths') {
-            if (numBaths > 0) {
-                setNumBaths((prevNumBaths) => prevNumBaths + 1)
-            }
+            setNumBaths((prevNumBaths) => prevNumBaths + 1)
         }
     }
 
@@ -109,4 +107,4 @@ const BedroomFilter: React.FC = () => {
     );
 };
 
-export default BedroomFilter;
+export default BedBathFilter;
