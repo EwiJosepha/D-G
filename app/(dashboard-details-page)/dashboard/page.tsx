@@ -28,7 +28,7 @@ type Property = {
     livingRooms: string;
     location: string;
     price: number;
-    areaInKm: string;
+    areaInKm: number;
     rentOrSale: string;
     shortDescription: string;
     images: string[];
@@ -37,13 +37,13 @@ type Property = {
 
 const Dashboard: React.FC = () => {
     const maxValue = Math.max(...data.map((item) => item.value));
-    const[dataLength, setDataLength] = useState(Number)
-    const { data:dataforAgent, isLoading, isError } = useQuery({
+    const [dataLength, setDataLength] = useState(Number)
+    const { data: dataforAgent, isLoading, isError } = useQuery({
         queryKey: ['propWithAgentId'],
         queryFn: async () => {
             const { data } = await axios.get(propertiesForAgent)
             const dataLength = data.length
-            setDataLength(dataLength)            
+            setDataLength(dataLength)
             return data as Property[]
         }
     })

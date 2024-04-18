@@ -10,7 +10,7 @@ const DetailHero: React.FC = () => {
     const pathValstring = pathName.split('/')[2]
     const { data } = getOneProperty(pathVal)
 
-    const dataFromQuery: { name: string, areaInKm: string, location: string, livingRooms: string, price: number, bath: number, rooms: string, rentOrSale: string, description: string, images: [] } = data
+    const dataFromQuery: { name: string, areaInKm: number, location: string, livingRooms: string, price: number, bath: number, rooms: string, rentOrSale: string, description: string, images: [] } = data
 
     const images = dataFromQuery?.images || [];
 

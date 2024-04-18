@@ -12,7 +12,7 @@ type Prop = {
     livingRooms: string;
     location: string;
     kitchen: string;
-    areaInKm: string;
+    areaInKm: number;
     shortDescription: string;
     agentId: number;
 }
@@ -29,7 +29,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         livingRooms: "",
         location: "",
         kitchen: "",
-        areaInKm: "",
+        areaInKm: 0,
         shortDescription: "",
         agentId: parsedId,
     })
@@ -124,7 +124,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
     }
 
     function save() {
-        if (propertyInfo.areaInKm === '') {
+        if (propertyInfo.areaInKm === 0) {
             setError('Please fill this field')
             return
         }

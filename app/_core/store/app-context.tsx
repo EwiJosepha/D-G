@@ -18,19 +18,19 @@ const AppContext = createContext<IAppContext | null>(null);
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [propertyInfo, setPropertyInfo] = useState<IPropertyInfo>({
         id: 0,
-        name:"",
-        type:"",
-        description:"",
-        rooms:"",
-        bath:0,
-        livingRooms:"",
-        location:"",
+        name: "",
+        type: "",
+        description: "",
+        rooms: "",
+        bath: 0,
+        livingRooms: "",
+        location: "",
         price: 0,
-        areaInKm:"",
-        rentOrSale:"",
-        shortDescription:"",
+        areaInKm: 0,
+        rentOrSale: "",
+        shortDescription: "",
         images: [],
-        agentId:0
+        agentId: 0
     });
 
     const [profileInfo, setProfileInfo] = useState<IProfileInfo>({

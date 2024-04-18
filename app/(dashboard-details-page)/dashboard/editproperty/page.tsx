@@ -21,7 +21,7 @@ type Prop = {
   livingRooms: string;
   location: string;
   kitchen: string;
-  areaInKm: string;
+  areaInKm: number;
   shortDescription: string;
   agentId: number;
 }
@@ -45,7 +45,7 @@ const PropertyEdit: React.FC = () => {
     livingRooms: "",
     location: "",
     kitchen: "",
-    areaInKm: "",
+    areaInKm: 0,
     shortDescription: "",
     agentId: parsedId
   })
@@ -63,7 +63,7 @@ const PropertyEdit: React.FC = () => {
         bath: data.bath || "",
         location: data.location || "",
         kitchen: data.kitchen || "",
-        areaInKm: data.areaInKm || "",
+        areaInKm: data.areaInKm || 0,
         agentId: data.agentId || "",
       })
     }
