@@ -97,7 +97,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const reversedProperties = displayedProperties?.slice().reverse();
 
     return (
-        <div className='bg-gray-200 pb-6 pt-2'>
+        <>
             <div className="container mx-auto mt-10 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
                 {showLink && (<div className='flex justify-between items-center mb-8'>
@@ -171,7 +171,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
