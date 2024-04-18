@@ -2,18 +2,19 @@ import { useState, useEffect, useRef } from 'react';
 import { FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
 
 const BedroomFilter: React.FC = () => {
-    const [numRooms, setNumRooms] = useState(0);
+    const [numBeds, setNumBeds] = useState(0);
+    const [numBaths, setNumBaths] = useState(0)
     const [appliedRooms, setAppliedRooms] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
     const handleApplyFilter = () => {
-        setAppliedRooms(numRooms);
+        setAppliedRooms(numBeds);
         setIsModalOpen(false);
     };
 
     const handleCancelFilter = () => {
-        setNumRooms(appliedRooms);
+        setNumBeds(appliedRooms);
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -29,26 +30,40 @@ const BedroomFilter: React.FC = () => {
         };
     }, []);
 
-    const handleIncrement = () => {
-        setNumRooms((prevNumRooms) => prevNumRooms + 1);
-    };
+    const handleIncrement = (type: 'beds' | 'baths') => {
+        if (type === 'beds') {
+            if (numBeds > 0) {
+                setNumBeds((prevNumBeds) => prevNumBeds + 1)
+            }
+        } else if (type === 'baths') {
+            if (numBaths > 0) {
+                setNumBaths((prevNumBaths) => prevNumBaths + 1)
+            }
+        }
+    }
 
-    const handleDecrement = () => {
-        if (numRooms > 0) {
-            setNumRooms((prevNumRooms) => prevNumRooms - 1);
+    const handleDecrement = (type: 'beds' | 'baths') => {
+        if (type === 'beds') {
+            if (numBeds > 0) {
+                setNumBeds((prevNumBeds) => prevNumBeds - 1);
+            }
+        } else if (type === 'baths') {
+            if (numBaths > 0) {
+                setNumBaths((prevNumBaths) => prevNumBaths - 1);
+            }
         }
     };
 
     return (
-        <div>
+        <div className='text-blue'>
             {!appliedRooms && (
-                <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
+                <button className=" px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500" onClick={() => setIsModalOpen(true)}>
                     Beds & Baths
                 </button>
             )}
             {appliedRooms && (
                 <div className="items-center">
-                    <button className="text-blue px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
+                    <button className=" px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
                         {appliedRooms} + <FaTimes className="ml-2 text-xl" />
                     </button>
                 </div>
@@ -57,24 +72,24 @@ const BedroomFilter: React.FC = () => {
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                     <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
 
-                        <div className="flex justify-center items-center border-b border-gray-200 mb-3 pb-3">
-                            <h2 className="text-blue my-4">Beds</h2>
-                            <button className="bg-gray-200 text-black px-4 py-2 rounded-full mr-2" onClick={handleDecrement}>
+                        <div className="flex justify-around items-center border-b border-gray-200 mb-3 pb-3">
+                            <h2 className=" my-4">Beds</h2>
+                            <button className="bg-gray-200 p-2 rounded-full" onClick={() => handleDecrement('beds')}>
                                 <FaMinus />
                             </button>
-                            <span>{numRooms} +</span>
-                            <button className="bg-blue-500 text-black px-4 py-2 rounded ml-2" onClick={handleIncrement}>
+                            <span>{numBeds} +</span>
+                            <button className="bg-gray-200 p-2 rounded-full ml-2" onClick={() => handleIncrement('beds')}>
                                 <FaPlus />
                             </button>
                         </div>
 
                         <div className="flex justify-around items-center">
-                            <h2 className="text-blue my-4">Baths</h2>
-                            <button className="bg-blue-500 text-black px-4 py-2 rounded mr-2" onClick={handleDecrement}>
+                            <h2 className=" my-4">Baths</h2>
+                            <button className="bg-gray-200 p-2 rounded-full" onClick={() => handleDecrement('baths')}>
                                 <FaMinus />
                             </button>
-                            <span>{numRooms} +</span>
-                            <button className="bg-blue-500 text-black px-4 py-2 rounded ml-2" onClick={handleIncrement}>
+                            <span>{numBaths} +</span>
+                            <button className="bg-gray-200 p-2 rounded-full ml-2" onClick={() => handleIncrement('baths')}>
                                 <FaPlus />
                             </button>
                         </div>
