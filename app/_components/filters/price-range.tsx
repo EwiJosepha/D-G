@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 
 const PriceRangeFilter: React.FC = () => {
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [appliedRange, setAppliedRange] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     const predefinedMinPrices = [50, 100, 200, 500, 1000, 5000, 10000, 50000, 100000, 500000];
     const predefinedMaxPrices = [500000, 700000, 1000000, 1.500000, 2000000, 5000000, 7.500000, 10000000];
@@ -18,6 +20,19 @@ const PriceRangeFilter: React.FC = () => {
         setMaxPrice('');
         setAppliedRange('');
     };
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            setIsModalOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.body.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.body.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="text-blue">
