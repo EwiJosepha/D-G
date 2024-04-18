@@ -69,6 +69,7 @@ const PriceRangeFilter: React.FC = () => {
                     <FaDollarSign className="mr-2 text-sm" />   PRICE RANGE
                 </button>
             )}
+
             {appliedRange && (
                 <div className="items-center">
                     <button className="px-4 py-2 rounded-lg mr-2 border text-sm border-gray-500 flex items-center" onClick={handleCancelFilter}>
@@ -76,6 +77,7 @@ const PriceRangeFilter: React.FC = () => {
                     </button>
                 </div>
             )}
+
             {isModalOpen && (<div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                 <div ref={modalRef} className="bg-white p-4 rounded-lg md:w-[23%]">
                     <h1 className="my-6 font-bold">Price Range</h1>

@@ -5,7 +5,6 @@ import { parsedId } from "@/app/utils/util";
 import Toast from "../molecules/toast";
 import { toast } from 'react-toastify';
 
-
 type Prop = {
     rooms: string;
     bath: string;

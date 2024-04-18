@@ -1,7 +1,26 @@
+import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { FaBedPulse } from 'react-icons/fa6';
 import { FiMinus, FiPlus } from 'react-icons/fi';
+import axios from 'axios';
+
+type Property = {
+    id: number;
+    name: string;
+    type: string;
+    description: string;
+    rooms: string;
+    bath: number;
+    livingRooms: string;
+    location: string;
+    price: number;
+    areaInKm: number;
+    rentOrSale: string;
+    shortDescription: string;
+    images: string[];
+    agentId: number;
+}
 
 const BedBathFilter: React.FC = () => {
     const [numBeds, setNumBeds] = useState(0);
@@ -14,6 +33,7 @@ const BedBathFilter: React.FC = () => {
         setAppliedRooms(`${numBeds}  + Beds, ${numBaths} + Baths`);
         setIsModalOpen(false);
     };
+    console.log(numBeds, numBaths)
 
     const handleCancelFilter = () => {
         setNumBeds(0);
@@ -26,13 +46,13 @@ const BedBathFilter: React.FC = () => {
             setIsModalOpen(false);
         }
     };
-
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.body.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
 
     const handleIncrement = (type: 'beds' | 'baths') => {
         if (type === 'beds') {
@@ -54,6 +74,28 @@ const BedBathFilter: React.FC = () => {
             }
         }
     };
+
+    const url = `http://localhost:4000/properties?bath=${numBaths}&rooms=${numBeds}`
+
+    console.log(url)
+    const { data } = useQuery({
+        queryKey: ["beds"],
+        queryFn: async () => {
+            const { data } = await axios.get(url)
+            if (data) {
+                console.log(data, "data");
+
+            }
+
+            return data as Property[]
+        }
+    })
+
+    console.log('============', data);
+
+    const handleSearch = () => {
+        console.log("search ", data)
+    }
 
     return (
         <div className='text-blue'>
