@@ -97,14 +97,17 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        // Convert the value to a number if necessary
-        const areaInKmValue = parseFloat(value);
         setPropertyInfo((prevPropertyInfo) => ({
             ...prevPropertyInfo,
-            areaInKm: areaInKmValue,
+            areaInKm: parseFloat(value),
         }));
-    };
 
+        setData((prevPropertyInfo) => ({
+            ...prevPropertyInfo,
+            areaInKm: parseFloat(value),
+        }));
+        setError('')
+    };
 
     const handleInputChangeLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
