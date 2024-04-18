@@ -3,6 +3,7 @@
 import React from 'react';
 import PropertyTypeFilter from './property-type';
 import BedBathFilter from './bed-bathrooms';
+import PriceRangeFilter from './price-range';
 
 const FilterBar: React.FC = () => {
 
@@ -12,6 +13,7 @@ const FilterBar: React.FC = () => {
                 {/* Filter buttons and dropdowns */}
                 <PropertyTypeFilter />
                 <BedBathFilter />
+                <PriceRangeFilter />
             </div>
         </div>
     );
