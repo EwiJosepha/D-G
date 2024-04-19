@@ -30,6 +30,9 @@ type Property = {
 const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     // const [favorites, setFavorites] = useState<number[]>([]);
     const [hide, setHide] = useState(false);
+    const[limit, setLimit] = useState<number>(4)
+    let [page, setPage] = useState<number>(1)
+    let [skip, setSkip] = useState<number>()
     const [notfound, setNotfound] = useState(false)
 
     //getting rooms
@@ -64,7 +67,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const { data, isLoading, isError } = useQuery({
         queryKey: ["properties"],
         queryFn: async () => {
-            const { data } = await axios.get(getAllProperties)
+            const { data } = await axios.get(`${getAllProperties}?limit=${page * 2}&page=${page}`)
             return data as Property[]
         }
 
@@ -95,6 +98,17 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
 
     const displayedProperties = showLink ? data?.slice(0, 3) : data;
     const reversedProperties = displayedProperties?.slice().reverse();
+
+    function loadMore() {
+      setPage((prev)=> prev + 1)
+      console.log("i was clicked");
+      
+    }
+
+    function skipFn () {
+        const skip = limit * (page -1)
+        setSkip(skip)
+    }
 
     return (
         <>
@@ -166,6 +180,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                             ))}
                         </div>
                     </>)}
+                    <button onClick={loadMore}>load more</button>
                 <div className="flex items-center justify-center">
                     {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }

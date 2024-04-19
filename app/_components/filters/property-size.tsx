@@ -1,6 +1,28 @@
+'use-client'
+
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProperties } from "@/app/utils/util";
+import axios from "axios";
+
+type Property = {
+    id: number;
+    name: string;
+    type: string;
+    description: string;
+    rooms: string;
+    bath: number;
+    livingRooms: string;
+    location: string;
+    price: number;
+    areaInKm: number;
+    rentOrSale: string;
+    shortDescription: string;
+    images: string[];
+    agentId: number;
+}
 
 const PropertySizeFilter: React.FC = () => {
     const [minSize, setMinSize] = useState('');
@@ -55,6 +77,32 @@ const PropertySizeFilter: React.FC = () => {
             setIsModalOpen(false);
         }
     };
+
+    const { data } = useQuery({
+        queryKey: ["properties",minSize],
+        queryFn: async () => {
+            const url = `${getAllProperties}?areaInKm=${minSize}`
+            const { data } = await axios.get(url)
+            if (data) {
+                console.log(data, "data");
+            }
+
+            return data as Property[]
+        }
+    })
+    
+    const { data:dataSize } = useQuery({
+        queryKey: ["properties",maxSize],
+        queryFn: async () => {
+            const url = `${getAllProperties}?areaInKm=${maxSize}`
+            const { data } = await axios.get(url)
+            if (data) {
+                console.log(data, "datasize");
+            }
+
+            return data as Property[]
+        }
+    })
 
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);

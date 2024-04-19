@@ -1,5 +1,27 @@
+'use-client'
+
 import React, { useRef, useState, useEffect } from "react";
 import { FaDollarSign, FaTimes } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { getAllProperties } from '@/app/utils/util';
+
+type Property = {
+    id: number;
+    name: string;
+    type: string;
+    description: string;
+    rooms: string;
+    bath: number;
+    livingRooms: string;
+    location: string;
+    price: number;
+    areaInKm: number;
+    rentOrSale: string;
+    shortDescription: string;
+    images: string[];
+    agentId: number;
+}
 
 const PriceRangeFilter: React.FC = () => {
     const [minPrice, setMinPrice] = useState('');
@@ -54,6 +76,35 @@ const PriceRangeFilter: React.FC = () => {
             setIsModalOpen(false);
         }
     };
+
+    const { data } = useQuery({
+        queryKey: ["properties",minPrice],
+        queryFn: async () => {
+            const url = `${getAllProperties}?price=${minPrice}`
+            const { data } = await axios.get(url)
+            if (data) {
+                console.log(data, "data");
+            }
+            console.log("url", url);
+            
+
+            return data as Property[]
+        }
+    })
+
+    const { data:data2 } = useQuery({
+        queryKey: ["properties",maxPrice],
+        queryFn: async () => {
+            const url = `${getAllProperties}?price=${maxPrice}`
+            const { data } = await axios.get(url)
+            if (data) {
+                console.log(data, "data2");
+            }
+
+            return data as Property[]
+        }
+    })
+
 
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
