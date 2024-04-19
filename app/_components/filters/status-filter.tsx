@@ -1,3 +1,7 @@
+'use client'
+
+
+import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
@@ -8,11 +12,19 @@ const StatusFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const propertyTypes = ['Rent', 'sell', 'Sold'];
+    const propertyStatus = ['Rent', 'sell', 'Sold'];
 
     const handleApplyFilter = () => {
         setAppliedStats(selectedStats);
         setIsModalOpen(false);
+
+        axios.get(`http://localhost:4000/properties?rentOrSale=${selectedStats}`)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            })
     };
 
     const handleCancelFilter = () => {
@@ -51,7 +63,7 @@ const StatusFilter: React.FC = () => {
                     <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
                         <h2 className="text-sm font-semibold my-4 ">Status</h2>
                         <ul className='grid grid-cols-2 gap-4'>
-                            {propertyTypes.map((type) => (
+                            {propertyStatus.map((type) => (
                                 <li key={type} className="mb-2">
                                     <button
                                         className={`w-full text-center py-2 px-4 rounded-full ${selectedStats === type ? 'bg-sky-200 text-black' : 'bg-gray-100'}`}

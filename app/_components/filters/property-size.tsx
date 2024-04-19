@@ -1,3 +1,6 @@
+'use client'
+
+
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";

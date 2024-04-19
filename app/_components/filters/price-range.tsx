@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef, useState, useEffect } from "react";
 import { FaDollarSign, FaTimes } from "react-icons/fa";
 
@@ -8,33 +10,35 @@ const PriceRangeFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
+    // const predefinedMinPrices = [50, 100, 200, 500, 1000, 5000, 10000, 50000, 100000, 500000];
+    // const predefinedMaxPrices = [500000, 700000, 1000000, 1500000, 2000000, 5000000, 7500000, 10000000];
+
     // fetch predefined prices from the backend 
-    // const [predefinedMinPrices, setPredefinedMinPrices] = useState<number[]>([]);
-    // const [predefinedMaxPrices, setPredefinedMaxPrices] = useState<number[]>([]);
+    const [predefinedMinPrices, setPredefinedMinPrices] = useState<number[]>([]);
+    const [predefinedMaxPrices, setPredefinedMaxPrices] = useState<number[]>([]);
 
-    // useEffect(() => {
-    //     // Fetch predefined prices from backend when component mounts
-    //     fetchPredefinedPrices();
-    // }, []);
+    useEffect(() => {
+        // Fetch predefined prices from backend when component mounts
+        fetchPredefinedPrices();
+    }, []);
 
-    // const fetchPredefinedPrices = async () => {
-    //     try {
-    //         // Make an HTTP GET request to your backend API to fetch predefined prices
-    //         const response = await fetch('your-backend-url/predefined-prices');
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch predefined prices');
-    //         }
-    //         const data = await response.json();
-    //         // Update state with fetched predefined prices
-    //         setPredefinedMinPrices(data.predefinedMinPrices);
-    //         setPredefinedMaxPrices(data.predefinedMaxPrices);
-    //     } catch (error) {
-    //         console.error('Error fetching predefined prices:', error);
-    //     }
-    // };
+    const fetchPredefinedPrices = async () => {
+        try {
+            // Make an HTTP GET request to your backend API to fetch predefined prices
+            const response = await fetch(`http://localhost:4000/properties?price=${maxPrice}&price=${minPrice}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch predefined prices');
+            }
+            const data = await response.json();
+            // Update state with fetched predefined prices
+            setPredefinedMinPrices(data.predefinedMinPrices);
+            setPredefinedMaxPrices(data.predefinedMaxPrices);
+        } catch (error) {
+            console.error('Error fetching predefined prices:', error);
+        }
+    };
 
-    const predefinedMinPrices = [50, 100, 200, 500, 1000, 5000, 10000, 50000, 100000, 500000];
-    const predefinedMaxPrices = [500000, 700000, 1000000, 1500000, 2000000, 5000000, 7500000, 10000000];
+
 
     const handleApplyFilter = () => {
         setAppliedRange(`$${minPrice} - $${maxPrice}`);
@@ -88,21 +92,21 @@ const PriceRangeFilter: React.FC = () => {
                             <label>Min:</label>
                             <div className="border py-3 px-8 my-3 rounded-full">
 
-                                <select className="bg-transparent focus:outline-none" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
+                                {/* <select className="bg-transparent focus:outline-none" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
                                     <option value="">Mininum</option>
                                     {predefinedMinPrices.map((price, index) => (
                                         <option key={index} value={price}>${price}</option>
                                     ))}
-                                </select>
+                                </select> */}
 
                                 {/* fetched prices are then used to populate the dropdown options for selecting minimum and maximum prices. */}
 
-                                {/* <select className="bg-transparent focus:outline-none" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
+                                <select className="bg-transparent focus:outline-none" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
                                     <option value="">Minimum</option>
                                     {predefinedMinPrices.map((price, index) => (
                                         <option key={index} value={price}>${price}</option>
                                     ))}
-                                </select> */}
+                                </select>
                             </div>
                         </div>
 

@@ -1,3 +1,6 @@
+'use client'
+
+import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { GrHome } from 'react-icons/gr';
@@ -13,6 +16,14 @@ const PropertyTypeFilter: React.FC = () => {
     const handleApplyFilter = () => {
         setAppliedType(selectedType);
         setIsModalOpen(false);
+
+        axios.get(`http://localhost:4000/properties?type=${selectedType}`)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            })
     };
 
     const handleCancelFilter = () => {
