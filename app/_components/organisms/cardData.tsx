@@ -3,7 +3,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Card from './card';
-import { properties } from '@/app/propertyData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios'
 import { getAllProperties } from '@/app/utils/util'
@@ -114,12 +113,12 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         <>
             <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
-                {showLink && (<div className='flex justify-between items-center mb-8'>
-                    <div className='flex items-center font-bold font-serif'>
+                {showLink && (<div className='flex justify-between items-center mb-8 '>
+                    <div className='flex items-center font-bold font-serif mt-20'>
                         <h1 className="text-3xl mr-6">Latest Properties</h1>
                         <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
                     </div>
-                    <div>
+                    <div className='mt-20'>
                         <input
                             type='search'
                             placeholder='search by baths'

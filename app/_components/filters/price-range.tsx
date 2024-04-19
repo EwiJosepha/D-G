@@ -30,7 +30,10 @@ const PriceRangeFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    // fetch predefined prices from the backend 
+    const predefinedMinPrices = [50, 100, 200, 500, 1000, 5000, 10000, 50000, 100000, 500000];
+    const predefinedMaxPrices = [500000, 700000, 1000000, 1500000, 2000000, 5000000, 7500000, 10000000];
+
+    // // fetch predefined prices from the backend 
     // const [predefinedMinPrices, setPredefinedMinPrices] = useState<number[]>([]);
     // const [predefinedMaxPrices, setPredefinedMaxPrices] = useState<number[]>([]);
 
@@ -42,7 +45,7 @@ const PriceRangeFilter: React.FC = () => {
     // const fetchPredefinedPrices = async () => {
     //     try {
     //         // Make an HTTP GET request to your backend API to fetch predefined prices
-    //         const response = await fetch('your-backend-url/predefined-prices');
+    //         const response = await fetch(`http://localhost:4000/properties?price=${maxPrice}&price=${minPrice}`);
     //         if (!response.ok) {
     //             throw new Error('Failed to fetch predefined prices');
     //         }
@@ -55,8 +58,7 @@ const PriceRangeFilter: React.FC = () => {
     //     }
     // };
 
-    const predefinedMinPrices = [50, 100, 200, 500, 1000, 5000, 10000, 50000, 100000, 500000];
-    const predefinedMaxPrices = [500000, 700000, 1000000, 1500000, 2000000, 5000000, 7500000, 10000000];
+
 
     const handleApplyFilter = () => {
         setAppliedRange(`$${minPrice} - $${maxPrice}`);
@@ -78,7 +80,7 @@ const PriceRangeFilter: React.FC = () => {
     };
 
     const { data } = useQuery({
-        queryKey: ["properties",minPrice],
+        queryKey: ["properties", minPrice],
         queryFn: async () => {
             const url = `${getAllProperties}?price=${minPrice}`
             const { data } = await axios.get(url)
@@ -86,14 +88,14 @@ const PriceRangeFilter: React.FC = () => {
                 console.log(data, "data");
             }
             console.log("url", url);
-            
+
 
             return data as Property[]
         }
     })
 
-    const { data:data2 } = useQuery({
-        queryKey: ["properties",maxPrice],
+    const { data: data2 } = useQuery({
+        queryKey: ["properties", maxPrice],
         queryFn: async () => {
             const url = `${getAllProperties}?price=${maxPrice}`
             const { data } = await axios.get(url)

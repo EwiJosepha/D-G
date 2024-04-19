@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 
 import { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -35,20 +35,22 @@ const PropertyTypeFilter: React.FC = () => {
     const handleApplyFilter = () => {
         setAppliedType(selectedType);
         setIsModalOpen(false);
+
+        // axios.get(`http://localhost:4000/properties?type=${selectedType}`)
+        //     .then((response) => {
+        //         console.log(response.data)
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error fetching data:', error);
+        //     })
     };
 
     const handleCancelFilter = () => {
         setAppliedType('');
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-            setIsModalOpen(false);
-        }
-    };
-
     const { data } = useQuery({
-        queryKey: ["properties",selectedType],
+        queryKey: ["properties", selectedType],
         queryFn: async () => {
             const url = `${getAllProperties}?type=${selectedType}`
             const { data } = await axios.get(url)
@@ -60,6 +62,11 @@ const PropertyTypeFilter: React.FC = () => {
         }
     })
 
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            setIsModalOpen(false);
+        }
+    };
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {

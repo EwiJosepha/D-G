@@ -72,14 +72,9 @@ const PropertySizeFilter: React.FC = () => {
         setAppliedSize('');
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-            setIsModalOpen(false);
-        }
-    };
 
     const { data } = useQuery({
-        queryKey: ["properties",minSize],
+        queryKey: ["properties", minSize],
         queryFn: async () => {
             const url = `${getAllProperties}?areaInKm=${minSize}`
             const { data } = await axios.get(url)
@@ -90,9 +85,9 @@ const PropertySizeFilter: React.FC = () => {
             return data as Property[]
         }
     })
-    
-    const { data:dataSize } = useQuery({
-        queryKey: ["properties",maxSize],
+
+    const { data: dataSize } = useQuery({
+        queryKey: ["properties", maxSize],
         queryFn: async () => {
             const url = `${getAllProperties}?areaInKm=${maxSize}`
             const { data } = await axios.get(url)
@@ -104,6 +99,11 @@ const PropertySizeFilter: React.FC = () => {
         }
     })
 
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            setIsModalOpen(false);
+        }
+    };
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {

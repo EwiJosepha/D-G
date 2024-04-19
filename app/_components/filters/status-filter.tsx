@@ -1,9 +1,11 @@
+'use client'
+
+import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
 import { getAllProperties } from '@/app/utils/util';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 type Property = {
     id: number;
@@ -30,11 +32,19 @@ const StatusFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const propertyTypes = ['rent', 'sale', 'Sold'];
+    const propertyStatus = ['rent', 'sale', 'Sold'];
 
     const handleApplyFilter = () => {
         setAppliedStats(selectedStats);
         setIsModalOpen(false);
+
+        axios.get(`http://localhost:4000/properties?rentOrSale=${selectedStats}`)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            })
     };
 
     const handleCancelFilter = () => {
@@ -48,7 +58,7 @@ const StatusFilter: React.FC = () => {
     };
 
     const { data } = useQuery({
-        queryKey: ["properties",selectedStats],
+        queryKey: ["properties", selectedStats],
         queryFn: async () => {
             const url = `${getAllProperties}?rentOrSale=${selectedStats}`
             const { data } = await axios.get(url)
@@ -60,7 +70,7 @@ const StatusFilter: React.FC = () => {
         }
     })
 
- 
+
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -87,7 +97,7 @@ const StatusFilter: React.FC = () => {
                     <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
                         <h2 className="text-sm font-semibold my-4 ">Status</h2>
                         <ul className='grid grid-cols-2 gap-4'>
-                            {propertyTypes.map((type) => (
+                            {propertyStatus.map((type) => (
                                 <li key={type} className="mb-2">
                                     <button
                                         className={`w-full text-center py-2 px-4 rounded-full ${selectedStats === type ? 'bg-sky-200 text-black' : 'bg-gray-100'}`}
