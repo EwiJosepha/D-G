@@ -28,9 +28,9 @@ type Property = {
 }
 
 const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
-    // const [favorites, setFavorites] = useState<number[]>([]);
     const [hide, setHide] = useState(false);
-    const[limit, setLimit] = useState<number>(4)
+
+    const [limit, setLimit] = useState<number>(2)
     let [page, setPage] = useState<number>(1)
     let [skip, setSkip] = useState<number>()
     const [notfound, setNotfound] = useState(false)
@@ -41,7 +41,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const { data: dataRooms, refetch } = useQuery({
         queryKey: ["rooms"],
         queryFn: async () => {
-            const { data } = await axios.get(`http://localhost:4000/properties/room/${rooms}`)
+            const { data } = await axios.get(`${getAllProperties}/room/${rooms}`)
             const dataLength = data.length
             if (dataLength === 0) {
                 setNotfound(true)
@@ -52,6 +52,21 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         enabled: !!rooms
     })
 
+    //get all properties 
+
+     // getting all properties
+     const querrykey = ["properties", limit, page, skip]
+     const { data, isLoading, isError, refetch: refetched } = useQuery({
+ 
+         queryKey: querrykey,
+         queryFn: async () => {
+             const { data } = await axios.get(`${getAllProperties}?limit=2&page=${page}&skip=${skip}`)
+             return data as Property[]
+         }
+ 
+     })
+ 
+
     // debounced so that my end point doesnt get exhausted, fetching onlyafter one second
 
     useEffect(() => {
@@ -61,53 +76,54 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         }
     }, [rooms]);
 
-
-    // getting all properties
-
-    const { data, isLoading, isError } = useQuery({
-        queryKey: ["properties"],
-        queryFn: async () => {
-            const { data } = await axios.get(`${getAllProperties}?limit=${page * 2}&page=${page}`)
-            return data as Property[]
+    useEffect(() => {
+        setLimit(page * 2)
+        if (limit) {
+            const skip = limit * (page - 1);
+            setSkip(skip);
         }
+    }, [page, limit]);
+      
+    useEffect(() => {
+        if (data && data.length === 0) {
+            setPage(1);
+        }
+    }, [data]);
 
-    })
+    useEffect(() => {
+        if (page < 1) {
+            setPage(1);
+        }
+    }, [page]);
+
+
+
+   
 
     if (isLoading) return <Spinner />
     if (isError) return <div className='flex justify-center items-center text-red-500'>Try again</div>
 
 
-    // implementing favourites
-
-    // const toggleFavorite = (id: number) => {
-    //     setFavorites((prevFavorites) => {
-    //         if (prevFavorites.includes(id)) {
-    //             return prevFavorites.filter((favId) => favId !== id)
-    //         } else {
-    //             return [...prevFavorites, id]
-    //         }
-    //     })
-    // }
+  
 
     function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
         setRooms(e.target.value)
         setHide(true)
         setNotfound(false)
-
     }
 
     const displayedProperties = showLink ? data?.slice(0, 3) : data;
     const reversedProperties = displayedProperties?.slice().reverse();
 
     function loadMore() {
-      setPage((prev)=> prev + 1)
-      console.log("i was clicked");
+        setPage((prev) => prev + 1)
       
     }
 
-    function skipFn () {
-        const skip = limit * (page -1)
-        setSkip(skip)
+    function previous () {
+        if (page > 1) {
+            setPage(prevPage => prevPage - 1);
+          }
     }
 
     return (
@@ -180,7 +196,8 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                             ))}
                         </div>
                     </>)}
-                    <button onClick={loadMore}>load more</button>
+                <button onClick={loadMore}>load more</button>
+                <button onClick={previous}>previous</button>
                 <div className="flex items-center justify-center">
                     {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }
