@@ -23,7 +23,7 @@ type Property = {
 }
 
 
-const StatusFilter: React.FC = () => {
+const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false }) => {
     const [selectedStats, setSelectedStats] = useState('');
     const [appliedStats, setAppliedStats] = useState('');
     // const [status, setStatus] = useState("")
@@ -35,6 +35,7 @@ const StatusFilter: React.FC = () => {
     const handleApplyFilter = () => {
         setAppliedStats(selectedStats);
         setIsModalOpen(false);
+        showstatus = true
     };
 
     const handleCancelFilter = () => {
@@ -48,7 +49,7 @@ const StatusFilter: React.FC = () => {
     };
 
     const { data } = useQuery({
-        queryKey: ["properties",selectedStats],
+        queryKey: ["properties", selectedStats],
         queryFn: async () => {
             const url = `${getAllProperties}?rentOrSale=${selectedStats}`
             const { data } = await axios.get(url)
@@ -60,7 +61,7 @@ const StatusFilter: React.FC = () => {
         }
     })
 
- 
+
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -105,7 +106,9 @@ const StatusFilter: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
             )}
+            {showstatus && <h1>hello</h1>}
         </div>
     );
 };

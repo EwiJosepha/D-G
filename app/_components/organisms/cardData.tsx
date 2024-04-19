@@ -10,6 +10,7 @@ import { getAllProperties } from '@/app/utils/util'
 import { debounceFetch } from "@/app/service/debounce"
 import Spinner from '../molecules/loaders/Spinner';
 
+
 type Property = {
     id: number;
     name: string;
@@ -54,18 +55,19 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
 
     //get all properties 
 
-     // getting all properties
-     const querrykey = ["properties", limit, page, skip]
-     const { data, isLoading, isError, refetch: refetched } = useQuery({
- 
-         queryKey: querrykey,
-         queryFn: async () => {
-             const { data } = await axios.get(`${getAllProperties}?limit=2&page=${page}&skip=${skip}`)
-             return data as Property[]
-         }
- 
-     })
- 
+    // getting all properties
+
+
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["properties", limit, page, skip],
+        queryFn: async () => {
+            const { data } = await axios.get(`${getAllProperties}?limit=${limit}&page=${page}&skip=${skip}`)
+            return data as Property[]
+        },
+
+        enabled: !!limit && !!page,
+    })
+
 
     // debounced so that my end point doesnt get exhausted, fetching onlyafter one second
 
@@ -76,35 +78,29 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         }
     }, [rooms]);
 
-    useEffect(() => {
-        setLimit(page * 2)
-        if (limit) {
-            const skip = limit * (page - 1);
-            setSkip(skip);
-        }
-    }, [page, limit]);
-      
+    // useEffect(() => {
+    //     setLimit(page * 2)
+    //     if (limit) {
+    //         const skip = limit * (page - 1);
+    //         setSkip(skip);
+    //     }
+    // }, [page, limit]);
+
+    // useEffect(() => {
+    //     const calculatedLimit = page * 2;
+    //     setLimit(calculatedLimit);
+    // }, [page]); 
+
     useEffect(() => {
         if (data && data.length === 0) {
             setPage(1);
         }
     }, [data]);
 
-    useEffect(() => {
-        if (page < 1) {
-            setPage(1);
-        }
-    }, [page]);
-
-
-
-   
+  
 
     if (isLoading) return <Spinner />
     if (isError) return <div className='flex justify-center items-center text-red-500'>Try again</div>
-
-
-  
 
     function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
         setRooms(e.target.value)
@@ -116,17 +112,17 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const reversedProperties = displayedProperties?.slice().reverse();
 
     function loadMore() {
-        setPage((prev) => prev + 1)
-      
+        // setPage((prev) => prev + 1)
+        setLimit((prev) => prev + 2)
     }
 
-    function previous () {
-        if (page > 1) {
-            setPage(prevPage => prevPage - 1);
-          }
-    }
+    // function previous() {
+    //     if (page > 1) {
+    //         setPage(prevPage => prevPage - 1);
+    //     }
+    // }
 
-    return (
+ return (
         <>
             <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
@@ -197,7 +193,6 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                         </div>
                     </>)}
                 <button onClick={loadMore}>load more</button>
-                <button onClick={previous}>previous</button>
                 <div className="flex items-center justify-center">
                     {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }
