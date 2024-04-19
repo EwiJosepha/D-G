@@ -4,6 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import { FaBedPulse } from 'react-icons/fa6';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import axios from 'axios';
+import { getAllProperties } from '@/app/utils/util';
 
 type Property = {
     id: number;
@@ -75,27 +76,21 @@ const BedBathFilter: React.FC = () => {
         }
     };
 
-    const url = `http://localhost:4000/properties?bath=${numBaths}&rooms=${numBeds}`
 
-    console.log(url)
+
     const { data } = useQuery({
-        queryKey: ["beds"],
+        queryKey: ["properties", numBaths, numBeds],
         queryFn: async () => {
+            const url = `${getAllProperties}?bath=${numBaths}&rooms=${numBeds}`
             const { data } = await axios.get(url)
             if (data) {
                 console.log(data, "data");
-
             }
 
             return data as Property[]
         }
     })
 
-    console.log('============', data);
-
-    const handleSearch = () => {
-        console.log("search ", data)
-    }
 
     return (
         <div className='text-blue'>

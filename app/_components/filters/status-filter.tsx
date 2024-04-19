@@ -1,14 +1,36 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
+import { getAllProperties } from '@/app/utils/util';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+
+type Property = {
+    id: number;
+    name: string;
+    type: string;
+    description: string;
+    rooms: string;
+    bath: number;
+    livingRooms: string;
+    location: string;
+    price: number;
+    areaInKm: number;
+    rentOrSale: string;
+    shortDescription: string;
+    images: string[];
+    agentId: number;
+}
+
 
 const StatusFilter: React.FC = () => {
     const [selectedStats, setSelectedStats] = useState('');
     const [appliedStats, setAppliedStats] = useState('');
+    // const [status, setStatus] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const propertyTypes = ['Rent', 'sell', 'Sold'];
+    const propertyTypes = ['rent', 'sale', 'Sold'];
 
     const handleApplyFilter = () => {
         setAppliedStats(selectedStats);
@@ -25,6 +47,20 @@ const StatusFilter: React.FC = () => {
         }
     };
 
+    const { data } = useQuery({
+        queryKey: ["properties",selectedStats],
+        queryFn: async () => {
+            const url = `${getAllProperties}?rentOrSale=${selectedStats}`
+            const { data } = await axios.get(url)
+            if (data) {
+                console.log(data, "data");
+            }
+
+            return data as Property[]
+        }
+    })
+
+ 
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {
