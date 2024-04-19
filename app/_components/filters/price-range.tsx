@@ -58,8 +58,6 @@ const PriceRangeFilter: React.FC = () => {
     //     }
     // };
 
-
-
     const handleApplyFilter = () => {
         setAppliedRange(`$${minPrice} - $${maxPrice}`);
         setIsModalOpen(false);
