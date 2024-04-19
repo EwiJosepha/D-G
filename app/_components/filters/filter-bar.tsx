@@ -8,7 +8,12 @@ import PropertySizeFilter from './property-size';
 import StatusFilter from './status-filter';
 import { BsFilter } from 'react-icons/bs';
 
+
 const FilterBar: React.FC = () => {
+    const applyFilters = (filters: { beds?: number; baths?: number }) => {
+        // Handle the applied filters
+        console.log('Applied Filters:', filters);
+    };
 
     return (
         <div className='bg-gray-100 pt-6 pb-3'>
@@ -16,7 +21,7 @@ const FilterBar: React.FC = () => {
             <div className="container mx-auto mt-3 mb-2 items-center justify-start md:mx-auto md:w-[67%] flex">
                 {/* Filter buttons and dropdowns */}
                 <PropertyTypeFilter />
-                <BedBathFilter />
+                <BedBathFilter applyFilters={applyFilters} />
                 <PriceRangeFilter />
                 <PropertySizeFilter />
                 <StatusFilter />

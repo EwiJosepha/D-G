@@ -9,7 +9,7 @@ import { getAllProperties } from '@/app/utils/util'
 import { debounceFetch } from "@/app/service/debounce"
 import Spinner from '../molecules/loaders/Spinner';
 
-type Property = {
+interface Property {
     id: number;
     name: string;
     type: string;
@@ -26,13 +26,33 @@ type Property = {
     agentId: number;
 }
 
-const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
+
+const CardData: React.FC<{ showLink?: boolean; data: Property[] }> = ({ showLink = true, data }) => {
+    // const CardData: React.FC<CardDataProps> = ({ data }) => {
+    const [filteredData, setFilteredData] = useState<Property[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     // const [favorites, setFavorites] = useState<number[]>([]);
     const [hide, setHide] = useState(false);
-    const[limit, setLimit] = useState<number>(4)
+    const [limit, setLimit] = useState<number>(4)
     let [page, setPage] = useState<number>(1)
     let [skip, setSkip] = useState<number>()
     const [notfound, setNotfound] = useState(false)
+
+    const applyBathsFilter = (baths: number) => {
+        setIsLoading(true);
+        axios.get(`http://localhost:4000/properties?bath=${baths}`)
+            .then(response => {
+                setFilteredData(response.data);
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching properties:', error);
+                setIsLoading(false);
+            });
+    };
+
+    if (isLoading) return <Spinner />;
 
     //getting rooms
 
@@ -62,16 +82,13 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
 
 
     // getting all properties
-
-    const { data, isLoading, isError } = useQuery({
+    const { isError } = useQuery({
         queryKey: ["properties"],
         queryFn: async () => {
             const { data } = await axios.get(`${getAllProperties}?limit=${page * 2}&page=${page}`)
             return data as Property[]
         }
-
     })
-
     if (isLoading) return <Spinner />
     if (isError) return <div className='flex justify-center items-center text-red-500'>Try again</div>
 
@@ -99,13 +116,13 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const reversedProperties = displayedProperties?.slice().reverse();
 
     function loadMore() {
-      setPage((prev)=> prev + 1)
-      console.log("i was clicked");
-      
+        setPage((prev) => prev + 1)
+        console.log("i was clicked");
+
     }
 
-    function skipFn () {
-        const skip = limit * (page -1)
+    function skipFn() {
+        const skip = limit * (page - 1)
         setSkip(skip)
     }
 
@@ -153,7 +170,10 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                                 />
                             </div>
                         ))}
-                    </div></>) : (<>
+                    </div>
+                </>
+                ) : (
+                    <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
                             {dataRooms?.map((prop, i) => (
                                 <div key={i}>
@@ -178,8 +198,39 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                                 </div>
                             ))}
                         </div>
-                    </>)}
-                    <button onClick={loadMore}>load more</button>
+                    </>
+                )}
+
+                {filteredData.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                        {filteredData.map((prop, index) => (
+                            <Card
+                                key={index}
+                                id={prop.id}
+                                name={prop.name}
+                                type={prop.type}
+                                rooms={prop.rooms}
+                                description={prop.description}
+                                bath={prop.bath}
+                                livingRooms={prop.livingRooms}
+                                location={prop.location}
+                                price={prop.price}
+                                areaInKm={prop.areaInKm}
+                                rentOrSale={prop.rentOrSale}
+                                shortDescription={prop.shortDescription}
+                                images={prop.images}
+                                agentId={prop.agentId}
+                            // onToggleFavorite={toggleFavorite}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div>No properties found.</div>
+                )}
+
+
+
+                <button onClick={loadMore}>load more</button>
                 <div className="flex items-center justify-center">
                     {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }

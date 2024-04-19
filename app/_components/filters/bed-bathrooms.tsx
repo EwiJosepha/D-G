@@ -25,7 +25,11 @@ type Property = {
     agentId: number;
 }
 
-const BedBathFilter: React.FC = () => {
+interface BedBathFilterProps {
+    applyFilters: (filters: { beds?: number; baths?: number }) => void;
+}
+
+const BedBathFilter: React.FC<BedBathFilterProps> = ({ applyFilters }) => {
     const [numBeds, setNumBeds] = useState<number>(0);
     const [numBaths, setNumBaths] = useState<number>(0);
     const [appliedRooms, setAppliedRooms] = useState('');
@@ -35,8 +39,9 @@ const BedBathFilter: React.FC = () => {
     const handleApplyFilter = () => {
         setAppliedRooms(`${numBeds} Beds, ${numBaths} Baths`);
         setIsModalOpen(false);
+
+        applyFilters({ beds: numBeds, baths: numBaths });
     };
-    console.log(numBeds, numBaths)
 
     const handleCancelFilter = () => {
         setNumBeds(0);
@@ -44,18 +49,18 @@ const BedBathFilter: React.FC = () => {
         setAppliedRooms('');
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-            setIsModalOpen(false);
-        }
-    };
-    useEffect(() => {
-        document.body.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.body.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+    const { data } = useQuery({
+        queryKey: ["properties", numBaths, numBeds],
+        queryFn: async () => {
+            const url = `${getAllProperties}?bath=${numBaths}&rooms=${numBeds}`
+            const { data } = await axios.get(url)
+            if (data) {
+                console.log(data, "data");
+            }
 
+            return data as Property[]
+        }
+    })
 
     const handleIncrement = (type: 'beds' | 'baths') => {
         if (type === 'beds') {
@@ -78,21 +83,17 @@ const BedBathFilter: React.FC = () => {
         }
     };
 
-
-
-    const { data } = useQuery({
-        queryKey: ["properties", numBaths, numBeds],
-        queryFn: async () => {
-            const url = `${getAllProperties}?bath=${numBaths}&rooms=${numBeds}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data");
-            }
-
-            return data as Property[]
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            setIsModalOpen(false);
         }
-    })
-
+    };
+    useEffect(() => {
+        document.body.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.body.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <>
