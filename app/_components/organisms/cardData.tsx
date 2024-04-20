@@ -9,6 +9,9 @@ import axios from 'axios'
 import { getAllProperties } from '@/app/utils/util'
 import { debounceFetch } from "@/app/service/debounce"
 import Spinner from '../molecules/loaders/Spinner';
+import StatusFilter from '../filters/status-filter';
+import { useContext } from "react";
+import { AppContext } from "@/store/app-context";
 
 
 type Property = {
@@ -29,7 +32,10 @@ type Property = {
 }
 
 const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
+    const {showFilters} = useContext(AppContext)
     const [hide, setHide] = useState(false);
+    // const [showstatus, setShowstatus] = useState(false)
+    
 
     const [limit, setLimit] = useState<number>(2)
     let [page, setPage] = useState<number>(1)
@@ -68,6 +74,8 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         enabled: !!limit && !!page,
     })
 
+
+    // filteredData from context
 
     // debounced so that my end point doesnt get exhausted, fetching onlyafter one second
 
@@ -123,7 +131,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     // }
 
  return (
-        <>
+        
             <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
                 {showLink && (<div className='flex justify-between items-center mb-8'>
@@ -140,9 +148,10 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
 
                     </div>
 
-                </div>)}
+                </div>
+            )}
 
-                {!rooms ? (<>
+                {!showFilters? (<>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
                         {reversedProperties?.map((prop, i) => (
                             <div key={i}>
@@ -166,9 +175,10 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                                 />
                             </div>
                         ))}
-                    </div></>) : (<>
+                    </div>
+                    </>) : 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                            {dataRooms?.map((prop, i) => (
+                            {/* {dataRooms?.map((prop, i) => (
                                 <div key={i}>
                                     <Card
                                         key={i}
@@ -191,14 +201,21 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                                 </div>
                             ))}
                         </div>
-                    </>)}
+                    </>)} */
+                  
+                      <StatusFilter  showstatus={false}/>
+              
+                }
+
+                  
                 <button onClick={loadMore}>load more</button>
                 <div className="flex items-center justify-center">
                     {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                     }
                 </div>
             </div>
-        </>
+ } </div>
+       
     );
 };
 

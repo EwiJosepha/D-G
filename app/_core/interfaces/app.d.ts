@@ -28,6 +28,16 @@ interface IProfileInfo {
     bio: string
 }
 
+interface FilterContextProps {
+    showFilters: boolean;
+    selectedStatus: null,
+    setSelectedStatus: Dispatch<SetStateAction<string | null>>,
+    toggleFilters: () => void;
+  }
+
 export type {
     IProfileInfo
+}
+export type {
+    FilterContextProps
 }

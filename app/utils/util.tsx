@@ -97,3 +97,14 @@ export function searchRooms(searchParams: string) {
 
 
 }
+
+export function statusFilter(status: string) {
+  return useQuery({
+    queryKey: ["properties", status],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:4000/properties?rentOrSale=${status}`)
+      return data
+    }
+  })
+
+}

@@ -3,7 +3,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { Dispatch, SetStateAction } from 'react';
-import type { IPropertyInfo, IProfileInfo } from '@/interfaces/index';
+import type { IPropertyInfo, IProfileInfo, FilterContextProps } from '@/interfaces/index';
+
 
 interface IAppContext {
     propertyInfo: IPropertyInfo;
@@ -11,9 +12,16 @@ interface IAppContext {
     profileInfo: IProfileInfo
     setPropertyInfo: Dispatch<SetStateAction<IPropertyInfo>>;
     setProfileInfo: Dispatch<SetStateAction<IProfileInfo>>
+    filteredData: IPropertyInfo[]
+    setFilteredData: Dispatch<SetStateAction<IPropertyInfo[]>>;
 }
 
-const AppContext = createContext<IAppContext | null>(null);
+export const  AppContext = createContext<FilterContextProps>({
+    showFilters: false,
+    selectedStatus: null,
+    setSelectedStatus: () => {},
+    toggleFilters: () => {}
+});
 
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [propertyInfo, setPropertyInfo] = useState<IPropertyInfo>({
@@ -42,23 +50,39 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         bio: ""
     })
 
+    const [filteredData, setFilteredData] = useState<IPropertyInfo[]>([])
+    const [showFilters, setShowFilters] = useState(false);
+    const[ selectedStatus, setSelectedStatus]=useState(null)
+
+    const toggleFilters = () => {
+      setShowFilters((prev) => !prev);
+    };
+
+
+
     useEffect(() => {
         if (profileInfo) localStorage.setItem('propertyInfo', JSON.stringify(profileInfo));
     }, [profileInfo])
 
     return (
         <AppContext.Provider value={{
-            propertyInfo,
-            setPropertyInfo,
-            profileInfo,
-            setProfileInfo
+            // propertyInfo,
+            // setPropertyInfo,
+            // profileInfo,
+            // setProfileInfo,
+            // filteredData,
+            // setFilteredData,
+            showFilters,
+            selectedStatus,
+            setSelectedStatus,
+             toggleFilters 
         }}>
             {children}
         </AppContext.Provider>
     )
 }
 
-const useAppContext = () => useContext(AppContext) as IAppContext;
+const useAppContext = () => useContext(AppContext) as FilterContextProps;
 
 export {
     AppContextProvider,

@@ -7,7 +7,7 @@ import { FaTimes } from 'react-icons/fa';
 import { GrHome } from 'react-icons/gr';
 import { getAllProperties } from '@/app/utils/util';
 
-type Property = {
+export type Property = {
     id: number;
     name: string;
     type: string;
@@ -29,6 +29,7 @@ const PropertyTypeFilter: React.FC = () => {
     const [appliedType, setAppliedType] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
+    
 
     const propertyTypes = ['Apartment', 'Studio', 'Villa', 'SelfContain'];
 

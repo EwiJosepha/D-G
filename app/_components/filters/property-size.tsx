@@ -6,6 +6,8 @@ import { FaTimes } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProperties } from "@/app/utils/util";
 import axios from "axios";
+import { useAppContext } from "@/store/app-context";
+
 
 type Property = {
     id: number;
@@ -56,6 +58,7 @@ const PropertySizeFilter: React.FC = () => {
     //     }
     // };
 
+    
     const predefinedMinSizes = [100, 150, 200, 300, 400, 500, 700, 1000];
     const predefinedMaxSizes = [1000, 1500, 2000, 2500, 5000, 10000];
 
@@ -90,7 +93,7 @@ const PropertySizeFilter: React.FC = () => {
             return data as Property[]
         }
     })
-    
+
     const { data:dataSize } = useQuery({
         queryKey: ["properties",maxSize],
         queryFn: async () => {

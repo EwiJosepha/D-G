@@ -29,6 +29,7 @@ const PriceRangeFilter: React.FC = () => {
     const [appliedRange, setAppliedRange] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
+    
 
     // fetch predefined prices from the backend 
     // const [predefinedMinPrices, setPredefinedMinPrices] = useState<number[]>([]);
@@ -78,7 +79,7 @@ const PriceRangeFilter: React.FC = () => {
     };
 
     const { data } = useQuery({
-        queryKey: ["properties",minPrice],
+        queryKey: ["properties", minPrice],
         queryFn: async () => {
             const url = `${getAllProperties}?price=${minPrice}`
             const { data } = await axios.get(url)
@@ -86,14 +87,13 @@ const PriceRangeFilter: React.FC = () => {
                 console.log(data, "data");
             }
             console.log("url", url);
-            
 
             return data as Property[]
         }
     })
 
-    const { data:data2 } = useQuery({
-        queryKey: ["properties",maxPrice],
+    const { data: data2 } = useQuery({
+        queryKey: ["properties", maxPrice],
         queryFn: async () => {
             const url = `${getAllProperties}?price=${maxPrice}`
             const { data } = await axios.get(url)

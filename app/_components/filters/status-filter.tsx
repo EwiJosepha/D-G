@@ -3,7 +3,11 @@ import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
 import { getAllProperties } from '@/app/utils/util';
 import { useQuery } from '@tanstack/react-query';
+import { useContext } from "react";
+import { AppContext } from "@/store/app-context";
+
 import axios from 'axios';
+import { statusFilter } from '@/app/utils/util';
 
 type Property = {
     id: number;
@@ -22,16 +26,29 @@ type Property = {
     agentId: number;
 }
 
+// const fetchAndUpdateStatus = async (selectedStats:any, setSelectedStatus:any) => {
+//     const { data: statusData } = statusFilter(selectedStats);
+//     console.log(statusData, 'statusdata');
+//         console.log("hey");
+
+
+//     setSelectedStatus(statusData);
+// };
+
 
 const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false }) => {
+    const { setSelectedStatus, selectedStatus } = useContext(AppContext)
     const [selectedStats, setSelectedStats] = useState('');
     const [appliedStats, setAppliedStats] = useState('');
+    const { data: statusData } = statusFilter(selectedStats);
+    console.log("statusdaa", statusData);
+    setSelectedStatus(statusData)
+    console.log('state', statusData);
+
     // const [status, setStatus] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
-
     const propertyTypes = ['rent', 'sale', 'Sold'];
-
     const handleApplyFilter = () => {
         setAppliedStats(selectedStats);
         setIsModalOpen(false);
@@ -40,6 +57,7 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
 
     const handleCancelFilter = () => {
         setAppliedStats('');
+
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,18 +66,23 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
         }
     };
 
-    const { data } = useQuery({
-        queryKey: ["properties", selectedStats],
-        queryFn: async () => {
-            const url = `${getAllProperties}?rentOrSale=${selectedStats}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data");
-            }
+    // useEffect(() => {
+    //     fetchAndUpdateStatus(selectedStats, setSelectedStatus);
+    // }, [selectedStats, setSelectedStatus]);
 
-            return data as Property[]
-        }
-    })
+
+    // const { data } = useQuery({
+    //     queryKey: ["properties", selectedStats],
+    //     queryFn: async () => {
+    //         const url = `${getAllProperties}?rentOrSale=${selectedStats}`
+    //         const { data } = await axios.get(url)
+    //         if (data) {
+    //             console.log(data, "data");
+    //         }
+
+    //         return data as Property[]
+    //     }
+    // })
 
 
     useEffect(() => {
@@ -68,6 +91,12 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
             document.body.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem("status", JSON.stringify(selectedStats))
+        }
+    }, [selectedStats])
 
     return (
         <div>

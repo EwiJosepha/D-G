@@ -6,7 +6,7 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
 import axios from 'axios';
 import { getAllProperties } from '@/app/utils/util';
 
-type Property = {
+ type Property = {
     id: number;
     name: string;
     type: string;
