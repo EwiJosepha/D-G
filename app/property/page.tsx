@@ -27,7 +27,7 @@ const PropertyPage: React.FC = () => {
                 setUpdatetatus(parsedData);
             }
         }
-    }, [updatestatus]);
+    }, [selectedStatus]);
 
     console.log("sta",selectedStatus);
     console.log("hey");

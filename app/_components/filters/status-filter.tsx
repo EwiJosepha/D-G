@@ -43,7 +43,7 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
     const { data: statusData } = statusFilter(selectedStats);
     console.log("statusdaa", statusData);
     setSelectedStatus(statusData)
-    console.log('state', statusData);
+    console.log('state', selectedStatus);
 
     // const [status, setStatus] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
