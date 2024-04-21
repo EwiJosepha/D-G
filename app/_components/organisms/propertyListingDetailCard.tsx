@@ -56,7 +56,6 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             livingRooms: value,
         }));
-        console.log(value);
 
 
         setData((prevPropertyInfo) => ({
@@ -158,8 +157,6 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         setDisable(true)
 
     }
-    // console.log("com", propertyInfo);
-
 
     return (
         <div className="p-4 shadow shadow-blue rounded-lg">

@@ -1,32 +1,24 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { FaBedPulse } from 'react-icons/fa6';
 import { FiMinus, FiPlus } from 'react-icons/fi';
-import axios from 'axios';
-import { getAllProperties } from '@/app/utils/util';
-import { IPropertyInfo } from '@/interfaces/app';
 import { useAppContext } from '@/store/app-context';
 
-const BedBathFilter: React.FC<{ onFilter: (type: string) => void }> = ({ onFilter }) => {
-    const { filters, setFilters, applyFilters, propertyInfo } = useAppContext();
+const BedBathFilter: React.FC = () => {
     const [numBeds, setNumBeds] = useState<number>(0);
     const [numBaths, setNumBaths] = useState<number>(0);
     const [appliedRooms, setAppliedRooms] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const handleApplyFilter = () => {
-        setAppliedRooms(`${numBeds} rooms, ${numBaths} bath`);
-        setIsModalOpen(false);
-        applyFilters(propertyInfo, filters);
-    };
+    const { setFilters } = useAppContext();
 
-    // const handleFilterChange = (type: string) => {
-    //     onFilter(type);
-    // };
+    const handleApplyFilter = () => {
+        setIsModalOpen(false);
+        setFilters(prevFilters => ({ ...prevFilters, rooms: numBeds, bath: numBaths }))
+    };
 
     const handleCancelFilter = () => {
         setNumBeds(0);
@@ -34,14 +26,6 @@ const BedBathFilter: React.FC<{ onFilter: (type: string) => void }> = ({ onFilte
         setAppliedRooms('');
     };
 
-    const { data } = useQuery({
-        queryKey: ["properties", numBaths, numBeds],
-        queryFn: async () => {
-            const url = `${getAllProperties}?bath=${numBaths}&rooms=${numBeds}`;
-            const { data } = await axios.get(url);
-            return data as IPropertyInfo[];
-        },
-    });
 
     const handleIncrement = (type: 'beds' | 'baths') => {
         if (type === 'beds') {
@@ -50,7 +34,6 @@ const BedBathFilter: React.FC<{ onFilter: (type: string) => void }> = ({ onFilte
             setNumBaths((prevNumBaths) => prevNumBaths + 1);
         }
     };
-
     const handleDecrement = (type: 'beds' | 'baths') => {
         if (type === 'beds') {
             if (numBeds > 0) {
