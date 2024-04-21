@@ -5,8 +5,9 @@ import { useAppContext } from "@/store/app-context";
 import Card from "../organisms/card";
 import Spinner from "../molecules/loaders/Spinner";
 import { IPropertyInfo } from "@/interfaces/app";
+import Link from "next/link";
 
-const CardData: React.FC = () => {
+const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const { propertyInfo, filters, applyFilters } = useAppContext();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [filteredProperties, setFilteredProperties] = useState<IPropertyInfo[]>([]);
@@ -16,26 +17,64 @@ const CardData: React.FC = () => {
         // Apply filters and update loading state
         setIsLoading(true);
         const filteredProperties = applyFilters(propertyInfo, filters);
+        // Sort the filtered properties by index
+        filteredProperties.sort((a, b) => b.id - a.id);
         setFilteredProperties(filteredProperties);
         setIsLoading(false);
-
-        // set the filtered properties in a state variable if needed
     }, [propertyInfo, filters, applyFilters]);
+
+    // sliced at 3
+    const slicedProperties = filteredProperties.slice(0, 3);
+
+    if (isLoading) return <div><Spinner /></div>
 
     return (
         <>
-            {/* Display loader spinner when loading */}
-            {isLoading && (
-                <div className="flex items-center justify-center">
-                    <div className="spinner-border" role="status">
-                        <span className="visually-hidden"><Spinner /></span>
-                    </div>
-                </div>
-            )}
+            <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
-            {/* Display property cards */}
-            {!isLoading && (
-                <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
+                {showLink && (<div className='flex justify-between items-center mb-8 '>
+                    <div className='flex items-center font-bold font-serif mt-20'>
+                        <h1 className="text-3xl mr-6">Latest Properties</h1>
+                        <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
+                    </div>
+                    <div className='mt-20'>
+                        <input
+                            type='search'
+                            placeholder='search by baths'
+                            // onChange={searchRooms2}
+                            className='border border-gray-400 px-6 py-2' />
+                    </div>
+
+                </div>)}
+                {/*display slice property card to the landing page */}
+                {showLink && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                        {slicedProperties.map((prop, i) => (
+                            <div key={i}>
+                                <Card
+                                    key={i}
+                                    id={prop.id}
+                                    name={prop.name}
+                                    type={prop.type}
+                                    rooms={prop.rooms}
+                                    description={prop.description}
+                                    bath={prop.bath}
+                                    livingRooms={prop.livingRooms}
+                                    location={prop.location}
+                                    price={prop.price}
+                                    areaInKm={prop.areaInKm}
+                                    rentOrSale={prop.rentOrSale}
+                                    shortDescription={prop.shortDescription}
+                                    images={prop.images}
+                                    agentId={prop.agentId}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/*display property card without the slice */}
+                {!showLink && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
                         {filteredProperties.map((prop, i) => (
                             <div key={i}>
@@ -59,17 +98,22 @@ const CardData: React.FC = () => {
                             </div>
                         ))}
                     </div>
+                )}
 
-                    {/* Display a message if no properties are found */}
-                    {!isLoading && filteredProperties.length === 0 && (
-                        <div className="flex items-center justify-center">
-                            <h1 className="my-10 text-2xl font-extrabold text-red-500 animate-bounce">
-                                No properties found.
-                            </h1>
-                        </div>
-                    )}
+                {/* Display a message if no properties are found */}
+                {!isLoading && filteredProperties.length === 0 && (
+                    <div className="flex items-center justify-center">
+                        <h1 className="my-10 text-2xl font-extrabold text-red-500 animate-bounce">
+                            No properties found.
+                        </h1>
+                    </div>
+                )}
+
+                <div className="text-white font-extrabold py-2 px-5 bg-gradient-to-r from-orange-700 to-blue w-36 rounded-lg mt-6 justify-end flex items-end ml-[88%] animate-pulse">
+                    <button>Load more...</button>
+
                 </div>
-            )}
+            </div>
         </>
     );
 };

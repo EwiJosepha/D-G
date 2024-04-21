@@ -33,11 +33,9 @@ const PropertyPage: React.FC = () => {
                             <PriceRangeFilter />
                             <PropertySizeFilter />
                             <StatusFilter />
-                            {/* <CardData showLink={false} filters={filters} /> */}
                         </div>
                     </div>
-
-                    <CardData />
+                    <CardData showLink={false} />
 
                 </div>
                 <Footer />
