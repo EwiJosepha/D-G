@@ -165,7 +165,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             <div className='flex justify-between items-center'>
                 <div className="my-4 w-[45%]">
                     <label htmlFor="propertySize" className="block">
-                        Surface Area in ft*
+                        Surface Area in m2
                     </label>
                     <input
                         type="text"
