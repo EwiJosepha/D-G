@@ -1,5 +1,3 @@
-// FilterBar.tsx 
-
 import React from 'react';
 import PropertyTypeFilter from './property-type';
 import BedBathFilter from './bed-bathrooms';
@@ -7,7 +5,6 @@ import PriceRangeFilter from './price-range';
 import PropertySizeFilter from './property-size';
 import StatusFilter from './status-filter';
 import { BsFilter } from 'react-icons/bs';
-
 
 const FilterBar: React.FC = () => {
     const applyFilters = (filters: { beds?: number; baths?: number }) => {

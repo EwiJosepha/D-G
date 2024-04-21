@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FilterBar from '@/components/filters/filter-bar';
 import CardData from '@/components/organisms/cardData';
+import Navbar from '@/components/organisms/navbar';
+import Footer from '@/components/organisms/footer';
 
 interface Property {
     id: number;
@@ -54,10 +56,16 @@ const PropertyPage: React.FC = () => {
     };
 
     return (
-        <div>
-            <FilterBar />
-            <CardData showLink={false} data={filteredData} />
-        </div>
+        <>
+            <Navbar />
+            <div>
+                <FilterBar />
+                <CardData showLink={false} data={filteredData} />
+
+            </div>
+            <Footer />
+        </>
+
     );
 };
 

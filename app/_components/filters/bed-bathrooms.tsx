@@ -7,23 +7,7 @@ import { FaBedPulse } from 'react-icons/fa6';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import axios from 'axios';
 import { getAllProperties } from '@/app/utils/util';
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
+import { IPropertyInfo } from '@/interfaces/app';
 
 interface BedBathFilterProps {
     applyFilters: (filters: { beds?: number; baths?: number }) => void;
@@ -35,6 +19,7 @@ const BedBathFilter: React.FC<BedBathFilterProps> = ({ applyFilters }) => {
     const [appliedRooms, setAppliedRooms] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
+
 
     const handleApplyFilter = () => {
         setAppliedRooms(`${numBeds} Beds, ${numBaths} Baths`);
@@ -58,7 +43,7 @@ const BedBathFilter: React.FC<BedBathFilterProps> = ({ applyFilters }) => {
                 console.log(data, "data");
             }
 
-            return data as Property[]
+            return data as IPropertyInfo[]
         }
     })
 

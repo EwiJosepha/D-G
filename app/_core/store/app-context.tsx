@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { Dispatch, SetStateAction } from 'react';
-import type { IPropertyInfo, IProfileInfo } from '@/interfaces/index';
+import type { IPropertyInfo, IProfileInfo, IFilters } from '@/interfaces/index';
 
 interface IAppContext {
     propertyInfo: IPropertyInfo;
@@ -11,6 +11,8 @@ interface IAppContext {
     profileInfo: IProfileInfo
     setPropertyInfo: Dispatch<SetStateAction<IPropertyInfo>>;
     setProfileInfo: Dispatch<SetStateAction<IProfileInfo>>
+    filters: IFilters
+    setFilters: Dispatch<SetStateAction<IFilters>>
 }
 
 const AppContext = createContext<IAppContext | null>(null);
@@ -40,6 +42,15 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         email: "",
         phoneNumber: "",
         bio: ""
+    });
+
+    const [filters, setFilters] = useState<IFilters>({
+        rooms: 0,
+        baths: 0,
+        areaInKm: 0,
+        price: 0,
+        type: '',
+        rentOrSale: '',
     })
 
     useEffect(() => {
@@ -51,7 +62,9 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
             propertyInfo,
             setPropertyInfo,
             profileInfo,
-            setProfileInfo
+            setProfileInfo,
+            filters,
+            setFilters
         }}>
             {children}
         </AppContext.Provider>
