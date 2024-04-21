@@ -109,10 +109,10 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                     </div>
                 )}
 
-                <div className="text-white font-extrabold py-2 px-5 bg-gradient-to-r from-orange-700 to-blue w-36 rounded-lg mt-6 justify-end flex items-end ml-[88%] animate-pulse">
+                {!showLink && (<div className="text-white font-extrabold py-2 px-5 bg-gradient-to-r from-orange-700 to-blue w-36 rounded-lg mt-6 justify-end flex items-end ml-[88%] animate-pulse">
                     <button>Load more...</button>
 
-                </div>
+                </div>)}
             </div>
         </>
     );
