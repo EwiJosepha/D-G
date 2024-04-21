@@ -13,7 +13,7 @@ const StatusFilter: React.FC = () => {
 
     const { applyFilters, propertyInfo, filters, setFilters } = useAppContext()
 
-    const propertyStatus = ['rent', 'sale', 'Sold'];
+    const propertyStatus = ['rent', 'sell', 'Sold'];
 
     const handleApplyFilter = () => {
         setIsModalOpen(false)

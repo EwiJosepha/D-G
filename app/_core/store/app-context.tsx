@@ -59,12 +59,9 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         fetchData();
     }, [filters]);
 
-
-
     useEffect(() => {
         if (profileInfo) localStorage.setItem('propertyInfo', JSON.stringify(profileInfo));
     }, [profileInfo]);
-
 
     // Function to apply filters to propertyInfo
     const applyFilters = (properties: IPropertyInfo[], filters: IFilters): IPropertyInfo[] => {

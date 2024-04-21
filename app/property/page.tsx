@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import CardData from '@/components/organisms/cardData';
 import Navbar from '@/components/organisms/navbar';
 import Footer from '@/components/organisms/footer';

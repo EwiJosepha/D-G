@@ -15,27 +15,19 @@ const PropertyTypeFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const propertyTypes = ['Apartment', 'Studio', 'Villa', 'SelfContain'];
+    const { applyFilters, filters, setFilters, } = useAppContext()
+
+    const propertyTypes = ['apartment', 'studios', 'villas', 'selfcontain'];
 
     const handleApplyFilter = () => {
+        setIsModalOpen(false)
+        setFilters(prevFilters => ({ ...prevFilters, type: selectedType }))
     };
 
     const handleCancelFilter = () => {
+        setSelectedType('');
         setAppliedType('');
     };
-
-    const { data } = useQuery({
-        queryKey: ["properties", selectedType],
-        queryFn: async () => {
-            const url = `${getAllProperties}?type=${selectedType}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data");
-            }
-
-            return data as IPropertyInfo[]
-        }
-    })
 
     const handleClickOutside = (event: MouseEvent) => {
         if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
