@@ -1,13 +1,9 @@
 'use client'
 
-import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
-import { getAllProperties } from '@/app/utils/util';
-import { useQuery } from '@tanstack/react-query';
 import { useAppContext } from '@/store/app-context';
-
 
 const StatusFilter: React.FC = () => {
     const [selectedStats, setSelectedStats] = useState('');
