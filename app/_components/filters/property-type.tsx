@@ -6,23 +6,8 @@ import axios from 'axios';
 import { FaTimes } from 'react-icons/fa';
 import { GrHome } from 'react-icons/gr';
 import { getAllProperties } from '@/app/utils/util';
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
+import { IPropertyInfo } from '@/interfaces/app';
+import { useAppContext } from '@/store/app-context';
 
 const PropertyTypeFilter: React.FC = () => {
     const [selectedType, setSelectedType] = useState('');
@@ -33,16 +18,6 @@ const PropertyTypeFilter: React.FC = () => {
     const propertyTypes = ['Apartment', 'Studio', 'Villa', 'SelfContain'];
 
     const handleApplyFilter = () => {
-        setAppliedType(selectedType);
-        setIsModalOpen(false);
-
-        // axios.get(`http://localhost:4000/properties?type=${selectedType}`)
-        //     .then((response) => {
-        //         console.log(response.data)
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching data:', error);
-        //     })
     };
 
     const handleCancelFilter = () => {
@@ -58,7 +33,7 @@ const PropertyTypeFilter: React.FC = () => {
                 console.log(data, "data");
             }
 
-            return data as Property[]
+            return data as IPropertyInfo[]
         }
     })
 

@@ -6,49 +6,28 @@ import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
 import { getAllProperties } from '@/app/utils/util';
 import { useQuery } from '@tanstack/react-query';
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
+import { useAppContext } from '@/store/app-context';
 
 
 const StatusFilter: React.FC = () => {
     const [selectedStats, setSelectedStats] = useState('');
     const [appliedStats, setAppliedStats] = useState('');
-    // const [status, setStatus] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
+
+    const { applyFilters, propertyInfo, filters, setFilters } = useAppContext()
 
     const propertyStatus = ['rent', 'sale', 'Sold'];
 
     const handleApplyFilter = () => {
-        setAppliedStats(selectedStats);
-        setIsModalOpen(false);
-
-        axios.get(`http://localhost:4000/properties?rentOrSale=${selectedStats}`)
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            })
+        setIsModalOpen(false)
+        setFilters(prevFilters => ({ ...prevFilters, rentOrSale: selectedStats }));
     };
 
+
     const handleCancelFilter = () => {
-        setAppliedStats('');
+        setSelectedStats('')
+        setAppliedStats('')
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -56,21 +35,6 @@ const StatusFilter: React.FC = () => {
             setIsModalOpen(false);
         }
     };
-
-    const { data } = useQuery({
-        queryKey: ["properties", selectedStats],
-        queryFn: async () => {
-            const url = `${getAllProperties}?rentOrSale=${selectedStats}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data");
-            }
-
-            return data as Property[]
-        }
-    })
-
-
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {

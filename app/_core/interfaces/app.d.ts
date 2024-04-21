@@ -34,12 +34,12 @@ export type {
 }
 
 interface IFilters {
-    rooms?: number;
-    baths?: number;
-    areaInKm?: number;
-    price?: number;
-    type?: string;
-    rentOrSale?: string;
+    rooms: number;
+    bath: number;
+    areaInKm: number;
+    price: number;
+    type: string;
+    rentOrSale: string;
 }
 
 export type {

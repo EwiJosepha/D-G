@@ -2,70 +2,40 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import FilterBar from '@/components/filters/filter-bar';
 import CardData from '@/components/organisms/cardData';
 import Navbar from '@/components/organisms/navbar';
 import Footer from '@/components/organisms/footer';
-
-interface Property {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
+import PropertyTypeFilter from '@/components/filters/property-type';
+import BedBathFilter from '@/components/filters/bed-bathrooms';
+import PriceRangeFilter from '@/components/filters/price-range';
+import PropertySizeFilter from '@/components/filters/property-size';
+import StatusFilter from '@/components/filters/status-filter';
+import { AppContextProvider, useAppContext } from '@/store/app-context';
 
 const PropertyPage: React.FC = () => {
-    const [filteredData, setFilteredData] = useState<Property[]>([]);
-    const [allProperties, setAllProperties] = useState<Property[]>([]);
+    const { applyFilters, filters, propertyInfo } = useAppContext() || {};
 
-    // Fetch all properties on component mount
-    useEffect(() => {
-        axios.get('http://localhost/4000/properties')
-            .then(response => {
-                setAllProperties(response.data);
-                setFilteredData(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching properties:', error);
-            });
-    }, []);
-
-    // bedbathsfilter 
-    const applyFilters = (filters: { beds?: number; baths?: number }) => {
-        let filteredResults = [...allProperties];
-
-        if (filters.beds) {
-            filteredResults = filteredResults.filter(property => property.rooms === `${filters.beds} Beds`);
-        }
-
-        if (filters.baths) {
-            filteredResults = filteredResults.filter(property => property.bath === filters.baths);
-        }
-
-        setFilteredData(filteredResults);
+    const handleApplyFilters = () => {
+        applyFilters(propertyInfo, filters);
     };
 
     return (
-        <>
-            <Navbar />
-            <div>
-                <FilterBar />
-                <CardData showLink={false} data={filteredData} />
+        <AppContextProvider>
+            <>
+                <Navbar />
+                <div>
+                    <PropertyTypeFilter />
+                    {/* <BedBathFilter onApply={handleApplyFilters} /> */}
+                    <PriceRangeFilter />
+                    <PropertySizeFilter />
+                    <StatusFilter />
+                    {/* <CardData showLink={false} filters={filters} /> */}
+                    <CardData />
 
-            </div>
-            <Footer />
-        </>
-
+                </div>
+                <Footer />
+            </>
+        </AppContextProvider>
     );
 };
 
