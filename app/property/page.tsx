@@ -29,7 +29,7 @@ const PropertyPage: React.FC = () => {
                         <h1 className='text-blue ml-[16%] font-mono flex items-center'> <BsFilter className='mr-2 text-2xl' /> FILTER BY:</h1>
                         <div className="container mx-auto mt-3 mb-2 items-center justify-start md:mx-auto md:w-[67%] flex">
                             <PropertyTypeFilter />
-                            {/* <BedBathFilter onApply={handleApplyFilters} /> */}
+                            <BedBathFilter />
                             <PriceRangeFilter />
                             <PropertySizeFilter />
                             <StatusFilter />

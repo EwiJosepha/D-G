@@ -1,12 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { FaTimes } from 'react-icons/fa';
 import { GrHome } from 'react-icons/gr';
-import { getAllProperties } from '@/app/utils/util';
-import { IPropertyInfo } from '@/interfaces/app';
 import { useAppContext } from '@/store/app-context';
 
 const PropertyTypeFilter: React.FC = () => {
@@ -15,9 +11,9 @@ const PropertyTypeFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const { applyFilters, filters, setFilters, } = useAppContext()
+    const { filters, setFilters, } = useAppContext()
 
-    const propertyTypes = ['apartment', 'studios', 'villas', 'selfcontain'];
+    const propertyTypes = ['apartment', 'studios', 'villas', 'self-contain', 'house'];
 
     const handleApplyFilter = () => {
         setIsModalOpen(false)
