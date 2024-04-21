@@ -1,53 +1,75 @@
 'use client'
 
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "@/store/app-context";
 import Card from "../organisms/card";
+import Spinner from "../molecules/loaders/Spinner";
+import { IPropertyInfo } from "@/interfaces/app";
 
 const CardData: React.FC = () => {
     const { propertyInfo, filters, applyFilters } = useAppContext();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [filteredProperties, setFilteredProperties] = useState<IPropertyInfo[]>([]);
 
     // Trigger filtering process whenever filters change
     useEffect(() => {
-        applyFilters(propertyInfo, filters);
+        // Apply filters and update loading state
+        setIsLoading(true);
+        const filteredProperties = applyFilters(propertyInfo, filters);
+        setFilteredProperties(filteredProperties);
+        setIsLoading(false);
+
+        // set the filtered properties in a state variable if needed
     }, [propertyInfo, filters, applyFilters]);
 
     return (
         <>
-            <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                    {propertyInfo.map((prop, i) => (
-                        <div key={i}>
-                            <Card
-                                key={i}
-                                id={prop.id}
-                                name={prop.name}
-                                type={prop.type}
-                                rooms={prop.rooms}
-                                description={prop.description}
-                                bath={prop.bath}
-                                livingRooms={prop.livingRooms}
-                                location={prop.location}
-                                price={prop.price}
-                                areaInKm={prop.areaInKm}
-                                rentOrSale={prop.rentOrSale}
-                                shortDescription={prop.shortDescription}
-                                images={prop.images}
-                                agentId={prop.agentId}
-                            // onToggleFavorite={toggleFavorite}
-                            />
-                        </div>
-                    ))}
-                </div>
-
-                {/* Display a message if no properties are found */}
-                {propertyInfo.length === 0 && (
-                    <div className="flex items-center justify-center">
-                        <h1 className="my-10 text-2xl font-extrabold text-red-500 animate-bounce">No properties found.</h1>
+            {/* Display loader spinner when loading */}
+            {isLoading && (
+                <div className="flex items-center justify-center">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden"><Spinner /></span>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
+
+            {/* Display property cards */}
+            {!isLoading && (
+                <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                        {filteredProperties.map((prop, i) => (
+                            <div key={i}>
+                                <Card
+                                    key={i}
+                                    id={prop.id}
+                                    name={prop.name}
+                                    type={prop.type}
+                                    rooms={prop.rooms}
+                                    description={prop.description}
+                                    bath={prop.bath}
+                                    livingRooms={prop.livingRooms}
+                                    location={prop.location}
+                                    price={prop.price}
+                                    areaInKm={prop.areaInKm}
+                                    rentOrSale={prop.rentOrSale}
+                                    shortDescription={prop.shortDescription}
+                                    images={prop.images}
+                                    agentId={prop.agentId}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Display a message if no properties are found */}
+                    {!isLoading && filteredProperties.length === 0 && (
+                        <div className="flex items-center justify-center">
+                            <h1 className="my-10 text-2xl font-extrabold text-red-500 animate-bounce">
+                                No properties found.
+                            </h1>
+                        </div>
+                    )}
+                </div>
+            )}
         </>
     );
 };
