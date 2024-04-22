@@ -25,14 +25,13 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         setIsLoading(false);
     }, [propertyInfo, filters, applyFilters, currentPage]);
 
-    //pagination
-    const indexOfLastProperty = currentPage * propertiesPerPage
-    const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage
-
-    const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty)
+    // Pagination
+    const indexOfLastProperty = currentPage * propertiesPerPage;
+    // const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+    const currentProperties = filteredProperties.slice(0, indexOfLastProperty);
 
     const handleLoadMore = () => {
-        setCurrentPage(prevPage => prevPage + 1)
+        setCurrentPage(prevPage => prevPage + 1);
     }
 
     // sliced at 3
