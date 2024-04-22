@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaTimes } from 'react-icons/fa';
+import { API_BASE_URL } from '../service/constant';
 
 
 const RegisterPage: React.FC = () => {
@@ -23,7 +24,7 @@ const RegisterPage: React.FC = () => {
             hashpassword: password
         }
 
-        const res = await fetch("http://localhost:4000/auth/signup", {
+        const res = await fetch(API_BASE_URL + "/auth/signup", {
             method: "POST",
             mode: "cors",
             headers: {

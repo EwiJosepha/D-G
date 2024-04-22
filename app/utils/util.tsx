@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
+import { API_BASE_URL } from "../service/constant";
 
 export function decodeBase64Url(token: string): any {
   const padding = '='.repeat((4 - (token.length % 4)) % 4);
@@ -34,28 +35,28 @@ if (typeof localStorage !== 'undefined') {
 }
 console.log("propertyId", uptPropId);
 
-export const loginUrl = "http://localhost:4000/auth/signin"
-export const propertiesForAgent = `http://localhost:4000/properties/agent/${parsedId}`
+export const loginUrl = API_BASE_URL + "/auth/signin"
+export const propertiesForAgent = API_BASE_URL + `/properties/agent/${parsedId}`
 
-export const getAllProperties = "http://localhost:4000/properties"
+export const getAllProperties = API_BASE_URL + "/properties"
 
-export const updateproperties = `http://localhost:4000/properties/${uptPropId}`
+export const updateproperties = API_BASE_URL + `/properties/${uptPropId}`
 
-export const searchByRoom = `http://localhost:4000/properties/room/`
+export const searchByRoom = API_BASE_URL + `/properties/room/`
 
-export const agentInfo = `http://localhost:4000/api/v1/agent/${parsedId}`
+export const agentInfo = API_BASE_URL + `/api/v1/agent/${parsedId}`
 
-export const logOutUrl = "http://localhost:4000/auth/signout"
+export const logOutUrl = API_BASE_URL + "/auth/signout"
 
-export const postUrl = "http://localhost:4000/properties"
-export const deleteProp = `http://localhost:4000/properties/${uptPropId}`
+export const postUrl = API_BASE_URL + "/properties"
+export const deleteProp = API_BASE_URL + `/properties/${uptPropId}`
 
 //agentData
 export const agentdata = () => {
   return useQuery({
     queryKey: ["agent-name"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:4000/api/v1/agent/${parsedId}`)
+      const { data } = await axios.get(API_BASE_URL + `/api/v1/agent/${parsedId}`)
       return data
     }
   })
@@ -67,7 +68,7 @@ export const getOneProperty = (params: number) => {
   return useQuery({
     queryKey: ['propertyOne'],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:4000/properties/${params}`)
+      const { data } = await axios.get(API_BASE_URL + `/properties/${params}`)
       return data
     }
   })
@@ -76,7 +77,7 @@ export const getsingleDashboardProp = () => {
   return useQuery({
     queryKey: ['propertyOne'],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:4000/properties/${uptPropId}`)
+      const { data } = await axios.get(API_BASE_URL + `/properties/${uptPropId}`)
       return data
     }
   })
@@ -88,7 +89,7 @@ export function searchRooms(searchParams: string) {
   const { data } = useQuery({
     queryKey: ["rooms"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:4000/properties/room/${searchParams}`)
+      const { data } = await axios.get(API_BASE_URL + `/properties/room/${searchParams}`)
       return data
     }
   })

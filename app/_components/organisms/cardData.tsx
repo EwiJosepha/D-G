@@ -104,7 +104,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                 {!isLoading && filteredProperties.length === 0 && (
                     <div className="flex items-center justify-center">
                         <h1 className="my-10 text-2xl font-extrabold text-red-500 animate-bounce">
-                            No properties found.
+                            The search is not yet available. Contact D&J for your Personalised Assistance!
                         </h1>
                     </div>
                 )}
