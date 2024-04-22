@@ -30,10 +30,6 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
         rentOrSale: "",
     })
 
-    // type DbPropertyOverviewCard = Omit<IPropertyInfo, 'name' | 'type' | 'description' | 'price' | 'rentOrSale'>;
-
-    // type T = Partial<IProfileInfo>
-
     const [data, setData] = useState<Prop>(existingData || propertyInfo)
 
     const handleInputChangee = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,8 +60,6 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
         setError('')
     };
-
-    console.log(propertyInfo);
 
     const handleTexarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
@@ -177,9 +171,9 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
                         <option value=''></option>
                         <option value='apartment'>Apartment</option>
-                        <option value='studios'>Studios</option>
+                        <option value='studios'>Studio</option>
                         <option value='house'>House</option>
-                        <option value='villas'>Villas</option>
+                        <option value='villas'>Villa</option>
                         <option value='self-contain'>Self Contain</option>
                     </select>
                     {error && <p className="text-red-500 text-sm py-2">{error}</p>}

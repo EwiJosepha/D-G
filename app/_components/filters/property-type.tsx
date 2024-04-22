@@ -1,28 +1,9 @@
-'use-client'
+'use client'
 
 import { useState, useEffect, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { FaTimes } from 'react-icons/fa';
 import { GrHome } from 'react-icons/gr';
-import { getAllProperties } from '@/app/utils/util';
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
+import { useAppContext } from '@/store/app-context';
 
 const PropertyTypeFilter: React.FC = () => {
     const [selectedType, setSelectedType] = useState('');
@@ -30,14 +11,17 @@ const PropertyTypeFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const propertyTypes = ['Apartment', 'Studio', 'Villa', 'SelfContain'];
+    const { filters, setFilters, } = useAppContext()
+
+    const propertyTypes = ['apartment', 'studios', 'villas', 'self-contain', 'house'];
 
     const handleApplyFilter = () => {
-        setAppliedType(selectedType);
-        setIsModalOpen(false);
+        setIsModalOpen(false)
+        setFilters(prevFilters => ({ ...prevFilters, type: selectedType }))
     };
 
     const handleCancelFilter = () => {
+        setSelectedType('');
         setAppliedType('');
     };
 
@@ -46,20 +30,6 @@ const PropertyTypeFilter: React.FC = () => {
             setIsModalOpen(false);
         }
     };
-
-    const { data } = useQuery({
-        queryKey: ["properties",selectedType],
-        queryFn: async () => {
-            const url = `${getAllProperties}?type=${selectedType}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data");
-            }
-
-            return data as Property[]
-        }
-    })
-
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {

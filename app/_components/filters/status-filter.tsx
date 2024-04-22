@@ -1,44 +1,29 @@
+'use client'
+
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
-import { getAllProperties } from '@/app/utils/util';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
-
+import { useAppContext } from '@/store/app-context';
 
 const StatusFilter: React.FC = () => {
     const [selectedStats, setSelectedStats] = useState('');
     const [appliedStats, setAppliedStats] = useState('');
-    // const [status, setStatus] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const propertyTypes = ['rent', 'sale', 'Sold'];
+    const { applyFilters, propertyInfo, filters, setFilters } = useAppContext()
+
+    const propertyStatus = ['rent', 'sell', 'Sold'];
 
     const handleApplyFilter = () => {
-        setAppliedStats(selectedStats);
-        setIsModalOpen(false);
+        setIsModalOpen(false)
+        setFilters(prevFilters => ({ ...prevFilters, rentOrSale: selectedStats }));
     };
 
+
     const handleCancelFilter = () => {
-        setAppliedStats('');
+        setSelectedStats('')
+        setAppliedStats('')
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,21 +31,6 @@ const StatusFilter: React.FC = () => {
             setIsModalOpen(false);
         }
     };
-
-    const { data } = useQuery({
-        queryKey: ["properties",selectedStats],
-        queryFn: async () => {
-            const url = `${getAllProperties}?rentOrSale=${selectedStats}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data");
-            }
-
-            return data as Property[]
-        }
-    })
-
- 
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -87,7 +57,7 @@ const StatusFilter: React.FC = () => {
                     <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
                         <h2 className="text-sm font-semibold my-4 ">Status</h2>
                         <ul className='grid grid-cols-2 gap-4'>
-                            {propertyTypes.map((type) => (
+                            {propertyStatus.map((type) => (
                                 <li key={type} className="mb-2">
                                     <button
                                         className={`w-full text-center py-2 px-4 rounded-full ${selectedStats === type ? 'bg-sky-200 text-black' : 'bg-gray-100'}`}

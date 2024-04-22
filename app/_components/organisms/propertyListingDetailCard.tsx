@@ -56,7 +56,6 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             livingRooms: value,
         }));
-        console.log(value);
 
 
         setData((prevPropertyInfo) => ({
@@ -158,8 +157,6 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
         setDisable(true)
 
     }
-    // console.log("com", propertyInfo);
-
 
     return (
         <div className="p-4 shadow shadow-blue rounded-lg">
@@ -168,7 +165,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             <div className='flex justify-between items-center'>
                 <div className="my-4 w-[45%]">
                     <label htmlFor="propertySize" className="block">
-                        Surface Area in ft*
+                        Surface Area in m2
                     </label>
                     <input
                         type="text"

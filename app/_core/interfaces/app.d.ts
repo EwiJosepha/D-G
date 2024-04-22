@@ -28,6 +28,20 @@ interface IProfileInfo {
     bio: string
 }
 
+
 export type {
-    IProfileInfo
+    IProfileInfo,
+}
+
+interface IFilters {
+    rooms: number;
+    bath: number;
+    areaInKm: number;
+    price: number;
+    type: string;
+    rentOrSale: string;
+}
+
+export type {
+    IFilters,
 }

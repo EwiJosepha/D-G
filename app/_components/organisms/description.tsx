@@ -11,12 +11,13 @@ const DescriptionPage: React.FC<DescriptionPageProps> = ({ }: DescriptionPagePro
 
   const { propertyInfo } = useAppContext();
 
+
   return (
     <div className="container mx-auto font-serif py-20">
-      <div className="items-center justify-center flex flex-col">
-        <h1 className="text-4xl my-4 ">{propertyInfo.name}</h1>
+      {propertyInfo.map((property) => (<div key={property.id} className="items-center justify-center flex flex-col">
+        <h1 className="text-4xl my-4 ">{property.name}</h1>
         <p className="text-3xl font-thin">Location </p>
-      </div>
+      </div>))}
 
       <div className="md:flex mt-16">
         <div className="w-full md:flex justify-between items-center md:w-1/3 p-4 mr-10">
