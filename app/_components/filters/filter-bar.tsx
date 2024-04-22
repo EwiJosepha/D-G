@@ -1,6 +1,6 @@
 // FilterBar.tsx 
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropertyTypeFilter from './property-type';
 import BedBathFilter from './bed-bathrooms';
 import PriceRangeFilter from './price-range';
@@ -9,12 +9,6 @@ import StatusFilter from './status-filter';
 import { BsFilter } from 'react-icons/bs';
 
 const FilterBar: React.FC = () => {
-    const[showstatus, setShowstatus] = useState(false)
-    useEffect(()=>{
-        setShowstatus(true)
-        console.log("hey");
-        
-    },[])
 
     return (
         <div className='bg-gray-100 pt-6 pb-3'>
@@ -25,7 +19,7 @@ const FilterBar: React.FC = () => {
                 <BedBathFilter />
                 <PriceRangeFilter />
                 <PropertySizeFilter />
-                <StatusFilter  showstatus={showstatus}/>
+                <StatusFilter />
             </div>
         </div>
     );

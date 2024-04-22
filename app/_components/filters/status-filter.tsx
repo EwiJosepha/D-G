@@ -1,94 +1,29 @@
+'use client'
+
 import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { GrStatusInfo } from 'react-icons/gr';
-import { getAllProperties } from '@/app/utils/util';
-import { useQuery } from '@tanstack/react-query';
-import { useContext } from "react";
-import { AppContext } from "@/store/app-context";
+import { useAppContext } from '@/store/app-context';
 
-import axios from 'axios';
-import { statusFilter } from '@/app/utils/util';
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
-
-// const fetchAndUpdateStatus = async (selectedStats:any, setSelectedStatus:any) => {
-//     const { data: statusData } = statusFilter(selectedStats);
-//     console.log(statusData, 'statusdata');
-//         console.log("hey");
-
-
-//     setSelectedStatus(statusData);
-// };
-
-
-const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false }) => {
-    const { setSelectedStatus, selectedStatus } = useContext(AppContext)
+const StatusFilter: React.FC = () => {
     const [selectedStats, setSelectedStats] = useState('');
     const [appliedStats, setAppliedStats] = useState('');
-    const { data: statusData } = statusFilter(selectedStats);
-    console.log("statusdaa", statusData);
-
-    if (statusData) {
-        setSelectedStatus(statusData);
-        console.log('state after setting', selectedStatus);
-      } else {
-        console.log('statusData is null or undefined');
-      }
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const data = await statusData;
-    //             setSelectedStatus(data);
-    //             console.log("ckhecked", data);
-
-    //             console.log('state', selectedStatus);
-    //         } catch (error) {
-    //             console.error('Error fetching status data:', error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, [selectedStats, setSelectedStatus, statusData]);
-
-    useEffect(() => {
-        console.log("checked", statusData);
-        console.log('state', selectedStatus);
-    }, [selectedStats, statusData, selectedStatus]);
-
-    console.log('state', selectedStatus);
-
-
-    // const [status, setStatus] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
-    const propertyTypes = ['rent', 'sale', 'Sold'];
-    const handleApplyFilter = () => {
-        setAppliedStats(selectedStats);
-        setIsModalOpen(false);
-        showstatus = true
-        setSelectedStatus(statusData)
 
+    const { applyFilters, propertyInfo, filters, setFilters } = useAppContext()
+
+    const propertyStatus = ['rent', 'sell', 'Sold'];
+
+    const handleApplyFilter = () => {
+        setIsModalOpen(false)
+        setFilters(prevFilters => ({ ...prevFilters, rentOrSale: selectedStats }));
     };
 
-    const handleCancelFilter = () => {
-        setAppliedStats('');
 
+    const handleCancelFilter = () => {
+        setSelectedStats('')
+        setAppliedStats('')
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -96,26 +31,6 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
             setIsModalOpen(false);
         }
     };
-
-    // useEffect(() => {
-    //     fetchAndUpdateStatus(selectedStats, setSelectedStatus);
-    // }, [selectedStats, setSelectedStatus]);
-
-
-    // const { data } = useQuery({
-    //     queryKey: ["properties", selectedStats],
-    //     queryFn: async () => {
-    //         const url = `${getAllProperties}?rentOrSale=${selectedStats}`
-    //         const { data } = await axios.get(url)
-    //         if (data) {
-    //             console.log(data, "data");
-    //         }
-
-    //         return data as Property[]
-    //     }
-    // })
-
-
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -148,7 +63,7 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
                     <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
                         <h2 className="text-sm font-semibold my-4 ">Status</h2>
                         <ul className='grid grid-cols-2 gap-4'>
-                            {propertyTypes.map((type) => (
+                            {propertyStatus.map((type) => (
                                 <li key={type} className="mb-2">
                                     <button
                                         className={`w-full text-center py-2 px-4 rounded-full ${selectedStats === type ? 'bg-sky-200 text-black' : 'bg-gray-100'}`}
@@ -168,7 +83,6 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
                 </div>
 
             )}
-            {showstatus && <h1>hello</h1>}
         </div>
     );
 };

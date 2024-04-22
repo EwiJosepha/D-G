@@ -1,74 +1,31 @@
-'use-client'
+'use client'
 
 import React, { useRef, useState, useEffect } from "react";
 import { FaDollarSign, FaTimes } from "react-icons/fa";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { getAllProperties } from '@/app/utils/util';
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
+import { useAppContext } from "@/store/app-context";
 
 const PriceRangeFilter: React.FC = () => {
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
+    const [minPrice, setMinPrice] = useState<number>(0);
+    const [maxPrice, setMaxPrice] = useState<number>(0);
     const [appliedRange, setAppliedRange] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
     
 
-    // fetch predefined prices from the backend 
-    // const [predefinedMinPrices, setPredefinedMinPrices] = useState<number[]>([]);
-    // const [predefinedMaxPrices, setPredefinedMaxPrices] = useState<number[]>([]);
-
-    // useEffect(() => {
-    //     // Fetch predefined prices from backend when component mounts
-    //     fetchPredefinedPrices();
-    // }, []);
-
-    // const fetchPredefinedPrices = async () => {
-    //     try {
-    //         // Make an HTTP GET request to your backend API to fetch predefined prices
-    //         const response = await fetch('your-backend-url/predefined-prices');
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch predefined prices');
-    //         }
-    //         const data = await response.json();
-    //         // Update state with fetched predefined prices
-    //         setPredefinedMinPrices(data.predefinedMinPrices);
-    //         setPredefinedMaxPrices(data.predefinedMaxPrices);
-    //     } catch (error) {
-    //         console.error('Error fetching predefined prices:', error);
-    //     }
-    // };
+    const { setFilters, filters } = useAppContext()
 
     const predefinedMinPrices = [50, 100, 200, 500, 1000, 5000, 10000, 50000, 100000, 500000];
     const predefinedMaxPrices = [500000, 700000, 1000000, 1500000, 2000000, 5000000, 7500000, 10000000];
 
     const handleApplyFilter = () => {
-        setAppliedRange(`$${minPrice} - $${maxPrice}`);
         setIsModalOpen(false);
-        // filter search here
+        setFilters(prevFilters => ({ ...prevFilters, price: minPrice }))
     };
-
+    // `${minPrice}-${maxPrice}`
 
     const handleCancelFilter = () => {
-        setMinPrice('');
-        setMaxPrice('');
+        setMinPrice(0);
+        setMaxPrice(0);
         setAppliedRange('');
     };
 
@@ -77,34 +34,6 @@ const PriceRangeFilter: React.FC = () => {
             setIsModalOpen(false);
         }
     };
-
-    const { data } = useQuery({
-        queryKey: ["properties", minPrice],
-        queryFn: async () => {
-            const url = `${getAllProperties}?price=${minPrice}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data");
-            }
-            console.log("url", url);
-
-            return data as Property[]
-        }
-    })
-
-    const { data: data2 } = useQuery({
-        queryKey: ["properties", maxPrice],
-        queryFn: async () => {
-            const url = `${getAllProperties}?price=${maxPrice}`
-            const { data } = await axios.get(url)
-            if (data) {
-                console.log(data, "data2");
-            }
-
-            return data as Property[]
-        }
-    })
-
 
     useEffect(() => {
         document.body.addEventListener('mousedown', handleClickOutside);
@@ -139,21 +68,12 @@ const PriceRangeFilter: React.FC = () => {
                             <label>Min:</label>
                             <div className="border py-3 px-8 my-3 rounded-full">
 
-                                <select className="bg-transparent focus:outline-none" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
+                                <select className="bg-transparent focus:outline-none" value={minPrice} onChange={(e) => setMinPrice(parseInt(e.target.value))}>
                                     <option value="">Mininum</option>
                                     {predefinedMinPrices.map((price, index) => (
                                         <option key={index} value={price}>${price}</option>
                                     ))}
                                 </select>
-
-                                {/* fetched prices are then used to populate the dropdown options for selecting minimum and maximum prices. */}
-
-                                {/* <select className="bg-transparent focus:outline-none" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
-                                    <option value="">Minimum</option>
-                                    {predefinedMinPrices.map((price, index) => (
-                                        <option key={index} value={price}>${price}</option>
-                                    ))}
-                                </select> */}
                             </div>
                         </div>
 
@@ -161,7 +81,7 @@ const PriceRangeFilter: React.FC = () => {
                         <div className="flex flex-col">
                             <label>Max:</label>
                             <div className="border py-3 px-8 my-3 rounded-full">
-                                <select className="bg-transparent focus:outline-none" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}>
+                                <select className="bg-transparent focus:outline-none" value={maxPrice} onChange={(e) => setMaxPrice(parseInt(e.target.value))}>
                                     <option value="">Maximum</option>
                                     {predefinedMaxPrices.map((price, index) => (
                                         <option key={index} value={price}>${price}</option>

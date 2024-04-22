@@ -28,16 +28,28 @@ interface IProfileInfo {
     bio: string
 }
 
-interface FilterContextProps {
-    showFilters: boolean;
-    selectedStatus: null,
-    setSelectedStatus: Dispatch<SetStateAction<string | null>>,
-    toggleFilters: () => void;
-  }
+// interface FilterContextProps {
+//     showFilters: boolean,
+//     selectedStatus: string | null,
+//     setSelectedStatus: (status: string | null) => void,
+//     toggleFilters: () => void
+// }
+
 
 export type {
-    IProfileInfo
+    IProfileInfo,
 }
+
+interface IFilters {
+    rooms: number;
+    bath: number;
+    areaInKm: number;
+    price: number;
+    type: string;
+    rentOrSale: string;
+}
+
 export type {
+    IFilters,
     FilterContextProps
 }
