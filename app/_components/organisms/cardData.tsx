@@ -11,23 +11,29 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const { propertyInfo, filters, applyFilters } = useAppContext();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [filteredProperties, setFilteredProperties] = useState<IPropertyInfo[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [propertiesPerPage] = useState<number>(6)
 
     // Trigger filtering process whenever filters change
     useEffect(() => {
         // Apply filters and update loading state
         setIsLoading(true);
         const filteredProperties = applyFilters(propertyInfo, filters);
-        // Sort the filtered properties by index
+        // Sort the filtered properties by index(used id)
         filteredProperties.sort((a, b) => b.id - a.id);
         setFilteredProperties(filteredProperties);
         setIsLoading(false);
-    }, [propertyInfo, filters, applyFilters]);
+    }, [propertyInfo, filters, applyFilters, currentPage]);
+
+    const indexOfLastProperty = currentPage * propertiesPerPage
+    const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage
+
+    const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty)
 
     // sliced at 3
     const slicedProperties = filteredProperties.slice(0, 3);
 
     if (isLoading) return <div><Spinner /></div>
-
     return (
         <>
             <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
@@ -76,7 +82,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                 {/*display property card without the slice */}
                 {!showLink && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                        {filteredProperties.map((prop, i) => (
+                        {currentProperties.map((prop, i) => (
                             <div key={i}>
                                 <Card
                                     key={i}
