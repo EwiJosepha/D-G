@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { IPropertyInfo, IProfileInfo, IFilters, FilterContextProps } from '@/interfaces/index';
 import axios from 'axios';
+import { API_BASE_URL } from '@/app/service/constant';
 
 interface IAppContext {
     propertyInfo: IPropertyInfo[];
@@ -14,11 +15,11 @@ interface IAppContext {
     applyFilters: (properties: IPropertyInfo[], filters: IFilters) => IPropertyInfo[];
 }
 
-export const  AppContext = createContext<FilterContextProps>({
+export const AppContext = createContext<FilterContextProps>({
     showFilters: false,
     selectedStatus: null,
-    setSelectedStatus: () => {},
-    toggleFilters: () => {}
+    setSelectedStatus: () => { },
+    toggleFilters: () => { }
 });
 
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -43,7 +44,7 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const baseUrl = 'http://localhost:4000/properties';
+                const baseUrl = API_BASE_URL + '/properties';
                 const queryParams = new URLSearchParams();
 
                 // Iterate over the filters object and append each key-value pair to the URLSearchParams
@@ -66,10 +67,10 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [filteredData, setFilteredData] = useState<IPropertyInfo[]>([])
     const [showFilters, setShowFilters] = useState(false);
-    const[ selectedStatus, setSelectedStatus]=useState(null)
+    const [selectedStatus, setSelectedStatus] = useState(null)
 
     const toggleFilters = () => {
-      setShowFilters((prev) => !prev);
+        setShowFilters((prev) => !prev);
     };
 
 

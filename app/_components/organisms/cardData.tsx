@@ -201,12 +201,10 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                         </div>
                     </>)} */
 
-                        <StatusFilter />
-
                     }
 
 
-                    <button onClick={loadMore}>load more</button>
+            {!showLink &&(<button onClick={loadMore}>load more</button>)}
                     <div className="flex items-center justify-center">
                         {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
                         }

@@ -20,8 +20,6 @@ const PropertyTypeFilter: React.FC = () => {
         setFilters(prevFilters => ({ ...prevFilters, type: selectedType }))
     };
 
-    console.log(filters);
-    
 
     const handleCancelFilter = () => {
         setSelectedType('');
