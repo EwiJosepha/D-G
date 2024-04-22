@@ -32,10 +32,10 @@ type Property = {
 }
 
 const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
-    const {showFilters} = useContext(AppContext)
+    const { showFilters } = useContext(AppContext)
     const [hide, setHide] = useState(false);
     // const [showstatus, setShowstatus] = useState(false)
-    
+
 
     const [limit, setLimit] = useState<number>(2)
     let [page, setPage] = useState<number>(1)
@@ -105,7 +105,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         }
     }, [data]);
 
-  
+
 
     if (isLoading) return <Spinner />
     if (isError) return <div className='flex justify-center items-center text-red-500'>Try again</div>
@@ -130,55 +130,53 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     //     }
     // }
 
- return (
-        
-            <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
+    return (
 
-                {showLink && (<div className='flex justify-between items-center mb-8'>
-                    <div className='flex items-center font-bold font-serif'>
-                        <h1 className="text-3xl mr-6">Latest Properties</h1>
-                        <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
-                    </div>
-                    <div>
-                        <input
-                            type='search'
-                            placeholder='search by baths'
-                            onChange={searchRooms2}
-                            className='border border-gray-400 px-6 py-2' />
+        <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
-                    </div>
-
+            {showLink && (<div className='flex justify-between items-center mb-8'>
+                <div className='flex items-center font-bold font-serif'>
+                    <h1 className="text-3xl mr-6">Latest Properties</h1>
+                    <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
                 </div>
+                <div>
+                    <input
+                        type='search'
+                        placeholder='search by baths'
+                        onChange={searchRooms2}
+                        className='border border-gray-400 px-6 py-2' />
+                </div>
+            </div>
             )}
 
-                {!showFilters? (<>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                        {reversedProperties?.map((prop, i) => (
-                            <div key={i}>
-                                <Card
-                                    key={i}
-                                    id={prop.id}
-                                    name={prop.name}
-                                    type={prop.type}
-                                    rooms={prop.rooms}
-                                    description={prop.description}
-                                    bath={prop.bath}
-                                    livingRooms={prop.livingRooms}
-                                    location={prop.location}
-                                    price={prop.price}
-                                    areaInKm={prop.areaInKm}
-                                    rentOrSale={prop.rentOrSale}
-                                    shortDescription={prop.shortDescription}
-                                    images={prop.images}
-                                    agentId={prop.agentId}
-                                // onToggleFavorite={toggleFavorite}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                    </>) : 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                            {/* {dataRooms?.map((prop, i) => (
+            {!showFilters ? (<>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                    {reversedProperties?.map((prop, i) => (
+                        <div key={i}>
+                            <Card
+                                key={i}
+                                id={prop.id}
+                                name={prop.name}
+                                type={prop.type}
+                                rooms={prop.rooms}
+                                description={prop.description}
+                                bath={prop.bath}
+                                livingRooms={prop.livingRooms}
+                                location={prop.location}
+                                price={prop.price}
+                                areaInKm={prop.areaInKm}
+                                rentOrSale={prop.rentOrSale}
+                                shortDescription={prop.shortDescription}
+                                images={prop.images}
+                                agentId={prop.agentId}
+                            // onToggleFavorite={toggleFavorite}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </>) :
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                    {/* {dataRooms?.map((prop, i) => (
                                 <div key={i}>
                                     <Card
                                         key={i}
@@ -202,20 +200,20 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                             ))}
                         </div>
                     </>)} */
-                  
-                      <StatusFilter  showstatus={false}/>
-              
-                }
 
-                  
-                <button onClick={loadMore}>load more</button>
-                <div className="flex items-center justify-center">
-                    {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
+                        <StatusFilter showstatus={false} />
+
                     }
+
+
+                    <button onClick={loadMore}>load more</button>
+                    <div className="flex items-center justify-center">
+                        {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
+                        }
+                    </div>
                 </div>
-            </div>
- } </div>
-       
+            } </div>
+
     );
 };
 

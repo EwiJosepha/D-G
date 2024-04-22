@@ -42,8 +42,37 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
     const [appliedStats, setAppliedStats] = useState('');
     const { data: statusData } = statusFilter(selectedStats);
     console.log("statusdaa", statusData);
-    setSelectedStatus(statusData)
+
+    if (statusData) {
+        setSelectedStatus(statusData);
+        console.log('state after setting', selectedStatus);
+      } else {
+        console.log('statusData is null or undefined');
+      }
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const data = await statusData;
+    //             setSelectedStatus(data);
+    //             console.log("ckhecked", data);
+
+    //             console.log('state', selectedStatus);
+    //         } catch (error) {
+    //             console.error('Error fetching status data:', error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, [selectedStats, setSelectedStatus, statusData]);
+
+    useEffect(() => {
+        console.log("checked", statusData);
+        console.log('state', selectedStatus);
+    }, [selectedStats, statusData, selectedStatus]);
+
     console.log('state', selectedStatus);
+
 
     // const [status, setStatus] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,6 +82,8 @@ const StatusFilter: React.FC<{ showstatus: boolean }> = ({ showstatus = false })
         setAppliedStats(selectedStats);
         setIsModalOpen(false);
         showstatus = true
+        setSelectedStatus(statusData)
+
     };
 
     const handleCancelFilter = () => {
