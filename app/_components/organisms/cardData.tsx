@@ -201,7 +201,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                         </div>
                     </>)} */
 
-                        <StatusFilter showstatus={false} />
+                        <StatusFilter />
 
                     }
 
