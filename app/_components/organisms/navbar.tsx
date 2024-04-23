@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <li className="pb-6 py-4 md:py-0 md:px-6 text-center border-b md:border-b-0">
+                                        <li className="pb-6 py-4 md:px-6 text-center border-b md:border-b-0">
                                             <button className="text-white md:hover:text-gray-400">
                                                 Contact Us
                                             </button>
