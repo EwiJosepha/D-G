@@ -27,11 +27,9 @@ if (typeof localStorage !== "undefined") {
 
 }
 
-
-
-export let uptPropId: any
+export let uptPropId: string | null = null;
 if (typeof localStorage !== 'undefined') {
-  uptPropId = localStorage.getItem('propId')
+  uptPropId = localStorage.getItem('propId');
 }
 console.log("propertyId", uptPropId);
 
