@@ -1,220 +1,127 @@
+
 'use client'
-
-import React, { Component, useEffect, useState } from 'react';
-import Link from 'next/link';
-import Card from './card';
-import { properties } from '@/app/propertyData';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios'
-import { getAllProperties } from '@/app/utils/util'
-import { debounceFetch } from "@/app/service/debounce"
-import Spinner from '../molecules/loaders/Spinner';
-import StatusFilter from '../filters/status-filter';
-import { useContext } from "react";
-import { AppContext } from "@/store/app-context";
-
-
-type Property = {
-    id: number;
-    name: string;
-    type: string;
-    description: string;
-    rooms: string;
-    bath: number;
-    livingRooms: string;
-    location: string;
-    price: number;
-    areaInKm: number;
-    rentOrSale: string;
-    shortDescription: string;
-    images: string[];
-    agentId: number;
-}
-
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "@/store/app-context";
+import Card from "../organisms/card";
+import Spinner from "../molecules/loaders/Spinner";
+import { IPropertyInfo } from "@/interfaces/app";
+import Link from "next/link";
 const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
-    const { showFilters } = useContext(AppContext)
-    const [hide, setHide] = useState(false);
-    // const [showstatus, setShowstatus] = useState(false)
-
-
-    const [limit, setLimit] = useState<number>(2)
-    let [page, setPage] = useState<number>(1)
-    let [skip, setSkip] = useState<number>()
-    const [notfound, setNotfound] = useState(false)
-
-    //getting rooms
-
-    const [rooms, setRooms] = useState<string>()
-    const { data: dataRooms, refetch } = useQuery({
-        queryKey: ["rooms"],
-        queryFn: async () => {
-            const { data } = await axios.get(`${getAllProperties}/room/${rooms}`)
-            const dataLength = data.length
-            if (dataLength === 0) {
-                setNotfound(true)
-            }
-
-            return data as Property[]
-        },
-        enabled: !!rooms
-    })
-
-    //get all properties 
-
-    // getting all properties
-
-
-    const { data, isLoading, isError } = useQuery({
-        queryKey: ["properties", limit, page, skip],
-        queryFn: async () => {
-            const { data } = await axios.get(`${getAllProperties}?limit=${limit}&page=${page}&skip=${skip}`)
-            return data as Property[]
-        },
-
-        enabled: !!limit && !!page,
-    })
-
-
-    // filteredData from context
-
-    // debounced so that my end point doesnt get exhausted, fetching onlyafter one second
-
+    const { propertyInfo, filters, applyFilters } = useAppContext();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [filteredProperties, setFilteredProperties] = useState<IPropertyInfo[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [propertiesPerPage, setPropertiesPerPage] = useState<number>(6)
+    // Trigger filtering process whenever filters change
     useEffect(() => {
-        if (rooms) {
-            const debouncedFetch = debounceFetch(() => refetch(), 1000);
-            debouncedFetch();
-        }
-    }, [rooms]);
+        // Apply filters and update loading state
+        setIsLoading(true);
+        const filteredProperties = applyFilters(propertyInfo, filters);
+        // Sort the filtered properties by index(used id)
+        filteredProperties.sort((a, b) => b.id - a.id);
+        setFilteredProperties(filteredProperties);
+        setIsLoading(false);
+    }, [propertyInfo, filters, applyFilters, currentPage]);
+    //pagination
+    const indexOfLastProperty = currentPage * propertiesPerPage
+    const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage
+    const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty)
+    const handleLoadMore = () => {
+        // setCurrentPage(prevPage => prevPage + 1)
+        setPropertiesPerPage((prev)=> prev + 1)
+        setPropertiesPerPage((prev)=> prev + 1)
+        setPropertiesPerPage((prev)=> prev + 1)
+        setPropertiesPerPage((prev)=> prev + 1)
+        setPropertiesPerPage((prev)=> prev + 1)
+        setPropertiesPerPage((prev)=> prev + 1)
 
-    // useEffect(() => {
-    //     setLimit(page * 2)
-    //     if (limit) {
-    //         const skip = limit * (page - 1);
-    //         setSkip(skip);
-    //     }
-    // }, [page, limit]);
-
-    // useEffect(() => {
-    //     const calculatedLimit = page * 2;
-    //     setLimit(calculatedLimit);
-    // }, [page]); 
-
-    useEffect(() => {
-        if (data && data.length === 0) {
-            setPage(1);
-        }
-    }, [data]);
-
-
-
-    if (isLoading) return <Spinner />
-    if (isError) return <div className='flex justify-center items-center text-red-500'>Try again</div>
-
-    function searchRooms2(e: React.ChangeEvent<HTMLInputElement>) {
-        setRooms(e.target.value)
-        setHide(true)
-        setNotfound(false)
-    }
-
-    const displayedProperties = showLink ? data?.slice(0, 3) : data;
-    const reversedProperties = displayedProperties?.slice().reverse();
-
-    function loadMore() {
-        // setPage((prev) => prev + 1)
-        setLimit((prev) => prev + 2)
-    }
-
-    // function previous() {
-    //     if (page > 1) {
-    //         setPage(prevPage => prevPage - 1);
-    //     }
-    // }
-
+      }
+    // sliced at 3
+    const slicedProperties = filteredProperties.slice(0, 3);
+    if (isLoading) return <div><Spinner /></div>
     return (
-
-        <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
-
-            {showLink && (<div className='flex justify-between items-center mb-8'>
-                <div className='flex items-center font-bold font-serif'>
-                    <h1 className="text-3xl mr-6">Latest Properties</h1>
-                    <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
-                </div>
-                <div>
-                    <input
-                        type='search'
-                        placeholder='search by baths'
-                        onChange={searchRooms2}
-                        className='border border-gray-400 px-6 py-2' />
-                </div>
-            </div>
-            )}
-
-            {!showFilters ? (<>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                    {reversedProperties?.map((prop, i) => (
-                        <div key={i}>
-                            <Card
-                                key={i}
-                                id={prop.id}
-                                name={prop.name}
-                                type={prop.type}
-                                rooms={prop.rooms}
-                                description={prop.description}
-                                bath={prop.bath}
-                                livingRooms={prop.livingRooms}
-                                location={prop.location}
-                                price={prop.price}
-                                areaInKm={prop.areaInKm}
-                                rentOrSale={prop.rentOrSale}
-                                shortDescription={prop.shortDescription}
-                                images={prop.images}
-                                agentId={prop.agentId}
-                            // onToggleFavorite={toggleFavorite}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </>) :
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
-                    {/* {dataRooms?.map((prop, i) => (
-                                <div key={i}>
-                                    <Card
-                                        key={i}
-                                        id={prop.id}
-                                        name={prop.name}
-                                        type={prop.type}
-                                        rooms={prop.rooms}
-                                        description={prop.description}
-                                        bath={prop.bath}
-                                        livingRooms={prop.livingRooms}
-                                        location={prop.location}
-                                        price={prop.price}
-                                        areaInKm={prop.areaInKm}
-                                        rentOrSale={prop.rentOrSale}
-                                        shortDescription={prop.shortDescription}
-                                        images={prop.images}
-                                        agentId={prop.agentId}
-                                    // onToggleFavorite={toggleFavorite}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </>)} */
-
-                    }
-
-
-            {!showLink &&(<button onClick={loadMore}>load more</button>)}
-                    <div className="flex items-center justify-center">
-                        {notfound && <h1 className=" my-10 text-2xl font-extrabold text-red-500 animate-bounce">The search is not yet available. Contact D&J for your Personalised Assistance!</h1>
-                        }
+        <>
+            <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
+                {showLink && (<div className='flex justify-between items-center mb-8 '>
+                    <div className='flex items-center font-bold font-serif mt-20'>
+                        <h1 className="text-3xl mr-6">Latest Properties</h1>
+                        <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
                     </div>
-                </div>
-            } </div>
-
+                    <div className='mt-20'>
+                        <input
+                            type='search'
+                            placeholder='search by baths'
+                            // onChange={searchRooms2}
+                            className='border border-gray-400 px-6 py-2' />
+                    </div>
+                </div>)}
+                {/*display slice property card to the landing page */}
+                {showLink && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                        {slicedProperties.map((prop, i) => (
+                            <div key={i}>
+                                <Card
+                                    key={i}
+                                    id={prop.id}
+                                    name={prop.name}
+                                    type={prop.type}
+                                    rooms={prop.rooms}
+                                    description={prop.description}
+                                    bath={prop.bath}
+                                    livingRooms={prop.livingRooms}
+                                    location={prop.location}
+                                    price={prop.price}
+                                    areaInKm={prop.areaInKm}
+                                    rentOrSale={prop.rentOrSale}
+                                    shortDescription={prop.shortDescription}
+                                    images={prop.images}
+                                    agentId={prop.agentId}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {/*display property card without the slice */}
+                {!showLink && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                        {currentProperties.map((prop, i) => (
+                            <div key={i}>
+                                <Card
+                                    key={i}
+                                    id={prop.id}
+                                    name={prop.name}
+                                    type={prop.type}
+                                    rooms={prop.rooms}
+                                    description={prop.description}
+                                    bath={prop.bath}
+                                    livingRooms={prop.livingRooms}
+                                    location={prop.location}
+                                    price={prop.price}
+                                    areaInKm={prop.areaInKm}
+                                    rentOrSale={prop.rentOrSale}
+                                    shortDescription={prop.shortDescription}
+                                    images={prop.images}
+                                    agentId={prop.agentId}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {/* Display a message if no properties are found */}
+                {!isLoading && filteredProperties.length === 0 && (
+                    <div className="flex items-center justify-center">
+                        <h1 className="my-10 text-2xl font-extrabold text-red-500 animate-bounce">
+                            The search is not yet available. Contact D&J for your Personalised Assistance!
+                        </h1>
+                    </div>
+                )}
+                {!showLink && (<div className="text-white font-extrabold py-3 px-6 bg-blue w-36 rounded-lg mt-6 justify-end flex items-end ml-[45%] animate-pulse" onClick={handleLoadMore}>
+                    <button>Load more...</button>
+                </div>)}
+            </div>
+        </>
     );
 };
-
 export default CardData;
 
 
