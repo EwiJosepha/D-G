@@ -40,14 +40,14 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     if (isLoading) return <div><Spinner /></div>
     return (
         <>
-            <div className="container mx-auto mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
+            <div className="container mx-auto md:mt-4 mb-6 items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
 
-                {showLink && (<div className='flex justify-between items-center mb-8 '>
-                    <div className='flex items-center font-bold font-serif mt-20'>
-                        <h1 className="text-3xl mr-6">Latest Properties</h1>
-                        <Link href='/property' passHref className='text-xl text-blue'> See All...</Link>
+                {showLink && (<div className='flex justify-between items-center mb-8 md:px-0 px-3'>
+                    <div className='flex items-center font-bold font-serif md:mt-20'>
+                        <h1 className="md:text-3xl text-xl md:mr-6">Latest Properties</h1>
+                        <Link href='/property' passHref className='ml-4 md:ml-0 text-xl text-blue'> See All...</Link>
                     </div>
-                    <div className='mt-20'>
+                    <div className='mt-20 hidden md:block'>
                         <input
                             type='search'
                             placeholder='search by baths'
@@ -58,7 +58,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                 </div>)}
                 {/*display slice property card to the landing page */}
                 {showLink && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                    <div className="grid grid-cols-1 md:px-0 px-5 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
                         {slicedProperties.map((prop, i) => (
                             <div key={i}>
                                 <Card
@@ -85,7 +85,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
 
                 {/*display property card without the slice */}
                 {!showLink && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
+                    <div className="grid grid-cols-1 md:px-0 px-5 sm:grid-cols-2 md:grid-cols-3 gap-6 object-cover">
                         {currentProperties.map((prop, i) => (
                             <div key={i}>
                                 <Card
