@@ -20,25 +20,17 @@
   font-size: 20px;
   font-family: serif;
   padding-top: 30px;
-  width: 85%;
-}
-
-#headertext {
-  font-size: 40px;
-  font-family: serif;
-  font-weight: 600;
 }
 
 #line {
-  margin-bottom: 20px;
-  height: 5px;
-  width: 70px;
+  margin-bottom: 30px;
+  width: 90px;
   border-bottom: 1px solid #fffdec;
 }
 
 .agenciesDescription {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-top: 40px;
 }
 

@@ -5,13 +5,14 @@ import Luxury from './luxury';
 
 function InfoSection() {
   return (
-    <div className="wrapper pt-28 bg-blue text-white">
-      <div className="flex items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
-        <div className="innerDiv text-base w-[80%] mr-20 sm:w-full">
-          <div id="line"></div>
-          <h1 id="headertext">D&J COLLECTION</h1>
-          <p id="descriptionInfo">Since its creation in 2020, D&J Collection Cameroon has consistently maintained its position as the number one specialist real estate company in the luxury segment in Cameroon. With an impressive portfolio of around 1,000 properties and a team of 1,000 certified real estate consultants, it has established itself as an industry leader in the luxury real estate segment. Its unwavering dedication to providing a superior level of service and personalized care sets it apart from its competitors.</p>
-
+    <div className="md:pt-28 bg-blue text-white">
+      <div className="md:flex items-center justify-center md:mx-auto md:w-3/4 lg:w-2/3">
+        <div className="innerDiv text-base md:w-[80%] md:mr-20 w-screen md:p-0 p-5">
+          <div className='w-full items-center justify-center flex flex-col md:items-start'>
+            <div id="line"></div>
+            <h1 className='font-serif font-extrabold md:text-4xl text-2xl'>D&J COLLECTIONS</h1>
+            <p id="descriptionInfo" className='font-serif w-5/6 '>Since its creation in 2020, D&J Collection Cameroon has consistently maintained its position as the number one specialist real estate company in the luxury segment in Cameroon. With an impressive portfolio of around 1,000 properties and a team of 1,000 certified real estate consultants, it has established itself as an industry leader in the luxury real estate segment. Its unwavering dedication to providing a superior level of service and personalized care sets it apart from its competitors.</p>
+          </div>
           <div className="agenciesDescription">
             <div className="agencies">
               <strong className="numberFont">12</strong>
@@ -32,7 +33,7 @@ function InfoSection() {
           </div>
         </div>
 
-        <div className="innerDiv2 hidden md:block">
+        <div className="innerDiv2">
           <img id="imagedes" src='banner2.webp' alt="image" style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
         </div>
 
