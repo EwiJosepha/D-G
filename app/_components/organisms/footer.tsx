@@ -7,24 +7,25 @@ import FooterLogo from './footerLogo'
 
 function Footer() {
   return (
-    <div>
-      <div className="bg-blue text-white pb-6">
+    <>
+      <div className="bg-blue text-white pb-6 pt-10 md:pt-3">
         <div className="footerlogoWrapper">
-          <div className="footerLogo">
-            <div className="flexWrapper ml-12">
+
+          <div className="footerLogo md:flex-row flex-col">
+            <div className="flexWrapper md:ml-12">
               <FooterLogo />
-              <div className="fcbFooter">
+              <div className="mt-6 items-center justify-center flex space-x-4">
                 <Image src={facebook} alt="facebookLogo" width={20} height={20} />
                 <Image src={instagram} alt="Instagram" width={20} height={20} />
               </div>
             </div>
-            <div className="footerLog">
+            <div className="footerLog items-center md:items-start md:space-y-5 mt-4 md:mt-0">
               <span id="lineheight">D&J</span>
               <span id="lineheight">Real Estate</span>
               <span id="lineheight">Africa</span>
               <span id="lineheight">Cameroon</span>
             </div>
-            <div className="footerLogoo">
+            <div className="footerLogoo items-center md:items-start md:space-y-5 mt-4 md:mt-0">
               <span id="lineheight">Become an Agent</span>
               <span id="lineheight">Promotions</span>
               <span id="lineheight">Why Choose Us</span>
@@ -32,11 +33,11 @@ function Footer() {
             </div>
           </div>
 
-          <div className="djFooter flex items-center justify-between md:mx-auto md:w-3/4 lg:w-2/3">
-            <div className="copyright">
-              <p><span id="copy">@</span> D&J 20024 Reservered Rights</p>
+          <div className="djFooter flex md:flex-row flex-col md:items-center px-3 md:px-0 md:justify-between md:mx-auto md:w-3/4 lg:w-2/3 mt-7 md:mt-0 font-extralight">
+            <div className="copyright border-t md:border-t-0">
+              <p className='py-2 md:py-0'><span id="copy">@</span> D&J 20024 Reservered Rights</p>
             </div>
-            <div className="report">
+            <div className="flex items-start">
               <div className="channel">
                 <p>Reporting Channel</p>
               </div>
@@ -58,7 +59,7 @@ function Footer() {
 
       </div>
 
-    </div>
+    </>
   )
 }
 

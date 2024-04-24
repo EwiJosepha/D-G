@@ -158,19 +158,9 @@
   text-align: center;
 }
 
-.fcbFooter {
-  display: flex;
-  gap: 20px;
-}
-
-.fcbFooter {
-  margin-top: 30px;
-}
-
 .footerLog {
   display: flex;
   flex-direction: column;
-  line-height: 3;
 }
 
 #lineheight {
@@ -186,7 +176,6 @@
 .footerLogoo {
   display: flex;
   flex-direction: column;
-  line-height: 3;
 }
 
 .channel,
@@ -199,7 +188,7 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border-right: 1px solid #c2bbbd;
+  border-right: 1px solid #838383;
 }
 
 .channel,
@@ -208,10 +197,6 @@
 .channel4,
 .channel3 p {
   font-size: 8px;
-}
-
-.report {
-  display: flex;
 }
 
 .copyright p {
