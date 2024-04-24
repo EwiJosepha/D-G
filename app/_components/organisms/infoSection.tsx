@@ -33,8 +33,8 @@ function InfoSection() {
           </div>
         </div>
 
-        <div className="innerDiv2">
-          <img id="imagedes" src='banner2.webp' alt="image" style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
+        <div className="w-[90%] md:ml-0 ml-[5%]">
+          <Image width={100} height={200} id="imagedes" src='/banner2.webp' alt="image" layout='responsive' />
         </div>
 
       </div>
