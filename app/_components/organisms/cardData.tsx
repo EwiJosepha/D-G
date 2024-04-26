@@ -22,12 +22,14 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         setFilteredProperties(filteredProperties);
         setIsLoading(false);
     }, [propertyInfo, filters, applyFilters, currentPage]);
+
     //pagination
+
     const indexOfLastProperty = currentPage * propertiesPerPage
     const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage
     const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty)
     const handleLoadMore = () => {
-        // setCurrentPage(prevPage => prevPage + 1)
+
         setPropertiesPerPage((prev)=> prev + 1)
         setPropertiesPerPage((prev)=> prev + 1)
         setPropertiesPerPage((prev)=> prev + 1)
@@ -144,7 +146,6 @@ export default CardData;
 //     const [hide, setHide] = useState(false);
 //     const [limit, setLimit] = useState<number>(4)
 //     let [page, setPage] = useState<number>(1)
-//     let [skip, setSkip] = useState<number>()
 //     const [notfound, setNotfound] = useState(false)
 
 //     // const filteredPropertyInfo = applyFilters(propertyInfo, filters);
@@ -309,4 +310,3 @@ export default CardData;
 //     );
 // };
 
-// export default CardData;
