@@ -34,6 +34,9 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
         setCurrentPage(prevPage => prevPage + 1);
     }
 
+    const totalProperties = filteredProperties.length;
+    const showLoadMoreButton = totalProperties > propertiesPerPage && !showLink;
+
     // sliced at 3
     const slicedProperties = filteredProperties.slice(0, 3);
 
@@ -111,7 +114,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                 )}
 
                 {/* Display a message if no properties are found */}
-                {!isLoading && filteredProperties.length === 0 && (
+                {!isLoading && Object.keys(filters).length > 0 && filteredProperties.length === 0 && (
                     <div className="flex items-center justify-center">
                         <h1 className="my-10 text-2xl font-extrabold text-red-500 animate-bounce">
                             The search is not yet available. Contact D&J for your Personalised Assistance!
@@ -119,7 +122,7 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
                     </div>
                 )}
 
-                {!showLink && (<div className="text-white font-extrabold py-3 px-6 bg-blue w-36 rounded-lg mt-6 justify-end flex items-end ml-[45%] animate-pulse" onClick={handleLoadMore}>
+                {showLoadMoreButton && (<div className="text-white font-extrabold py-3 px-6 bg-blue w-36 rounded-lg mt-6 justify-end flex items-end ml-[45%] animate-pulse" onClick={handleLoadMore}>
                     <button>Load more...</button>
 
                 </div>)}

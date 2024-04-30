@@ -25,7 +25,7 @@ const PropertyPage: React.FC = () => {
                 <Navbar />
                 <div>
 
-                    <div className='bg-gray-100 pt-6 pb-3'>
+                    <div className='bg-gray-100 pt-6 pb-3 w-screen fixed md:top-28 top-20 left-0 right-0 z-10 '>
                         <h1 className='text-blue ml-[16%] font-mono flex items-center'> <BsFilter className='mr-2 text-2xl' /> FILTER BY:</h1>
                         <div className="container mx-auto mt-3 mb-2 items-center justify-start md:mx-auto md:w-[67%] flex">
                             <PropertyTypeFilter />
@@ -35,7 +35,10 @@ const PropertyPage: React.FC = () => {
                             <StatusFilter />
                         </div>
                     </div>
-                    <CardData showLink={false} />
+
+                    <div className="mt-64">
+                        <CardData showLink={false} />
+                    </div>
 
                 </div>
                 <Footer />
