@@ -41,14 +41,17 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     }
     // sliced at 3
     function dataForLandingPage() {
-        const slicedProperties = propertyInfo.slice(-3).reverse();
+        const slicedProperties = propertyInfo.slice(-3).reverse()
         setSlicedProperties(slicedProperties)
-        setPropertyInfo(slicedProperties)
+        // setPropertyInfo(slicedProperties)
     }
 
     useEffect(() => {
         dataForLandingPage()
-    }, [])
+    }, [propertyInfo])
+
+    console.log("propfromlan", propertyInfo);
+
 
     if (isLoading) return <div><Spinner /></div>
     return (
