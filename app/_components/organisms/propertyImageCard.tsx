@@ -24,6 +24,7 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
     const {
         register,
         handleSubmit,
+        formState: { errors },
     } = useForm<FormData>();
 
     // console.log("uploaded", uploadedImages);
@@ -80,11 +81,12 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
                 Upload file
             </label>
             <input
-                {...register("profile")}
+                {...register("profile", { required: "Upload at least 4 images" })}
                 className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 aria-describedby="file_input_help"
                 id="file_input"
                 type="file"
+                multiple
             />
             <p
                 className="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -92,6 +94,10 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
             >
                 SVG, PNG, JPG or GIF (MAX. 800x400px).
             </p>
+
+            {errors.profile && (
+                <p className="text-red-500 text-sm mt-2">{errors.profile.message}</p>
+            )}
 
             <button
                 type="submit"
