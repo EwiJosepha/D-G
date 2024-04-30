@@ -7,9 +7,10 @@ import Spinner from "../molecules/loaders/Spinner";
 import { IPropertyInfo } from "@/interfaces/app";
 import Link from "next/link";
 const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
-    const { propertyInfo, filters, applyFilters } = useAppContext();
+    const { propertyInfo, filters, applyFilters, setPropertyInfo } = useAppContext();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [filteredProperties, setFilteredProperties] = useState<IPropertyInfo[]>([]);
+    const [slicedProperties, setSlicedProperties] = useState<IPropertyInfo[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [propertiesPerPage, setPropertiesPerPage] = useState<number>(6)
     // Trigger filtering process whenever filters change
@@ -30,16 +31,25 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty)
     const handleLoadMore = () => {
 
-        setPropertiesPerPage((prev)=> prev + 1)
-        setPropertiesPerPage((prev)=> prev + 1)
-        setPropertiesPerPage((prev)=> prev + 1)
-        setPropertiesPerPage((prev)=> prev + 1)
-        setPropertiesPerPage((prev)=> prev + 1)
-        setPropertiesPerPage((prev)=> prev + 1)
+        setPropertiesPerPage((prev) => prev + 1)
+        setPropertiesPerPage((prev) => prev + 1)
+        setPropertiesPerPage((prev) => prev + 1)
+        setPropertiesPerPage((prev) => prev + 1)
+        setPropertiesPerPage((prev) => prev + 1)
+        setPropertiesPerPage((prev) => prev + 1)
 
-      }
+    }
     // sliced at 3
-    const slicedProperties = filteredProperties.slice(0, 3);
+    function dataForLandingPage() {
+        const slicedProperties = propertyInfo.slice(-3).reverse();
+        setSlicedProperties(slicedProperties)
+        setPropertyInfo(slicedProperties)
+    }
+
+    useEffect(() => {
+        dataForLandingPage()
+    }, [])
+
     if (isLoading) return <div><Spinner /></div>
     return (
         <>

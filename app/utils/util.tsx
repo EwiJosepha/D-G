@@ -28,7 +28,6 @@ if (typeof localStorage !== "undefined") {
 }
 
 
-
 export let uptPropId: any
 if (typeof localStorage !== 'undefined') {
   uptPropId = localStorage.getItem('propId')
@@ -36,6 +35,7 @@ if (typeof localStorage !== 'undefined') {
 console.log("propertyId", uptPropId);
 
 export const loginUrl = API_BASE_URL + "/auth/signin"
+
 export const propertiesForAgent = API_BASE_URL + `/properties/agent/${parsedId}`
 
 export const getAllProperties = API_BASE_URL + "/properties"
