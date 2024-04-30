@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
                             <ul className="h-screen md:h-auto items-center text-xl justify-end font-serif md:flex ">
 
                                 <li className="pb-6 py-4 md:px-6 text-center border-b-2 md:border-b-0">
-                                    <Link href="/property" className="text-white md:hover:text-gray-400">
+                                    <Link href="/" className="text-white md:hover:text-gray-400">
                                         Home
                                     </Link>
                                 </li>
