@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
                             <ul className="h-screen md:h-auto items-center text-xl justify-end font-serif md:flex ">
 
                                 <li className="pb-6 py-4 md:px-6 text-center border-b-2 md:border-b-0">
-                                    <Link href="/property" className="text-white md:hover:text-gray-400">
+                                    <Link href="/" className="text-white md:hover:text-gray-400">
                                         Home
                                     </Link>
                                 </li>
@@ -114,7 +114,7 @@ const Navbar: React.FC = () => {
 
                                         <li className="pb-6 py-4 md:px-6 text-center border-b-2 md:border-b-0">
                                             <Link href="/login">
-                                                <span className="relative text-white flex items-center justify-center md:hover:text-gray-400">
+                                                <span className="relative text-white flex items-center justify-center md:hover:text-gray-400 font-extrabold md:font-normal">
                                                     <FaRegUserCircle className="mr-2 text-2xl" />
                                                     <button>Log In</button>
                                                 </span>
