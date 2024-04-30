@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { IPropertyInfo, IProfileInfo, IFilters } from '@/interfaces/index';
 import axios from 'axios';
+import { API_BASE_URL } from '@/app/service/constant';
 
 interface IAppContext {
     propertyInfo: IPropertyInfo[];
@@ -38,7 +39,7 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const baseUrl = 'http://localhost:4000/properties';
+                const baseUrl = API_BASE_URL + '/properties';
                 const queryParams = new URLSearchParams();
 
                 // Iterate over the filters object and append each key-value pair to the URLSearchParams

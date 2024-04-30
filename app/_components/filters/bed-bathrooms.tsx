@@ -13,12 +13,15 @@ const BedBathFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const { setFilters } = useAppContext();
+    const { setFilters, filters } = useAppContext();
 
     const handleApplyFilter = () => {
         setIsModalOpen(false);
         setFilters(prevFilters => ({ ...prevFilters, rooms: numBeds, bath: numBaths }))
     };
+
+    console.log(filters, "filters");
+
 
     const handleCancelFilter = () => {
         setNumBeds(0);
