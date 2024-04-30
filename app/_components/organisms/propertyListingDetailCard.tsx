@@ -171,7 +171,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         onChange={handleInputChange}
                         required
                     />
-                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                    <p className="text-red-500 text-sm py-2">{error}</p>
                 </div>
 
                 <div className="mb-4 w-[45%]">
@@ -186,7 +186,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                    <p className="text-red-500 text-sm py-2">{error}</p>
 
                 </div>
             </div>

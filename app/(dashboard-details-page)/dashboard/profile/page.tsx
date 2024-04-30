@@ -9,11 +9,10 @@ import Link from 'next/link';
 import { agentdata } from '@/app/utils/util';
 import Image from 'next/image';
 
-
 const Profile: React.FC = () => {
     const router = useRouter()
     const [isProfileCreated, setIsProfileCreated] = useState(false)
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState<string>('');
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -37,7 +36,6 @@ const Profile: React.FC = () => {
         if (isProfileCreated) {
             router.push("/dashboard/vieww")
         }
-
     }, [])
 
     //handling form data
@@ -52,8 +50,8 @@ const Profile: React.FC = () => {
             phoneNumber: phoneNumber,
             bio: bio
         }
-        localStorage.setItem("agentData", JSON.stringify(formData))
-        console.log(formData);
+        localStorage.setItem('agentData', JSON.stringify(formData));
+        setIsProfileCreated(true);
         setIsLoading(true)
     }
 
