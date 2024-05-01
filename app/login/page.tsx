@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-blue">
             <div className="bg-white w-96 p-10 rounded shadow">
-                <div className='items-center flex justify-between mb-6'>
+                <div className='items-center flex justify-between mb-6 '>
 
                     <><h2 className="text-2xl font-bold">Login</h2>
                         <Link href='/' passHref ><FaTimes /></Link> </>
@@ -95,10 +95,10 @@ const LoginPage: React.FC = () => {
                         />
                     </div>
                     <button
-                    disabled={isLoading}
+                        disabled={isLoading}
                         type="submit"
                         className=" disabled:bg-slate-400 disabled:hover:cursor-wait w-full flex items-center justify-center bg-blue text-white py-2 px-4 rounded hover:bg-blue transition-all duration-300">
-                      {isLoading?  <Spinner /> : "Login"}
+                        {isLoading ? <Spinner /> : "Login"}
                     </button>
                 </form>
                 <p className="text-sm text-gray-600 mt-4">

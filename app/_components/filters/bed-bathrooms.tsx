@@ -13,12 +13,15 @@ const BedBathFilter: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const { setFilters } = useAppContext();
+    const { setFilters, filters } = useAppContext();
 
     const handleApplyFilter = () => {
         setIsModalOpen(false);
         setFilters(prevFilters => ({ ...prevFilters, rooms: numBeds, bath: numBaths }))
     };
+
+    console.log(filters, "filters");
+
 
     const handleCancelFilter = () => {
         setNumBeds(0);
@@ -83,7 +86,7 @@ const BedBathFilter: React.FC = () => {
                 )}
                 {isModalOpen && (
                     <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                        <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
+                        <div ref={modalRef} className="bg-white p-4 rounded-lg md:w-[20%] w-full mx-2 md:mx-0">
                             <div className="flex justify-around items-center border-b border-gray-200 mb-3 pb-3">
                                 <h2 className=" my-4">Beds</h2>
                                 <button

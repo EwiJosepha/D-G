@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { SharedState } from "@/app/(dashboard-details-page)/dashboard/addNewProperties/page";
 import { ComponentProps } from "./propertyOverviewCard";
 import { parsedId } from "@/app/utils/util";
-import Toast from "../molecules/toast";
 import { toast } from 'react-toastify';
 
 type Prop = {
@@ -161,7 +159,6 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
 
         notify()
         setDisable(true)
-
     }
 
     return (

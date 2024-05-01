@@ -20,25 +20,17 @@
   font-size: 20px;
   font-family: serif;
   padding-top: 30px;
-  width: 85%;
-}
-
-#headertext {
-  font-size: 40px;
-  font-family: serif;
-  font-weight: 600;
 }
 
 #line {
-  margin-bottom: 20px;
-  height: 5px;
-  width: 70px;
+  margin-bottom: 30px;
+  width: 90px;
   border-bottom: 1px solid #fffdec;
 }
 
 .agenciesDescription {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-top: 40px;
 }
 
@@ -97,7 +89,7 @@
 }
 
 .luxuryText {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   width: 50%;
   font-size: 20px;
@@ -166,19 +158,9 @@
   text-align: center;
 }
 
-.fcbFooter {
-  display: flex;
-  gap: 20px;
-}
-
-.fcbFooter {
-  margin-top: 30px;
-}
-
 .footerLog {
   display: flex;
   flex-direction: column;
-  line-height: 3;
 }
 
 #lineheight {
@@ -194,7 +176,6 @@
 .footerLogoo {
   display: flex;
   flex-direction: column;
-  line-height: 3;
 }
 
 .channel,
@@ -207,7 +188,7 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border-right: 1px solid #c2bbbd;
+  border-right: 1px solid #838383;
 }
 
 .channel,
@@ -216,10 +197,6 @@
 .channel4,
 .channel3 p {
   font-size: 8px;
-}
-
-.report {
-  display: flex;
 }
 
 .copyright p {

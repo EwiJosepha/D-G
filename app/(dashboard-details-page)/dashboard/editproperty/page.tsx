@@ -7,7 +7,6 @@ import { getsingleDashboardProp } from '@/app/utils/util';
 import { useRouter } from 'next/navigation';
 import DdHeaderProvider from '@/components/db-header-provider';
 import Spinner from '@/components/molecules/loaders/Spinner';
-import { log } from 'console';
 
 
 type Prop = {
@@ -96,10 +95,7 @@ const PropertyEdit: React.FC = () => {
       })
       .then((data) => {
         if (data.status === 201) {
-          // console.log('Created successfully');
-          // console.log("data not working", data)
         } else if (data.status === 200) {
-          // console.log('Incomplete data or information');
         } else {
           setLoading(true)
           router.push("/dashboard/myProperties")

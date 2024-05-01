@@ -60,7 +60,7 @@ const StatusFilter: React.FC = () => {
             )}
             {isModalOpen && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                    <div ref={modalRef} className="bg-white p-4 rounded-lg w-[20%]">
+                    <div ref={modalRef} className="bg-white p-4 rounded-lg md:w-[20%] w-full mx-2 md:mx-0">
                         <h2 className="text-sm font-semibold my-4 ">Status</h2>
                         <ul className='grid grid-cols-2 gap-4'>
                             {propertyStatus.map((type) => (
