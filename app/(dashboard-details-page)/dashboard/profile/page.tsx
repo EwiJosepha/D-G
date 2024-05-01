@@ -10,8 +10,8 @@ import { agentdata } from '@/app/utils/util';
 import Image from 'next/image';
 
 const Profile: React.FC = () => {
-    const router = useRouter()
-    const [isProfileCreated, setIsProfileCreated] = useState(false)
+    const router = useRouter();
+    const [isProfileCreated, setIsProfileCreated] = useState(false);
     const [imageUrl, setImageUrl] = useState<string>('');
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -22,38 +22,101 @@ const Profile: React.FC = () => {
     const [errorl, setErrorl] = useState<string>('');
     const [errorn, setErrorn] = useState<string>('');
     const [errorb, setErrorb] = useState<string>('');
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
     const [wrongEmail, setWrongEmail] = useState(false);
-    const { data } = agentdata()
-    const emailAgent = data?.email
+    const { data } = agentdata();
+    const emailAgent = data?.email;
+
+    const [formData, setFormData] = useState({
+        imageUrl: '',
+        username: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        bio: ''
+    });
+    const [errors, setErrors] = useState({
+        username: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        bio: ''
+    });
+
 
     useEffect(() => {
-        const islocalstorageEmpty = localStorage.getItem("agentData")
-        setIsProfileCreated(!!islocalstorageEmpty)
-
+        setIsProfileCreated(!!formData.username);
         if (isProfileCreated) {
-            router.push("/dashboard/vieww")
+            router.push("/dashboard/vieww");
         }
-    }, [])
-
-    //handling form data
+    }, [formData.username]);
 
     function submitData() {
-        const formData = {
-            imageUrl: imageUrl,
-            username: username,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phoneNumber: phoneNumber,
-            bio: bio
+        // Validate form
+        const formErrors = validateForm(formData);
+        setErrors(formErrors);
+
+        // If no errors, proceed to submit
+        if (Object.values(formErrors).every(error => error === '')) {
+            // Submit logic here
+            setIsLoading(true);
         }
-        localStorage.setItem('agentData', JSON.stringify(formData));
-        setIsProfileCreated(true);
-        setIsLoading(true)
     }
+
+    // Validation function
+    function validateForm(data: any) {
+        let errors: any = {};
+        if (!data.username) errors.username = 'Username is required';
+        if (!data.firstName) errors.firstName = 'First Name is required';
+        if (!data.lastName) errors.lastName = 'Last Name is required';
+        if (!data.email) errors.email = 'Email is required';
+        // Add more validation as needed...
+        return errors;
+    }
+
+    // Handle form data changes
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        // Clear errors when user starts typing
+        setErrors(prevState => ({
+            ...prevState,
+            [name]: ''
+        }));
+    };
+
+
+    // useEffect(() => {
+    //     const isLocalStorageEmpty = localStorage.getItem("agentData");
+    //     setIsProfileCreated(!!isLocalStorageEmpty);
+
+    //     if (isProfileCreated) {
+    //         router.push("/dashboard/vieww");
+    //     }
+    // }, []);
+
+    // // Handling form data
+
+    // function submitData() {
+    //     const formData = {
+    //         imageUrl: imageUrl,
+    //         username: username,
+    //         firstName: firstName,
+    //         lastName: lastName,
+    //         email: email,
+    //         phoneNumber: phoneNumber,
+    //         bio: bio
+    //     };
+    //     localStorage.setItem("agentData", JSON.stringify(formData));
+    //     setIsLoading(true);
+    // }
 
     const handleUsername = (e: any) => {
         e.preventDefault
@@ -112,16 +175,17 @@ const Profile: React.FC = () => {
         setImageUrl('');
     };
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImageUrl(reader.result as string);
-        };
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    };
+    // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const file = event.target.files?.[0];
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //         setImageUrl(reader.result as string);
+    //     };
+    //     if (file) {
+    //         reader.readAsDataURL(file);
+    //     }
+    // };
+
 
     return (
         <DdHeaderProvider header="Profile">
@@ -147,7 +211,7 @@ const Profile: React.FC = () => {
                         )}
 
                         <div className="mb-4">
-                            <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
+                            <input type="file" id="image" accept="image/*" onChange={handleChange} />
                         </div>
                         < div className="mb-4">
                             <label htmlFor="username" className="block font-medium">

@@ -27,8 +27,6 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
         formState: { errors },
     } = useForm<FormData>();
 
-    // console.log("uploaded", uploadedImages);
-
     const onSubmit: SubmitHandler<FormData> = async (data, event) => {
         try {
             const image = data.profile[0];
@@ -63,7 +61,6 @@ const PropertyImageCard: React.FC<ComponentProps> = ({ saveData, existingData })
             await saveData("PropertyImageCard", uploadedImages);
         } catch (error) {
             console.error("Error saving image URLs:", error);
-            // Handle the error, e.g., display an error message to the user
         }
     };
 
