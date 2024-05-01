@@ -29,15 +29,24 @@ const PropertyPage: React.FC = () => {
                 {/* <Navbar /> */}
                 <div className=' w-screen fixed top-0 left-0
              right-0 z-10 shadow-lg'>
+                    <div className='md:flex md:justify-between md:items-center md:left-0 md:right-0 md:top-0 md:bg-blue md:px-80'>
 
-                    <div className="flex items-center justify-between py-3 md:py-5 md:block max-w-full bg-blue px-3">
-                        {/* LOGO */}
-                        <FooterLogo />
-                        <div className="md:hidden">
-                            <button className="p-2 text-white rounded-md outline-none focus:border-gray-300 focus:border"
-                                onClick={() => setNavbar(!navbar)}
-                            >{navbar ? (<FaTimes />) : (<BsFilter className='text-2xl' />)}
-                            </button>
+                        <div className="flex items-center justify-between py-3 md:py-5 md:block max-w-full bg-blue px-3">
+                            {/* LOGO */}
+                            <FooterLogo />
+
+                            <div className="md:hidden">
+                                <button className="p-2 text-white rounded-md outline-none focus:border-gray-300 focus:border"
+                                    onClick={() => setNavbar(!navbar)}
+                                >{navbar ? (<FaTimes />) : (<BsFilter className='text-2xl' />)}
+                                </button>
+                            </div>
+                        </div>
+                        <div className='hidden md:block'>
+                            <input
+                                type='search'
+                                placeholder='search by location'
+                                className='border border-gray-400 px-6 py-2 bg-transparent' />
                         </div>
                     </div>
 
