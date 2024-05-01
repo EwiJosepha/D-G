@@ -12,7 +12,7 @@ export default function DdHeaderProvider({ children, only_header, header = '' }:
     return (
         <>
             {/* navbar content */}
-            <div className="text-white h-32 bg-blue z-10 justify-between flex items-center md:mx-auto md:w-[80%] right-0 top-0 fixed pl-24">
+            <div className="text-white h-32 bg-blue z-10 justify-between flex items-center md:mx-auto md:w-[80%] right-0 top-0 fixed md:pl-24 w-full px-2 md:px-0">
                 <div className="text-3xl font-mono font-bold">{header}</div>
 
                 {/* Desktop Menu */}
