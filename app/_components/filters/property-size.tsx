@@ -57,12 +57,12 @@ const PropertySizeFilter: React.FC = () => {
             )}
             {isModalOpen && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                    <div ref={modalRef} className="bg-white p-4 rounded-lg md:w-[23%]">
+                    <div ref={modalRef} className="bg-white p-4 rounded-lg md:w-[23%] w-full mx-2 md:mx-0">
                         <h1 className="my-6 font-bold">Meter Square</h1>
                         <div className="flex items-center justify-between">
                             <div className="flex flex-col">
                                 <label>Min:</label>
-                                <div className="border py-3 px-8 my-3 rounded-full">
+                                <div className="border py-3 px-3 md:px-8 my-3 rounded-full">
                                     <select className="bg-transparent focus:outline-none" value={minSize} onChange={(e) => setMinSize(parseInt(e.target.value))}>
                                         <option value="">Minimum</option>
                                         {predefinedMinSizes.map((size, index) => (
@@ -73,7 +73,7 @@ const PropertySizeFilter: React.FC = () => {
                             </div>
                             <div className="flex flex-col">
                                 <label>Max:</label>
-                                <div className="border py-3 px-8 my-3 rounded-full">
+                                <div className="border py-3 px-3 md:px-8 my-3 rounded-full">
                                     <select className="bg-transparent focus:outline-none" value={maxSize} onChange={(e) => setMaxSize(parseInt(e.target.value))}>
                                         <option value="">Maximum</option>
                                         {predefinedMaxSizes.map((size, index) => (

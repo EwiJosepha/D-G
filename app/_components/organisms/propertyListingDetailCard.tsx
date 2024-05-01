@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { SharedState } from "@/app/(dashboard-details-page)/dashboard/addNewProperties/page";
 import { ComponentProps } from "./propertyOverviewCard";
 import { parsedId } from "@/app/utils/util";
-import Toast from "../molecules/toast";
 import { toast } from 'react-toastify';
 
 type Prop = {
@@ -123,12 +121,12 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
 
     function save() {
         if (propertyInfo.areaInKm === 0) {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
 
         if (propertyInfo.livingRooms === '') {
-            setError('Please fill this field')
+            setError('Field is required*')
             return
         }
         if (propertyInfo.location === '' && propertyInfo.location.length > 50) {
@@ -155,7 +153,6 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
 
         notify()
         setDisable(true)
-
     }
 
     return (
@@ -174,7 +171,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         onChange={handleInputChange}
                         required
                     />
-                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                    <p className="text-red-500 text-sm py-2">{error}</p>
                 </div>
 
                 <div className="mb-4 w-[45%]">
@@ -189,7 +186,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                    <p className="text-red-500 text-sm py-2">{error}</p>
 
                 </div>
             </div>
