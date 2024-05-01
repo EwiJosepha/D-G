@@ -13,9 +13,13 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     const [slicedProperties, setSlicedProperties] = useState<IPropertyInfo[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [propertiesPerPage, setPropertiesPerPage] = useState<number>(6)
+
     // Trigger filtering process whenever filters change
+
     useEffect(() => {
+
         // Apply filters and update loading state
+        
         setIsLoading(true);
         const filteredProperties = applyFilters(propertyInfo, filters);
         // Sort the filtered properties by index(used id)

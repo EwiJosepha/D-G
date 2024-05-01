@@ -19,6 +19,10 @@ export interface ComponentProps {
 
 const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
+    const [errortype, setErrortype] = useState<string>('');
+    const [errorname, setErrorname] = useState<string>('');
+    const [errorprice, setErrorprice] = useState<string>('');
+    const [errordescription, setErrordescription] = useState<string>('');
     const [disable, setDisable] = useState(false)
     const notify = () => toast.success("Save Property successfully")
 
@@ -44,7 +48,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             name: value,
         }));
 
-        setError('')
+        setErrorname('')
 
     };
     const handleInputChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +62,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             price: parseFloat(value),
         }));
 
-        setError('')
+        setErrorprice('')
     };
 
     const handleTexarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -71,7 +75,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
             ...prevPropertyInfo,
             description: value,
         }))
-        setError('')
+        setErrordescription('')
     }
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -87,7 +91,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
 
         }));
 
-        setError('')
+        setErrortype('')
     };
     const handleSelectChangeRent = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
@@ -106,21 +110,25 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
     };
 
     function save() {
-        if (propertyInfo.description === "") {
-            setError('Field is required*')
+        if (propertyInfo.name === "") {
+            setErrorname('name is required*')
             return
         }
 
-        if (propertyInfo.name === '') {
-            setError('Field is required*')
+        if (propertyInfo.type === '') {
+            setErrortype('type is required*')
             return
         }
-        if (!propertyInfo.price) {
-            setError('Field is required*')
+        if (propertyInfo.price === 0) {
+            setErrorprice('price is required*')
             return
         }
         if (propertyInfo.rentOrSale === '') {
-            setError('Field is required*')
+            setError('field is required*')
+            return
+        }
+        if (propertyInfo.description === '') {
+            setError('description is required*')
             return
         }
 
@@ -144,7 +152,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     onChange={handleInputChangee}
                     required
                 />
-                {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                {errorname && <p className="text-red-500 text-sm py-2">{errorname}</p>}
             </div>
             <div className="mb-4">
                 <label htmlFor="propertyDescription" className="block">
@@ -156,7 +164,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     required
                 ></textarea>
-                {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                {errordescription && <p className="text-red-500 text-sm py-2">{errordescription}</p>}
 
             </div>
 
@@ -176,7 +184,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                         <option value='villas'>Villa</option>
                         <option value='self-contain'>Self Contain</option>
                     </select>
-                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                    {errortype && <p className="text-red-500 text-sm py-2">{errortype}</p>}
 
                 </div>
                 <div className="mb-4 w-[45%]">
@@ -207,7 +215,7 @@ const DbPropertyOverviewCard: React.FC<ComponentProps> = ({ saveData, existingDa
                     required
                 />
             </div>
-            {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+            {errorprice && <p className="text-red-500 text-sm py-2">{errorprice}</p>}
             <button disabled={disable} className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
             <Toast />
         </div>
