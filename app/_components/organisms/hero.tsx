@@ -31,13 +31,10 @@ const HeroSection: React.FC = () => {
         setSearchVal(e.target.value)
     };
 
-
     function handleClick() {
         const fun = searchRooms(searchVal)
 
     }
-
-    // console.log(searchVal);
 
     return (
         <div className="font-serif">
