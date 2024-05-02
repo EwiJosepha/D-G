@@ -77,7 +77,7 @@ const DbLayout: React.FC<Props> = ({ children }) => {
 
             {/* Sidebar toggle button */}
             <div className="w-screen fixed left-0
-             right-0 bg-blue px-3 top-32 py-2 md:hidden">
+             right-0 bg-blue px-3 top-0 py-4 md:hidden flex items-center justify-between">
                 <div className="max-w-full relative">
                     <button className=" text-white p-2 rounded-md outline-none focus:border-gray-300  focus:border"
                         onClick={() => setShowSidebar(!showSidebar)}
@@ -85,11 +85,21 @@ const DbLayout: React.FC<Props> = ({ children }) => {
                         {showSidebar ? (<FaTimes />) : (<FaBars />)}
                     </button>
                 </div>
+                <div className="w-20 h-20">
+                    <FooterLogo />
+                </div>
+                <div className="flex items-center">
+                    <img
+                        src="av2.jpg"
+                        alt="Avatar"
+                        className="w-10 h-10 rounded-full cursor-pointer"
+                    />
+                </div>
             </div>
 
 
             {/* Sidebar */}
-            <div ref={sidebarRef} className={`flex-1 top-36 md:top-0 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 fixed md:static w-4/5 md:w-0 h-full md:h-0 transition-transform md:transition-none duration-300 md:duration-0 ease-in-out md:ease-linear ${showSidebar ? "p-12 md:p-0 transform translate-x-0 block" : "hidden"}`}>
+            <div ref={sidebarRef} className={`flex-1 top-20 h-screen md:top-0 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 fixed md:static w-4/5 md:w-0 md:h-0 transition-transform md:transition-none duration-300 md:duration-0 ease-in-out md:ease-linear ${showSidebar ? "p-12 md:p-0 transform translate-x-0 block" : "hidden"}`}>
 
                 <div className="md:block w-full md:w-1/5 md:min-h-screen fixed top-0 left-0 md:bg-white bg-gray-100">
                     <div className=" hidden md:flex ">
@@ -97,8 +107,8 @@ const DbLayout: React.FC<Props> = ({ children }) => {
                             <FooterLogo />
                         </Link>
                     </div>
-                    <nav className="mt-1 text-lg font-sans pl-10">
-                        <ul className="space-y-6 items-center text-xl justify-end font-serif ">
+                    <nav className="mt-1 text-lg font-sans pl-10  h-screen md:h-0">
+                        <ul className="space-y-6 items-center text-xl justify-end font-serif">
                             <li className="md:block md:border-y-2">
                                 <Link href="/dashboard" legacyBehavior>
                                     <span
