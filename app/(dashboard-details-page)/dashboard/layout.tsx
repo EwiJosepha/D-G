@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { logOutUrl } from "@/app/utils/util";
-import cookieSet from "@/app/utils/handle-search";
 import Cookies from "js-cookie";
 import {
     FaArrowAltCircleLeft,
@@ -19,8 +18,6 @@ import {
 } from "react-icons/fa";
 import { FaHouseFlag } from "react-icons/fa6";
 import FooterLogo from "@/app/_components/organisms/footerLogo";
-import { cookies } from "next/headers";
-
 
 type Props = {
     children: ReactNode;
