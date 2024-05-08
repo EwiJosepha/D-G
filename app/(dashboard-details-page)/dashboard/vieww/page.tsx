@@ -56,4 +56,4 @@ const ViewProfile: React.FC<{}> = (): JSX.Element | null => {
   );
 };
 
-export default ViewProfile;
+export default ViewProfile;

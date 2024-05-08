@@ -177,4 +177,4 @@ const EditProfile: React.FC = (): JSX.Element | null => {
   )
 }
 
-export default EditProfile;
+export default EditProfile;

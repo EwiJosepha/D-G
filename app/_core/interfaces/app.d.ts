@@ -26,6 +26,7 @@ interface IProfileInfo {
     email: string,
     phoneNumber: string,
     bio: string
+    image: string
 }
 
 // interface FilterContextProps {

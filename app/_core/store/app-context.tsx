@@ -30,7 +30,8 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         lastName: "",
         email: "",
         phoneNumber: "",
-        bio: ""
+        bio: "",
+        image: ""
     });
     const [filters, setFilters] = useState<IFilters>({
         rooms: 0,
@@ -75,9 +76,9 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
 
 
 
-    useEffect(() => {
-        if (profileInfo) localStorage.setItem('propertyInfo', JSON.stringify(profileInfo));
-    }, [profileInfo]);
+    // useEffect(() => {
+    //     if (profileInfo) localStorage.setItem('propertyInfo', JSON.stringify(profileInfo));
+    // }, [profileInfo]);
 
     // Function to apply filters to propertyInfo
     const applyFilters = (properties: IPropertyInfo[], filters: IFilters): IPropertyInfo[] => {

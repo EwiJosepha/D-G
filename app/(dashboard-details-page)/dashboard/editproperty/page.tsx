@@ -95,6 +95,9 @@ const PropertyEdit: React.FC = () => {
       })
       .then((data) => {
         if (data.status === 201) {
+          console.log("updated successfully");
+          
+          
         } else if (data.status === 200) {
         } else {
           setLoading(true)

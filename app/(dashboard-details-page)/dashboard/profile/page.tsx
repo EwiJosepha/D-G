@@ -29,94 +29,30 @@ const Profile: React.FC = () => {
     const { data } = agentdata();
     const emailAgent = data?.email;
 
-    const [formData, setFormData] = useState({
-        imageUrl: '',
-        username: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        bio: ''
-    });
-    const [errors, setErrors] = useState({
-        username: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        bio: ''
-    });
-
-
     useEffect(() => {
-        setIsProfileCreated(!!formData.username);
+        const isLocalStorageEmpty = localStorage.getItem("agentData");
+        setIsProfileCreated(!!isLocalStorageEmpty);
+
         if (isProfileCreated) {
             router.push("/dashboard/vieww");
         }
-    }, [formData.username]);
+    }, []);
+
+    // Handling form data
 
     function submitData() {
-        // Validate form
-        const formErrors = validateForm(formData);
-        setErrors(formErrors);
-
-        // If no errors, proceed to submit
-        if (Object.values(formErrors).every(error => error === '')) {
-            // Submit logic here
-            setIsLoading(true);
-        }
+        const formData = {
+            imageUrl: imageUrl,
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            bio: bio
+        };
+        localStorage.setItem("agentData", JSON.stringify(formData));
+        setIsLoading(true);
     }
-
-    // Validation function
-    function validateForm(data: any) {
-        let errors: any = {};
-        if (!data.username) errors.username = 'Username is required';
-        if (!data.firstName) errors.firstName = 'First Name is required';
-        if (!data.lastName) errors.lastName = 'Last Name is required';
-        if (!data.email) errors.email = 'Email is required';
-        // Add more validation as needed...
-        return errors;
-    }
-
-    // Handle form data changes
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-        // Clear errors when user starts typing
-        setErrors(prevState => ({
-            ...prevState,
-            [name]: ''
-        }));
-    };
-
-
-    // useEffect(() => {
-    //     const isLocalStorageEmpty = localStorage.getItem("agentData");
-    //     setIsProfileCreated(!!isLocalStorageEmpty);
-
-    //     if (isProfileCreated) {
-    //         router.push("/dashboard/vieww");
-    //     }
-    // }, []);
-
-    // // Handling form data
-
-    // function submitData() {
-    //     const formData = {
-    //         imageUrl: imageUrl,
-    //         username: username,
-    //         firstName: firstName,
-    //         lastName: lastName,
-    //         email: email,
-    //         phoneNumber: phoneNumber,
-    //         bio: bio
-    //     };
-    //     localStorage.setItem("agentData", JSON.stringify(formData));
-    //     setIsLoading(true);
-    // }
 
     const handleUsername = (e: any) => {
         e.preventDefault
@@ -175,16 +111,16 @@ const Profile: React.FC = () => {
         setImageUrl('');
     };
 
-    // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const file = event.target.files?.[0];
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => {
-    //         setImageUrl(reader.result as string);
-    //     };
-    //     if (file) {
-    //         reader.readAsDataURL(file);
-    //     }
-    // };
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImageUrl(reader.result as string);
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
 
 
     return (
@@ -211,7 +147,7 @@ const Profile: React.FC = () => {
                         )}
 
                         <div className="mb-4">
-                            <input type="file" id="image" accept="image/*" onChange={handleChange} />
+                            <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
                         </div>
                         < div className="mb-4">
                             <label htmlFor="username" className="block font-medium">
@@ -318,4 +254,4 @@ const Profile: React.FC = () => {
     );
 };
 
-export default Profile;
+export default Profile;

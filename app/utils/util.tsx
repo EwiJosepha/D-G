@@ -31,7 +31,7 @@ export let uptPropId: any
 if (typeof localStorage !== 'undefined') {
   uptPropId = localStorage.getItem('propId');
 }
-console.log("propertyId", uptPropId);
+// console.log("propertyId", uptPropId);
 
 export const loginUrl = API_BASE_URL + "/auth/signin"
 
