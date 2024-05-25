@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { searchRooms } from '@/app/utils/util';
+import Image from 'next/image';
 
 const images = [
     'REImg.webp',
@@ -30,21 +31,20 @@ const HeroSection: React.FC = () => {
         setSearchVal(e.target.value)
     };
 
-
     function handleClick() {
         const fun = searchRooms(searchVal)
 
     }
 
-    // console.log(searchVal);
-
     return (
         <div className="font-serif">
             <section className="w-full max-w-full">
-                <img
-                    src={images[currentImageIndex]}
+                <Image
+                    src={'/' + images[currentImageIndex]}
                     alt="Hero Image"
-                    style={{ width: '100%', height: '730px', transition: 'filter 0.5s' }}
+                    height={300}
+                    width={300}
+                    style={{ width: '100%', height: '830px', transition: 'filter 0.5s' }}
                 />
             </section>
             <section className="absolute bottom-1/3 transform -translate-x-1/2 left-1/2">

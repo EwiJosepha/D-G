@@ -94,13 +94,13 @@ const Navbar: React.FC = () => {
                                             </Link>
                                         </li>
 
-                                        <li className="pb-6 py-4 md:px-6 text-center border-b-2 md:border-b-0">
+                                        <li className="pb-6 py-4 md:px-6 text-center ml-24 md:ml-0">
                                             <button
-                                                className="flex items-center py-6 text-white md:hover:text-gray-400"
+                                                className="flex items-center py-6 text-orange-600 md:text-white md:hover:text-gray-400 font-extrabold md:font-normal"
                                                 onClick={handleLogOut}
                                             >
                                                 <FaLockOpen className="block mr-3 text-xl" />
-                                                <span className="hidden md:inline">LogOut</span>
+                                                <span className="">LogOut</span>
                                             </button>
                                         </li>
                                     </>
