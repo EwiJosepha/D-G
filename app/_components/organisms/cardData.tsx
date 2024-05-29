@@ -131,4 +131,4 @@ const CardData: React.FC<{ showLink?: boolean; }> = ({ showLink = true }) => {
     );
 };
 
-export default CardData;
+export default CardData;

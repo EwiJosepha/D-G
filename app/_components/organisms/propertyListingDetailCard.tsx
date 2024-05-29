@@ -16,6 +16,12 @@ type Prop = {
 
 const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existingData }) => {
     const [error, setError] = useState<string>('');
+    const [errorrooms, setErrorrooms] = useState<string>('');
+    const [errorbath, setErrorbath] = useState<string>('');
+    const [errorlivingrooms, setErrorlivingrooms] = useState<string>('');
+    const [errorlocation, setErrorlocation] = useState<string>('');
+    const [errorkitchen, setErrorkitchen] = useState<string>('');
+    const [errorarea, setErrorarea] = useState<string>('');
     const [disable, setDisable] = useState(false)
     const notify = () => toast.success("Save Property successfully")
 
@@ -45,7 +51,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             bath: value,
 
         }));
-        setError('')
+        setErrorbath('')
     };
 
     const handleSelectChangelivingRooms = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -61,7 +67,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             livingRooms: value,
         }));
 
-        setError('')
+        setErrorlivingrooms('')
     };
 
     const handleSelectChangekitchen = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -75,7 +81,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             kitchen: value,
         }));
-        setError('')
+        setErrorkitchen('')
     };
     const handleSelectChangeRooms = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
@@ -88,7 +94,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             rooms: value,
         }));
-        setError('')
+        setErrorrooms('')
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +108,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             ...prevPropertyInfo,
             areaInKm: parseFloat(value),
         }));
-        setError('')
+        setErrorarea('')
     };
 
     const handleInputChangeLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,33 +122,33 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
             location: value
         }));
 
-        setError('')
+        setErrorlocation('')
     }
 
     function save() {
         if (propertyInfo.areaInKm === 0) {
-            setError('Field is required*')
+            setErrorarea('Area is required*')
             return
         }
 
         if (propertyInfo.livingRooms === '') {
-            setError('Field is required*')
+            setErrorlivingrooms('Living room is requied*')
             return
         }
         if (propertyInfo.location === '' && propertyInfo.location.length > 50) {
-            setError('Field is required*')
+            setErrorlocation('location is required*')
             return
         }
         if (propertyInfo.kitchen === "") {
-            setError('Field is required*')
+            setErrorkitchen('kitchen is required*')
             return
         }
         if (propertyInfo.rooms === "") {
-            setError('Field is required*')
+            setErrorrooms('Room is required*')
             return
         }
         if (propertyInfo.bath === '') {
-            setError('Field is required*')
+            setErrorbath('bath is required*')
             return
         }
 
@@ -171,7 +177,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         onChange={handleInputChange}
                         required
                     />
-                    <p className="text-red-500 text-sm py-2">{error}</p>
+                    {errorarea && <p className="text-red-500 text-sm py-2">{errorarea}</p>}
                 </div>
 
                 <div className="mb-4 w-[45%]">
@@ -186,7 +192,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    <p className="text-red-500 text-sm py-2">{error}</p>
+                    {errorrooms && <p className="text-red-500 text-sm py-2">{errorrooms}</p>}
 
                 </div>
             </div>
@@ -203,7 +209,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                    {errorbath && <p className="text-red-500 text-sm py-2">{errorbath}</p>}
 
                 </div>
                 <div className="mb-4 w-[45%]">
@@ -218,7 +224,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                    {errorlivingrooms && <p className="text-red-500 text-sm py-2">{errorlivingrooms}</p>}
 
                 </div>
             </div>
@@ -232,7 +238,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     className="border border-gray-200 px-4 py-3 rounded-md w-full"
                     required
                 ></textarea>
-                {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+                {errorkitchen && <p className="text-red-500 text-sm py-2">{errorkitchen}</p>}
 
             </div>
             <div className="mb-4">
@@ -247,7 +253,7 @@ const PropertyListingDetailCard: React.FC<ComponentProps> = ({ saveData, existin
                     required
                 />
             </div>
-            {error && <p className="text-red-500 text-sm py-2">{error}</p>}
+            {errorlocation && <p className="text-red-500 text-sm py-2">{errorlocation}</p>}
 
             <button disabled={disable} className='text-white w-40 bg-blue px-4 py-2 rounded-md mt-5 mb-3' onClick={save}>Save</button>
 

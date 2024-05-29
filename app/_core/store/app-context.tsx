@@ -1,7 +1,7 @@
 'use client'
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import type { IPropertyInfo, IProfileInfo, IFilters } from '@/interfaces/index';
+import type { IPropertyInfo, IProfileInfo, IFilters, FilterContextProps } from '@/interfaces/index';
 import axios from 'axios';
 import { API_BASE_URL } from '@/app/service/constant';
 
@@ -15,7 +15,12 @@ interface IAppContext {
     applyFilters: (properties: IPropertyInfo[], filters: IFilters) => IPropertyInfo[];
 }
 
-const AppContext = createContext<IAppContext | null>(null);
+export const AppContext = createContext<FilterContextProps>({
+    showFilters: false,
+    selectedStatus: null,
+    setSelectedStatus: () => { },
+    toggleFilters: () => { }
+});
 
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [propertyInfo, setPropertyInfo] = useState<IPropertyInfo[]>([]);
@@ -25,7 +30,8 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         lastName: "",
         email: "",
         phoneNumber: "",
-        bio: ""
+        bio: "",
+        image: ""
     });
     const [filters, setFilters] = useState<IFilters>({
         rooms: 0,
@@ -60,9 +66,19 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         fetchData();
     }, [filters]);
 
-    useEffect(() => {
-        if (profileInfo) localStorage.setItem('propertyInfo', JSON.stringify(profileInfo));
-    }, [profileInfo]);
+    const [filteredData, setFilteredData] = useState<IPropertyInfo[]>([])
+    const [showFilters, setShowFilters] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState(null)
+
+    const toggleFilters = () => {
+        setShowFilters((prev) => !prev);
+    };
+
+
+
+    // useEffect(() => {
+    //     if (profileInfo) localStorage.setItem('propertyInfo', JSON.stringify(profileInfo));
+    // }, [profileInfo]);
 
     // Function to apply filters to propertyInfo
     const applyFilters = (properties: IPropertyInfo[], filters: IFilters): IPropertyInfo[] => {

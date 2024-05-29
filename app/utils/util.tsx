@@ -26,13 +26,15 @@ if (typeof localStorage !== "undefined") {
   console.log(parsedId);
 }
 
-export let uptPropId: string | null = null;
+
+export let uptPropId: any
 if (typeof localStorage !== 'undefined') {
   uptPropId = localStorage.getItem('propId');
 }
-console.log("propertyId", uptPropId);
+// console.log("propertyId", uptPropId);
 
 export const loginUrl = API_BASE_URL + "/auth/signin"
+
 export const propertiesForAgent = API_BASE_URL + `/properties/agent/${parsedId}`
 
 export const getAllProperties = API_BASE_URL + "/properties"
@@ -93,5 +95,16 @@ export function searchRooms(searchParams: string) {
 
   return { data }
 
+
+}
+
+export function statusFilter(status: string) {
+  return useQuery({
+    queryKey: ["properties", status],
+    queryFn: async () => {
+      const { data } = await axios.get(API_BASE_URL + `/properties?rentOrSale=${status}`)
+      return data
+    }
+  })
 
 }

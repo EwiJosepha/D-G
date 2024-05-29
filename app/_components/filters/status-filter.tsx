@@ -38,6 +38,12 @@ const StatusFilter: React.FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem("status", JSON.stringify(selectedStats))
+        }
+    }, [selectedStats])
+
     return (
         <div>
             {!appliedStats && (
@@ -75,6 +81,7 @@ const StatusFilter: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
             )}
         </div>
     );

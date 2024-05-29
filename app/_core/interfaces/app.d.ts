@@ -26,7 +26,15 @@ interface IProfileInfo {
     email: string,
     phoneNumber: string,
     bio: string
+    image: string
 }
+
+// interface FilterContextProps {
+//     showFilters: boolean,
+//     selectedStatus: string | null,
+//     setSelectedStatus: (status: string | null) => void,
+//     toggleFilters: () => void
+// }
 
 
 export type {
@@ -44,4 +52,5 @@ interface IFilters {
 
 export type {
     IFilters,
+    FilterContextProps
 }

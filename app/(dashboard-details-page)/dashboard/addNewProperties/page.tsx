@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { postUrl } from '@/app/utils/util';
 import { useRouter } from 'next/navigation';
 import Spinner from '@/components/molecules/loaders/Spinner';
+import { useAppContext } from "@/store/app-context";
+
 
 export interface SharedState {
     DbPropertyOverviewCard: any,
@@ -48,6 +50,7 @@ const AddNewProperty: React.FC = () => {
     const [shareState, setShareState] = useState<SharedState>(sharedStateDefault)
     const [loading, setLoading] = useState(false)
     const [showSubmit, setShowSubmit] = useState(false)
+    const { propertyInfo, setPropertyInfo } = useAppContext();
 
     // Save data to local storage
     function saveData(key: keyof SharedState, data: any) {
@@ -103,11 +106,14 @@ const AddNewProperty: React.FC = () => {
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to submit data');
+                   
                 }
                 return res.json();
             })
             .then((data) => {
-                console.log(data);
+                setPropertyInfo((prevPropertyInfo) => [...prevPropertyInfo, data]);
+                
+                
                 setLoading(false);
                 router.push("/dashboard/myProperties");
             })
@@ -115,7 +121,12 @@ const AddNewProperty: React.FC = () => {
                 console.error('Error submitting data:', error);
                 setLoading(false);
             });
+
+            console.log("profikedat", propertyInfo);
     };
+
+    console.log("prop", propertyInfo);
+    
 
     return (
         <DdHeaderProvider header="New Properties">

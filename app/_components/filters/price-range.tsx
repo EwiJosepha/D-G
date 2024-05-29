@@ -10,6 +10,7 @@ const PriceRangeFilter: React.FC = () => {
     const [appliedRange, setAppliedRange] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
+    
 
     const { setFilters, filters } = useAppContext()
 
