@@ -7,3 +7,12 @@ The D&G Collection is a real estate project that allows users to perform CRUD (C
 4 Update existing property details
 5 Delete property listings
 6 Search and filter properties by various criteria (location, price, size, etc.)
+## Technologies Used
+Front-end: Next.js, CSS, Tailwind 
+Back-end: Node.js, Nest , Prisma
+Database: Postgres
+Authentication: JSON Web Tokens (JWT)
+## Screen Shots
+Here are some screenchots of the project
+##Login and Registration
+![Registration!](public/assets/login.PNG)
