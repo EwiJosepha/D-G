@@ -9,10 +9,25 @@ The D&G Collection is a real estate project that allows users to perform CRUD (C
 6 Search and filter properties by various criteria (location, price, size, etc.)
 ## Technologies Used
 Front-end: Next.js, CSS, Tailwind 
-Back-end: Node.js, Nest , Prisma
-Database: Postgres
 Authentication: JSON Web Tokens (JWT)
 ## Screen Shots
 Here are some screenchots of the project
-##Login and Registration
-![Registration!](public/assets/login.PNG)
+## Login and Registration
+![Registration!](./public/assets/login.PNG)
+## Luxury Segment
+![Luxury Segment!](public/luxury.png)
+## Dashboard
+![Dashboard!](public/assets/dashbb.PNG)
+## Cards
+![cards!](public/assets/cardss.PNG)
+## Details Page
+![details page!](public/assets/detailspage.PNG)
+
+### START APP
+
+- To start application, run
+    ```bash
+        $ npm run dev # to start development server
+    ```
+
+- [live deployment](https://dandj-collection.vercel.app/)
